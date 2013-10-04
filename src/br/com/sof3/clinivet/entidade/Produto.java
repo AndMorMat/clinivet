@@ -3,41 +3,52 @@ package br.com.sof3.clinivet.entidade;
 import java.sql.Date;
 
 public class Produto {
-    private Integer id;
+    private int id;
     private String nome;
     private double precoCusto;
     private double margemLucro;
     private Estoque estoque;
     private double precoVenda;
-    private Date validade;
+    private String validade;
     private Fornecedor fornecedor;
     
     public Produto() {
         
     }
-    
-    public Produto(Integer id) {
+    public void cadastrar(int id, String nome, double precoCusto, double margemLucro,
+            double precoVenda, String validade, Fornecedor fornecedor) {
+            this.id = id;
+        this.nome = nome;
+        this.precoCusto = precoCusto;
+        this.margemLucro = margemLucro;
+        this.precoVenda = precoVenda;
+        
+        this.validade = validade;
+        this.fornecedor = fornecedor;
+    }
+    public Produto(int id) {
         this.id = id;
     }
     
-    public Produto(Integer id, String nome, double precoCusto, double margemLucro,
-            double precoVenda, Estoque qtdEstoque, Date validade, Fornecedor fornecedor) {
+    public Produto(int id, String nome, double precoCusto, double margemLucro,
+            double precoVenda, String validade, Fornecedor fornecedor) {
         
         this.id = id;
         this.nome = nome;
         this.precoCusto = precoCusto;
         this.margemLucro = margemLucro;
         this.precoVenda = precoVenda;
-        this.estoque = qtdEstoque;
         this.validade = validade;
         this.fornecedor = fornecedor;
     }
-
-    public Integer getId() {
+    public double calcularPrecoVenda(){
+        return precoCusto*margemLucro;
+    }
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -81,11 +92,11 @@ public class Produto {
         this.estoque = estoque;
     }
 
-    public Date getValidade() {
+    public String getValidade() {
         return validade;
     }
 
-    public void setValidade(Date validade) {
+    public void setValidade(String validade) {
         this.validade = validade;
     }
 

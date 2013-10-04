@@ -21,6 +21,10 @@ public class Cliente {
         String [] dados = {nome, String.valueOf(idade), String.valueOf(sexo), String.valueOf(idiomas),dataNasc};
         return dados;
     }*/
+    public void cadastrar(){
+        
+    }
+    
     public String[] addTable(){
         String [] dados={nome,cpf,telefone};
         return dados;

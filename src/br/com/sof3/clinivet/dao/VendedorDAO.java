@@ -20,7 +20,7 @@ public class VendedorDAO extends GenericoDAO {
         String sql = "SELECT * FROM vendedores WHERE login = \"" + login + "\" AND senha = \""+ senha +"\";";
         
         
-        JOptionPane.showMessageDialog(null, sql);
+        //JOptionPane.showMessageDialog(null, sql);
         
         
         ResultSet rs = executeQuery(sql);
