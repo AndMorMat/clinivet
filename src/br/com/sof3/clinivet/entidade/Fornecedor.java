@@ -32,6 +32,16 @@ public class Fornecedor {
         
         
     }
+    public String exibir(){
+        return "id: " +id+
+                "\nNome: "+nome+
+                "\ncnpj: "+cnpj+
+                "\nTelefone: "+telefone+
+                "\nEmail: "+email+
+                "\nEndereco: "+endereco+
+                "\nBairro: "+bairro+
+                "\nCidade: "+cidade;
+    }
     public Fornecedor(Integer id, String nome, String cnpj, String telefone,
             String email, String endereco, String bairro, Cidade cidade, Estado estado) {
         
