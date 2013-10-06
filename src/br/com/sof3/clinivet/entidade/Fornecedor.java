@@ -18,7 +18,20 @@ public class Fornecedor {
     public Fornecedor(Integer id) {
         this.id = id;
     }
-    
+    public void cadastrar(int id, String nome, String cnpj, String telefone,
+                        String email, String endereco, String bairro, Cidade cidade){
+        setId(id);
+        setNome(nome);
+        setCnpj(cnpj);
+        setTelefone(telefone);
+        setEmail(email);
+        setEndereco(endereco);
+        setBairro(bairro);
+        setCidade(cidade);
+        
+        
+        
+    }
     public Fornecedor(Integer id, String nome, String cnpj, String telefone,
             String email, String endereco, String bairro, Cidade cidade, Estado estado) {
         
@@ -32,7 +45,10 @@ public class Fornecedor {
         this.cidade = cidade;
         this.estado = estado;
     }
-
+    public String[] addTable(){
+        String [] dados={nome,cnpj,telefone,email};
+        return dados;
+    }
     public Integer getId() {
         return id;
     }

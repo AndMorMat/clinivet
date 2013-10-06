@@ -64,6 +64,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuCadastrarAnimal = new javax.swing.JMenuItem();
         jMenuCadastrarProduto = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuCadFornecedor = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuConsultas = new javax.swing.JMenu();
@@ -113,6 +114,14 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuCadastrarUsuario.add(jMenuItem3);
 
+        jMenuCadFornecedor.setText("Fornecedor");
+        jMenuCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCadFornecedorActionPerformed(evt);
+            }
+        });
+        jMenuCadastrarUsuario.add(jMenuCadFornecedor);
+
         jMenuBar1.add(jMenuCadastrarUsuario);
 
         jMenu2.setText("Editar");
@@ -157,7 +166,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(654, Short.MAX_VALUE))
+                .addContainerGap(662, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,6 +203,10 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void jMenuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedoresActionPerformed
         frmPesquisaVendedor pesquisaVendedor = new frmPesquisaVendedor();
     }//GEN-LAST:event_jMenuItemVendedoresActionPerformed
+
+    private void jMenuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadFornecedorActionPerformed
+       frmAddFornecedor addFornecedor = new frmAddFornecedor();
+    }//GEN-LAST:event_jMenuCadFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +246,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCadFornecedor;
     private javax.swing.JMenuItem jMenuCadastrarAnimal;
     private javax.swing.JMenuItem jMenuCadastrarCliente;
     private javax.swing.JMenuItem jMenuCadastrarProduto;
