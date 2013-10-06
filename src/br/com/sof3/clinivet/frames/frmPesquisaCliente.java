@@ -165,8 +165,10 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
        
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
         
-        for(int aux=0;aux<dtm.getRowCount();aux++)
-              dtm.removeRow(aux);
+        int cont2 = dtm.getRowCount();
+        for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
+            dtm.removeRow(aux);
+        }
         
         if(txtBuscaCliente.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
@@ -177,7 +179,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
                     List<Cliente> cli = new LinkedList<Cliente>();
 
-                    Cliente c = new Cliente(); 
+                    Cliente c = new Cliente();
+                    
                      if(rbtNome.isSelected()){
                          cli = cdao.getClientesByName(txtBuscaCliente.getText());
                      }else{
@@ -197,7 +200,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Informe somente números");
                         }
                      }
-                    for(int aux =0 ;aux<cli.size();aux++){
+                    for(int aux =0;aux<cli.size();aux++){
                         c.setNome(cli.get(aux).getNome());
                         c.setCpf(cli.get(aux).getCpf());
                         c.setTelefone(cli.get(aux).getTelefone());
@@ -218,7 +221,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     
     private void btnUltimosCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimosCadActionPerformed
         // TODO add your handling code here:
-        /*
+       
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
         
         for(int aux=0;aux<dtm.getRowCount();aux++)
@@ -230,21 +233,30 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
                 Cliente c = new Cliente(); 
                 
-                cli = cdao.getClientesByName(txtBuscaCliente.getText());
-                
-                JOptionPane.showMessageDialog(null, "Teste");
-                for(int aux =0 ;aux<cli.size();aux++){
-                    c.setNome(cli.get(aux).getNome());
-                    c.setCpf(cli.get(aux).getCpf());
-                    c.setTelefone(cli.get(aux).getTelefone());
-
-                    dtm.addRow(c.addTable());
+                int cont = dtm.getRowCount();
+                for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                  dtm.removeRow(aux);
                 }
+                
+                cli = cdao.getClientesByID();
+                
+                for(int aux=0 ;aux<cli.size();aux++){
+                    if(aux<6){
+                        c.setNome(cli.get(aux).getNome());
+                        c.setCpf(cli.get(aux).getCpf());
+                        c.setTelefone(cli.get(aux).getTelefone());
+
+                        dtm.addRow(c.addTable());
+                    }
+                        
+                }
+                
+                
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
             }
-            * */
+           
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 
     /**
