@@ -44,9 +44,25 @@ public class FornecedorDAO extends GenericoDAO{
         
         return toReturn;
     }
-    public static Fornecedor populateFornecedorInfo(ResultSet rs) throws SQLException {
-        
+    public Fornecedor getFornecedorByCnpj(String cnpj) throws SQLException{
         Fornecedor toReturn = new Fornecedor();
+        
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj = ?", cnpj);
+        try{
+            if (rs.next()) {
+                toReturn = populateFornecedorInfo(rs);
+            }
+            rs.close();
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
+        }
+        JOptionPane.showMessageDialog(null,toReturn.exibir());
+        return toReturn;
+    }
+    public static Fornecedor populateFornecedorInfo(ResultSet rs) throws SQLException {
+        Fornecedor toReturn = new Fornecedor();
+        CidadeDAO cdao = new CidadeDAO();
         toReturn.setId(rs.getInt("id"));
         toReturn.setNome(rs.getString("nome"));
         toReturn.setCnpj(rs.getString("cnpj"));
@@ -54,7 +70,22 @@ public class FornecedorDAO extends GenericoDAO{
         toReturn.setEmail(rs.getString("email"));
         toReturn.setBairro(rs.getString("bairro"));
         toReturn.setEndereco(rs.getString("endereco"));
-        toReturn.setId(rs.getInt("id_cidade"));
+        toReturn.setCidade(cdao.getCidade(rs.getInt("id_cidade")));
         return toReturn;
     }
+//    public static Cidade getCidadeById(int id) throws SQLException{
+//        Cidade cidade = new Cidade();
+//        try{
+//            ResultSet rs = executeQuery("SELECT * FROM cidades WHERE id = ?", id);
+//        
+//            if (rs.next()) {
+//                cidade = populateCidadeInfo(rs);
+//            }
+//            rs.close();
+//            
+//        }catch(Exception ex){
+//            JOptionPane.showMessageDialog(null, "Erro ao pegar cidade por id :: classe FornecedorDAO metodo getFornecedorByCnpj");
+//        }
+//        return cidade;
+//    }
 }
