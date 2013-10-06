@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.CidadeDAO;
 import br.com.sof3.clinivet.dao.EstadoDAO;
 import br.com.sof3.clinivet.dao.FornecedorDAO;
+import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.Cidade;
 import br.com.sof3.clinivet.entidade.Estado;
 import br.com.sof3.clinivet.entidade.Fornecedor;
@@ -111,10 +112,6 @@ public class frmAddProduto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblFornecedores);
-        tblFornecedores.getColumnModel().getColumn(0).setHeaderValue("Nome");
-        tblFornecedores.getColumnModel().getColumn(1).setHeaderValue("CNPJ");
-        tblFornecedores.getColumnModel().getColumn(2).setHeaderValue("Telefone");
-        tblFornecedores.getColumnModel().getColumn(3).setHeaderValue("Email");
 
         btnFiltrar.setText("Filtrar");
 
@@ -215,7 +212,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,17 +225,36 @@ public class frmAddProduto extends javax.swing.JFrame {
         }
         try {
             Produto prod = new Produto();
-            /*prod.cadastrar(0, txtNome.getText(),
+            ProdutoDAO pdao = new ProdutoDAO();
+            FornecedorDAO fdao = new FornecedorDAO();
+            DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
+            
+            /*int linha = tblFornecedores.getSelectedRow();
+            Object obj = dtm.getValueAt(linha, 2);
+            String valor = String.valueOf(obj);
+            JOptionPane.showMessageDialog(null, valor);
+            */
+            
+            prod.cadastrar(0, txtNome.getText(),
                               Double.parseDouble(txtPrecoCusto.getText()),
                               Double.parseDouble(txtMargemLucro.getText()),
-                              prod.calcularPrecoVenda(),
+                              prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
                               txtValidade.getText(),
-                              Integer.parseInt(txtFornecedor.getText()));*/
+                              fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
+                              Integer.parseInt(txtEstoque.getText()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
+            Fornecedor forn = new Fornecedor();
+            forn = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
+            JOptionPane.showMessageDialog(null,"id: "+ forn.getId());
+            JOptionPane.showMessageDialog(null,"cnpj: "+ String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
+            JOptionPane.showMessageDialog(null,"nome: "+ prod.getFornecedor().getNome());
+            JOptionPane.showMessageDialog(null, prod.exibir());
+            pdao.adicionaProduto(prod);
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Produto :: na Classe frmAddProduto no botao cadastrar");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
+    
     private void btnCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFornecedorActionPerformed
         frmAddFornecedor frmAddFornecedor = new frmAddFornecedor();
             DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
