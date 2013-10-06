@@ -1,35 +1,54 @@
 package br.com.sof3.clinivet.entidade;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 public class Produto {
     private int id;
     private String nome;
     private double precoCusto;
     private double margemLucro;
-    private Estoque estoque;
     private double precoVenda;
     private String validade;
     private Fornecedor fornecedor;
+    private int estoque;
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+    }
     
     public Produto() {
         
     }
     public void cadastrar(int id, String nome, double precoCusto, double margemLucro,
-            double precoVenda, String validade, Fornecedor fornecedor) {
-            this.id = id;
+            double precoVenda, String validade, Fornecedor fornecedor,int estoque) {
+        this.id = id;
         this.nome = nome;
         this.precoCusto = precoCusto;
         this.margemLucro = margemLucro;
         this.precoVenda = precoVenda;
-        
+        this.estoque = estoque;
         this.validade = validade;
         this.fornecedor = fornecedor;
     }
     public Produto(int id) {
         this.id = id;
     }
-    
+    public String exibir(){
+        return  "Id: "+id+
+                "\nNome: " + nome +
+                "\nPreco Custo: "+precoCusto+
+                "\nPreco Venda: "+precoVenda+
+                "\nEstoque: "+estoque+
+                "\nValidade: "+validade+
+                "\nFornecedor: "+fornecedor;
+             
+                
+    }
     public Produto(int id, String nome, double precoCusto, double margemLucro,
             double precoVenda, String validade, Fornecedor fornecedor) {
         
@@ -41,8 +60,8 @@ public class Produto {
         this.validade = validade;
         this.fornecedor = fornecedor;
     }
-    public double calcularPrecoVenda(){
-        return precoCusto*margemLucro;
+    public double calcularPrecoVenda(double precoCusto, double margemLucro){
+        return (precoCusto+(precoCusto*(margemLucro/100)));
     }
     public int getId() {
         return id;
@@ -84,13 +103,7 @@ public class Produto {
         this.precoVenda = precoVenda;
     }
 
-    public Estoque getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
-    }
+    
 
     public String getValidade() {
         return validade;
