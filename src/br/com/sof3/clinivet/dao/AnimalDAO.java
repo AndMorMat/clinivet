@@ -82,6 +82,21 @@ public class AnimalDAO extends GenericoDAO {
         rs.close();
         return toReturn;
     }
+    
+       
+    public List<Animal> getAnimaisDoCliente(int idCliente) throws SQLException {
+        List<Animal> toReturn = new LinkedList<Animal>();
+        
+        JOptionPane.showMessageDialog(null, "antes query");
+        ResultSet rs = executeQuery("SELECT a.nome FROM clientes c INNER JOIN animais a on c.id = a.id_dono WHERE c.id = ?;");
+        JOptionPane.showMessageDialog(null, "depois query");
+        while (rs.next()) {
+            toReturn.add(populateAnimal(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
 
     public static Animal populateAnimal(ResultSet rs) throws SQLException {
         final ClienteDAO clienteDAO = new ClienteDAO();
