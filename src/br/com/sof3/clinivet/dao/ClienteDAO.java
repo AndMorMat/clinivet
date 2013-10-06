@@ -72,7 +72,20 @@ public class ClienteDAO extends GenericoDAO {
         List<Cliente> toReturn = new LinkedList<Cliente>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE nome = \""+nome+"\";");
+        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE nome like \""+nome+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateCliente(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Cliente> getClientesByCPF(int cpf) throws SQLException {
+        List<Cliente> toReturn = new LinkedList<Cliente>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE cpf like \""+cpf+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateCliente(rs));
