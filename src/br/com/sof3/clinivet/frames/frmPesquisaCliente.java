@@ -5,6 +5,7 @@
 package br.com.sof3.clinivet.frames;
     
 import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -261,13 +262,28 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
             }
+        
            
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 
     private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
-       if (evt.getClickCount() == 2) {  
-            frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
-           // dispose();  
+        String NumCpf;
+        if (evt.getClickCount() == 2) {  
+           Cliente cli = new Cliente();
+           
+           frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
+
+           NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
+           
+            try {
+                cli = cdao.getDetalhes(NumCpf);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           frmExibirCliente1.CadastrarDados(cli);
+           
+           
         }
     }//GEN-LAST:event_tblBuscaCliMouseClicked
 

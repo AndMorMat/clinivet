@@ -4,6 +4,15 @@
  */
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.dao.AnimalDAO;
+import br.com.sof3.clinivet.entidade.Animal;
+import br.com.sof3.clinivet.entidade.Cliente;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author xps-l502x
@@ -45,7 +54,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
         txtcpf = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JLabel();
-        txtEnd = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JLabel();
         txtTotal = new javax.swing.JLabel();
         txtCelu = new javax.swing.JLabel();
         txtBairro = new javax.swing.JLabel();
@@ -109,13 +118,13 @@ public class frmExibirCliente extends javax.swing.JFrame {
         txtTelefone.setForeground(new java.awt.Color(69, 68, 222));
         txtTelefone.setText("TelCli");
 
-        txtEnd.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
-        txtEnd.setForeground(new java.awt.Color(69, 68, 222));
-        txtEnd.setText("EMAILCli");
+        txtEmail.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(69, 68, 222));
+        txtEmail.setText("EMAILCli");
 
         txtTotal.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
         txtTotal.setForeground(new java.awt.Color(69, 68, 222));
-        txtTotal.setText("Total de Aniam");
+        txtTotal.setText("0");
 
         txtCelu.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
         txtCelu.setForeground(new java.awt.Color(69, 68, 222));
@@ -156,7 +165,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtCid1)
-                                            .addComponent(txtEnd)))))
+                                            .addComponent(txtEmail)))))
                             .addComponent(lblCpf)
                             .addComponent(lblNome)
                             .addComponent(lblTitulojanela)
@@ -179,7 +188,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
                                 .addComponent(lblTelefone)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTelefone)))
-                        .addGap(0, 133, Short.MAX_VALUE)))
+                        .addGap(0, 171, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -207,7 +216,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
                     .addComponent(lblBairro)
-                    .addComponent(txtEnd)
+                    .addComponent(txtEmail)
                     .addComponent(txtBairro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -259,6 +268,56 @@ public class frmExibirCliente extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void CadastrarDados(Cliente c){
+        txtCliente.setText(c.getNome());
+        txtBairro.setText(c.getBairro());
+        txtCelu.setText(c.getCelular());
+        txtCid1.setText(c.getCidade().getNome());
+        txtEmail.setText(c.getEmail());
+        txtEndereco.setText(c.getEndereco());
+        txtTelefone.setText(c.getTelefone());
+        txtcpf.setText(c.getCpf());
+        
+        CadastrarAnimais(c.getId());
+    }
+    
+    public void CadastrarAnimais(int id){
+         DefaultTableModel dtm = (DefaultTableModel)tblAnimal.getModel();
+        
+        int cont=0;
+        int cont2 = dtm.getRowCount();
+        
+        for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
+            dtm.removeRow(aux);
+        }
+        
+        try {
+            AnimalDAO anidao = new AnimalDAO();
+
+            List<Animal> ani = new LinkedList<Animal>();
+
+            Animal animal = new Animal();
+         
+            ani = anidao.getTodosAnimaisDoCliente(id);
+
+            for(int aux =0;aux<ani.size();aux++){
+               animal.setTipoAnimal(ani.get(aux).getTipoAnimal());
+               animal.setRaca(ani.get(aux).getRaca());
+               animal.setNome(ani.get(aux).getNome());//NomeAnimal não está exibindo correto
+               animal.setSexo(ani.get(aux).getSexo());
+
+               dtm.addRow(animal.addTable());
+               cont++;
+            }
+            txtTotal.setText(String.valueOf(ani.size()));
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Erro no try da classe frmExibirCliente Cadastrando animais");
+      }
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
@@ -276,7 +335,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
     private javax.swing.JLabel txtCelu;
     private javax.swing.JLabel txtCid1;
     private javax.swing.JLabel txtCliente;
-    private javax.swing.JLabel txtEnd;
+    private javax.swing.JLabel txtEmail;
     private javax.swing.JLabel txtEndereco;
     private javax.swing.JLabel txtTelefone;
     private javax.swing.JLabel txtTotal;

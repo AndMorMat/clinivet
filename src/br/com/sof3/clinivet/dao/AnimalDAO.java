@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class AnimalDAO extends GenericoDAO {
 
     public AnimalDAO() {
+        
     }
 
     /*public int adicionaAnimal(Animal an) throws SQLException {
@@ -88,8 +89,20 @@ public class AnimalDAO extends GenericoDAO {
         List<Animal> toReturn = new LinkedList<Animal>();
         
         JOptionPane.showMessageDialog(null, "antes query");
-        ResultSet rs = executeQuery("SELECT a.nome FROM clientes c INNER JOIN animais a on c.id = a.id_dono WHERE c.id = ?;");
+        ResultSet rs = executeQuery("SELECT a.nome FROM clientes c INNER JOIN animais a on c.id = a.id_dono WHERE c.id = ?;", idCliente);
         JOptionPane.showMessageDialog(null, "depois query");
+        while (rs.next()) {
+            toReturn.add(populateAnimal(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Animal> getTodosAnimaisDoCliente(int idCliente) throws SQLException {
+        List<Animal> toReturn = new LinkedList<Animal>();
+   
+        ResultSet rs = executeQuery("SELECT * FROM clientes c INNER JOIN animais a on c.id = a.id_dono WHERE c.id = ?;", idCliente);
+        
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
         }
