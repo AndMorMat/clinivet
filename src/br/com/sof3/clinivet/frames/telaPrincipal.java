@@ -70,6 +70,10 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
+        menuAgenda = new javax.swing.JMenu();
+        submenuAgendar = new javax.swing.JMenuItem();
+        submenuConsultarAgenda = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setResizable(false);
 
@@ -150,6 +154,24 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(jMenuConsultas);
 
+        menuAgenda.setText("Agenda");
+
+        submenuAgendar.setText("Agendar Animal");
+        submenuAgendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submenuAgendarActionPerformed(evt);
+            }
+        });
+        menuAgenda.add(submenuAgendar);
+
+        submenuConsultarAgenda.setText("Consultar Agenda");
+        menuAgenda.add(submenuConsultarAgenda);
+
+        jMenuItem1.setText("Cancelar Consulta");
+        menuAgenda.add(jMenuItem1);
+
+        jMenuBar1.add(menuAgenda);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -208,6 +230,10 @@ public class telaPrincipal extends javax.swing.JDialog {
        frmAddFornecedor addFornecedor = new frmAddFornecedor();
     }//GEN-LAST:event_jMenuCadFornecedorActionPerformed
 
+    private void submenuAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuAgendarActionPerformed
+        frmAgendar telaAgendar = new frmAgendar();
+    }//GEN-LAST:event_submenuAgendarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,9 +278,13 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuCadastrarProduto;
     private javax.swing.JMenu jMenuCadastrarUsuario;
     private javax.swing.JMenu jMenuConsultas;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JLabel lblUsuarioLogado;
+    private javax.swing.JMenu menuAgenda;
+    private javax.swing.JMenuItem submenuAgendar;
+    private javax.swing.JMenuItem submenuConsultarAgenda;
     // End of variables declaration//GEN-END:variables
 }

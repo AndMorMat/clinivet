@@ -87,6 +87,31 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuAgenda">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agenda"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="submenuAgendar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agendar Animal"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submenuAgendarActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="submenuConsultarAgenda">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar Agenda"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelar Consulta"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

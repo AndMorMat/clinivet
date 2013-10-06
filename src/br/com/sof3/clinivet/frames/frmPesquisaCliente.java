@@ -84,6 +84,11 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblBuscaCli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBuscaCliMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBuscaCli);
         tblBuscaCli.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblBuscaCli.getColumnModel().getColumn(2).setResizable(false);
@@ -258,6 +263,13 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             }
            
     }//GEN-LAST:event_btnUltimosCadActionPerformed
+
+    private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
+       if (evt.getClickCount() == 2) {  
+            frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
+           // dispose();  
+        }
+    }//GEN-LAST:event_tblBuscaCliMouseClicked
 
     /**
      * @param args the command line arguments
