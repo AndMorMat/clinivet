@@ -401,31 +401,14 @@ public class frmAddCliente extends javax.swing.JDialog {
         try {
             EstadoDAO estadoDAO = new EstadoDAO();
             Vector<Estado> estados = new Vector<Estado>(estadoDAO.getAllEstados());
-            String[] uf = {""};
-            //JOptionPane.showMessageDialog(null, estados.size());
-            for(int aux=0; aux < estados.size() ; aux++){
-                uf[aux] = estados.get(aux).getNome();  
-            }
-            
-            DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(uf);
+            //JOptionPane.showMessageDialog(null, estados.size()); 
+            DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(estados);
             comboEstados.setModel(comboEstado);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de estados");
         }
         
-        // carrega combo de cidades
-        /*try {
-            ClienteDAO clienteDAO = new ClienteDAO();
-           
-            Vector<Cliente> clientes = new Vector<Cliente>(clienteDAO.getAllClientes());
-            
-            DefaultComboBoxModel comboCliente = new DefaultComboBoxModel(clientes);
-            comboDono.setModel(comboCliente);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de donos");
-        }*/
         try {
             
             CidadeDAO cidadeDAO = new CidadeDAO();

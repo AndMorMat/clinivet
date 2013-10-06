@@ -93,6 +93,19 @@ public class ClienteDAO extends GenericoDAO {
         rs.close();
         return toReturn;
     }
+    
+    public List<Cliente> getClientesByID() throws SQLException {
+        List<Cliente> toReturn = new LinkedList<Cliente>();
+        
 
+        ResultSet rs = executeQuery("SELECT * FROM clientes ORDER BY id DESC;");
+        
+        while (rs.next()) {
+            toReturn.add(populateCliente(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
 }
 
