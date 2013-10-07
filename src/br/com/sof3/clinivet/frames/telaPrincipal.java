@@ -70,6 +70,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenuAnimais = new javax.swing.JMenuItem();
         menuAgenda = new javax.swing.JMenu();
         submenuAgendar = new javax.swing.JMenuItem();
         submenuConsultarAgenda = new javax.swing.JMenuItem();
@@ -152,6 +153,14 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuItemClientes);
 
+        jMenuAnimais.setText("Animais");
+        jMenuAnimais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAnimaisActionPerformed(evt);
+            }
+        });
+        jMenuConsultas.add(jMenuAnimais);
+
         jMenuBar1.add(jMenuConsultas);
 
         menuAgenda.setText("Agenda");
@@ -188,7 +197,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(662, Short.MAX_VALUE))
+                .addContainerGap(666, Short.MAX_VALUE))
         );
 
         pack();
@@ -234,6 +243,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmAgendar telaAgendar = new frmAgendar();
     }//GEN-LAST:event_submenuAgendarActionPerformed
 
+    private void jMenuAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAnimaisActionPerformed
+        // TODO add your handling code here:
+        frmPesquisaAnimal pesquisaAnimal = new frmPesquisaAnimal();
+    }//GEN-LAST:event_jMenuAnimaisActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,6 +285,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuItem jMenuAnimais;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCadFornecedor;
     private javax.swing.JMenuItem jMenuCadastrarAnimal;

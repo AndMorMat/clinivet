@@ -85,6 +85,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemClientesActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuAnimais">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Animais"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuAnimaisActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuAgenda">
@@ -150,7 +158,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblUsuarioLogado" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="662" max="32767" attributes="0"/>
+              <EmptySpace pref="666" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

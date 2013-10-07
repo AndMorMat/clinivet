@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Vendedor;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
+         rbtNome.setSelected(true);
     }
 
     /**
@@ -38,11 +40,16 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaVendedor = new javax.swing.JTable();
-        txtNomeVendedor = new javax.swing.JTextField();
-        btnVendedor = new javax.swing.JButton();
         lblNomeVendedor = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        rbtNome = new javax.swing.JRadioButton();
+        rbtLogin = new javax.swing.JRadioButton();
+        btnUltimosCad = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscaVendedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,14 +81,54 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         tblBuscaVendedor.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblBuscaVendedor.getColumnModel().getColumn(1).setResizable(false);
 
-        btnVendedor.setText("Buscar Vendedor");
-        btnVendedor.addActionListener(new java.awt.event.ActionListener() {
+        lblNomeVendedor.setText("Buscar Vendedores");
+
+        buttonGroup1.add(rbtNome);
+        rbtNome.setText("Nome");
+        rbtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVendedorActionPerformed(evt);
+                rbtNomeActionPerformed(evt);
             }
         });
 
-        lblNomeVendedor.setText("Nome Vendedor");
+        buttonGroup1.add(rbtLogin);
+        rbtLogin.setText("Login");
+        rbtLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtLoginActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(rbtLogin)
+                .addGap(28, 28, 28)
+                .addComponent(rbtNome)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(rbtNome)
+                .addComponent(rbtLogin))
+        );
+
+        btnUltimosCad.setText("Ultimos Cadastros");
+        btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimosCadActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,65 +137,147 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(34, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNomeVendedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVendedor)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNomeVendedor)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNomeVendedor)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblNomeVendedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnUltimosCad)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVendedor))
-                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorActionPerformed
-           DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
-           for(int aux=0;aux<dtm.getRowCount();aux++)
-              dtm.removeRow(aux);
-           if(txtNomeVendedor.getText().isEmpty()){
-               JOptionPane.showMessageDialog(null, "Digite um nome para pesquisar");
-           }else{
-                try{
-                    
-                    List<Vendedor> vend = new LinkedList<Vendedor>();
-                    Vendedor v = new Vendedor();
-                    vend = vdao.getVendedorByName(txtNomeVendedor.getText());
+    private void btnUltimosCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimosCadActionPerformed
+        // TODO add your handling code here:
 
-                        for(int aux =0 ;aux<vend.size();aux++){
-                            v.setNome(vend.get(aux).getNome());
-                            v.setLogin(vend.get(aux).getLogin());
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
 
+        for(int aux=0;aux<dtm.getRowCount();aux++)
+        dtm.removeRow(aux);
 
-                            dtm.addRow(v.addTable());
-                        }
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaVendedor no botão Busca vendedor");
+        try {
+
+            List<Vendedor>  listv = new LinkedList<Vendedor>();
+
+            Vendedor v = new Vendedor();
+
+            int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                dtm.removeRow(aux);
+            }
+
+            listv = vdao.getVendedorByID();
+
+            for(int aux=0 ;aux<listv.size();aux++){
+                if(aux<6){
+                    v.setNome(listv.get(aux).getNome());
+                    v.setLogin(listv.get(aux).getLogin());
+                   
+                    dtm.addRow(v.addTable());
                 }
-           }
-        
-    }//GEN-LAST:event_btnVendedorActionPerformed
+
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
+        }
+
+    }//GEN-LAST:event_btnUltimosCadActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
+
+        int cont2 = dtm.getRowCount();
+        for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
+            dtm.removeRow(aux);
+        }
+
+        if(txtBuscaVendedor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Digite para pesquisar");
+
+        }else{
+            int cont=0;
+            try {
+
+                 List<Vendedor>  listv = new LinkedList<Vendedor>();
+
+                 Vendedor v = new Vendedor();
+                 if(rbtNome.isSelected()){
+                   listv = vdao.getVendedorByName(txtBuscaVendedor.getText());
+                 }else{
+                     listv = vdao.getVendedorByLogin(txtBuscaVendedor.getText());
+                 }
+                        
+                for(int aux =0;aux<listv.size();aux++){
+                    v.setLogin(listv.get(aux).getLogin());
+                    v.setNome(listv.get(aux).getNome());
+
+                    dtm.addRow(v.addTable());
+                    cont++;
+                }
+                
+                if(cont==0)//para exibir caso procura não exiba nada
+                JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+
+            }catch (SQLException ex){
+                
+                JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaVendedor no botao buscar");
+            }
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void rbtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtLoginActionPerformed
+
+    private void rbtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtNomeActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVendedor;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnUltimosCad;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeVendedor;
+    private javax.swing.JRadioButton rbtLogin;
+    private javax.swing.JRadioButton rbtNome;
     private javax.swing.JTable tblBuscaVendedor;
-    private javax.swing.JTextField txtNomeVendedor;
+    private javax.swing.JTextField txtBuscaVendedor;
     // End of variables declaration//GEN-END:variables
 }
