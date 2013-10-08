@@ -5,6 +5,7 @@
 package br.com.sof3.clinivet.frames;
     
 import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -104,9 +105,19 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
         buttonGroup1.add(rbtNome);
         rbtNome.setText("Nome");
+        rbtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtNomeActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbtCpf);
         rbtCpf.setText("CPF");
+        rbtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtCpfActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,7 +127,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 .addComponent(rbtNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtCpf)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,13 +147,14 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeVendedor)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 443, Short.MAX_VALUE)
+                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,7 +166,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                     .addComponent(btnUltimosCad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
@@ -261,15 +273,38 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
             }
+        
            
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 
     private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
-       if (evt.getClickCount() == 2) {  
-            frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
-           // dispose();  
+        String NumCpf;
+        if (evt.getClickCount() == 2) {  
+           Cliente cli = new Cliente();
+           
+           frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
+
+           NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
+           
+            try {
+                cli = cdao.getDetalhes(NumCpf);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           frmExibirCliente1.CadastrarDados(cli);
+           
+           
         }
     }//GEN-LAST:event_tblBuscaCliMouseClicked
+
+    private void rbtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtNomeActionPerformed
+
+    private void rbtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtCpfActionPerformed
 
     /**
      * @param args the command line arguments

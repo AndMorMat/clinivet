@@ -1,7 +1,6 @@
 package br.com.sof3.clinivet.dao;
 
-import static br.com.sof3.clinivet.dao.ClienteDAO.populateCliente;
-import br.com.sof3.clinivet.entidade.Cliente;
+
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,7 +80,35 @@ public class VendedorDAO extends GenericoDAO {
     public List<Vendedor> getVendedorByName(String nome) throws SQLException {
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         
-        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE nome = \""+nome+"\";");
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE nome like \""+nome+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateVendedorInfo(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Vendedor> getVendedorByID() throws SQLException {
+        List<Vendedor> toReturn = new LinkedList<Vendedor>();
+        
+
+        ResultSet rs = executeQuery("SELECT * FROM vendedores ORDER BY id DESC;");
+        
+        while (rs.next()) {
+            toReturn.add(populateVendedorInfo(rs));
+        }
+        
+        rs.close();
+        
+        return toReturn;
+    }
+    
+    public List<Vendedor> getVendedorByLogin(String login) throws SQLException {
+        List<Vendedor> toReturn = new LinkedList<Vendedor>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login like \""+login+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));

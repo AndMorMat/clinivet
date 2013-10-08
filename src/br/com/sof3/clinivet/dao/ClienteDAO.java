@@ -107,5 +107,18 @@ public class ClienteDAO extends GenericoDAO {
         return toReturn;
     }
     
+    public Cliente getDetalhes(String cpf) throws SQLException {
+        
+        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE cpf =  ?", cpf);
+        
+        Cliente cliente = new Cliente();
+        if (rs.next()) {
+            cliente = populateCliente(rs);
+        }
+        rs.close();
+        return cliente;
+    }
+    
+   
 }
 

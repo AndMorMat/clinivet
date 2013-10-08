@@ -29,6 +29,20 @@ public class Animal {
         this.id = id;
     }
     
+    public String[] addTable(){
+        String [] dados={tipoAnimal, raca, nome, sexo};
+        return dados;
+       
+    }
+    
+    public String[] addTableConsulta(){
+        String cod = String.valueOf(id);
+        String [] dados={cod, nome,raca, tipoAnimal};
+        
+        return dados;
+       
+    }
+    
     public Animal(Integer id, String nome, String tipoAnimal, String raca,
             String data_nasc, String sexo, Cliente dono) {
         
