@@ -39,9 +39,9 @@ public class telaPrincipal extends javax.swing.JDialog {
                 jMenuConsultas.setEnabled(false);
                 lblUsuarioLogado.setText("Usuario não logado");
             }
-            if(!dialogLogin.usuarioLogado().equals("admin")){//somente o administrador poderá cadastrar um novo vendedor
+            /*if(!dialogLogin.usuarioLogado().equals("admin")){//somente o administrador poderá cadastrar um novo vendedor
                 jMenuCadastrarCliente.setEnabled(false);
-            }
+            }*/
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro dentro da classe principal no metodo telaPrincipal");
         }

@@ -10,7 +10,6 @@ public class Fornecedor {
     private String bairro;
     private Cidade cidade;
     private Estado estado;
-    
     public Fornecedor() {
         
     }
@@ -28,9 +27,7 @@ public class Fornecedor {
         setEndereco(endereco);
         setBairro(bairro);
         setCidade(cidade);
-        
-        
-        
+      
     }
     public String exibir(){
         return "id: " +id+
@@ -44,7 +41,6 @@ public class Fornecedor {
     }
     public Fornecedor(Integer id, String nome, String cnpj, String telefone,
             String email, String endereco, String bairro, Cidade cidade, Estado estado) {
-        
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;

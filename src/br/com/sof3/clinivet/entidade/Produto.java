@@ -51,7 +51,6 @@ public class Produto {
     }
     public Produto(int id, String nome, double precoCusto, double margemLucro,
             double precoVenda, String validade, Fornecedor fornecedor) {
-        
         this.id = id;
         this.nome = nome;
         this.precoCusto = precoCusto;
