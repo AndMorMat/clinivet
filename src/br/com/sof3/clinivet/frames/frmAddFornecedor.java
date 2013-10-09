@@ -11,10 +11,12 @@ import br.com.sof3.clinivet.entidade.Cidade;
 import br.com.sof3.clinivet.entidade.Estado;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
+import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
 import java.util.Locale;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -76,8 +78,6 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         lblBairro.setText("Bairro:");
 
         lblEndereco.setText("Endereço:");
-
-        cbxCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblCidade.setText("Cidade:");
 
@@ -188,6 +188,10 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                            txtBairro.getText(),
                            ((Cidade) cbxCidade.getSelectedItem()));
             fdao.adicionaFornecedor(forn);
+            limparTabela();
+            DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+            dtm.addRow(forn.addTable());
+            frmAddProduto.tblFornecedores.setSelectionMode(1);
             setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
@@ -197,6 +201,13 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     public String[] getDados(){
         String[] dados = {txtNome.getText(),txtCnpj.getText(),txtTelefone.getText(),txtEmail.getText()};
         return dados;
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                dtm.removeRow(aux);
+            }
     }
     /**
      * @param args the command line arguments
@@ -223,21 +234,6 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private void loadInitialComboData() {
 
-        // carrega combo de estados
-        
-        
-        // carrega combo de cidades
-        /*try {
-            ClienteDAO clienteDAO = new ClienteDAO();
-           
-            Vector<Cliente> clientes = new Vector<Cliente>(clienteDAO.getAllClientes());
-            
-            DefaultComboBoxModel comboCliente = new DefaultComboBoxModel(clientes);
-            comboDono.setModel(comboCliente);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de donos");
-        }*/
         try {
             
             CidadeDAO cidadeDAO = new CidadeDAO();
