@@ -6,6 +6,7 @@ import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -44,12 +45,13 @@ public class FornecedorDAO extends GenericoDAO{
         
         return toReturn;
     }
+    
     public Fornecedor getFornecedorByCnpj(String cnpj) throws SQLException{
         Fornecedor toReturn = new Fornecedor();
         
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj = ?", cnpj);
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj = ?",cnpj);//testando funcao
         try{
-            if (rs.next()) {
+            while(rs.next()) {
                 toReturn = populateFornecedorInfo(rs);
             }
             rs.close();
@@ -58,6 +60,51 @@ public class FornecedorDAO extends GenericoDAO{
             JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
         }
         JOptionPane.showMessageDialog(null,toReturn.exibir());
+        return toReturn;
+    }
+    public ArrayList <Fornecedor> FiltrarFornecedorTelefone(String telefone) throws SQLException{
+        ArrayList<Fornecedor> toReturn = new ArrayList<>();
+        
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE telefone like \""+telefone+"%\";");//testando funcao
+        try{
+            while (rs.next()) {
+                toReturn.add(populateFornecedorInfo(rs));
+            }
+            rs.close();
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
+        }
+        return toReturn;
+    }
+    public ArrayList <Fornecedor> FiltrarFornecedorNome(String nome) throws SQLException{
+        ArrayList<Fornecedor> toReturn = new ArrayList<>();
+        
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE nome like \""+nome+"%\";");//testando funcao
+        try{
+            while (rs.next()) {
+                toReturn.add(populateFornecedorInfo(rs));
+            }
+            rs.close();
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
+        }
+        return toReturn;
+    }
+    public ArrayList <Fornecedor> FiltrarFornecedorCnpj(String cnpj) throws SQLException{
+        ArrayList<Fornecedor> toReturn = new ArrayList<>();
+        
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj like \""+cnpj+"%\";");//testando funcao
+        try{
+            while(rs.next()) {
+                toReturn.add(populateFornecedorInfo(rs));
+            }
+            rs.close();
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
+        }
         return toReturn;
     }
     public static Fornecedor populateFornecedorInfo(ResultSet rs) throws SQLException {
