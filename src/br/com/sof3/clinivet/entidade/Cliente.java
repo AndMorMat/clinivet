@@ -21,8 +21,19 @@ public class Cliente {
         String [] dados = {nome, String.valueOf(idade), String.valueOf(sexo), String.valueOf(idiomas),dataNasc};
         return dados;
     }*/
-    public void cadastrar(){
-        
+    public void cadastrar(Integer id,String nome,String sobrenome,String cpf,String telefone,
+            String celular,String email,String endereco,String bairro,Cidade cidade,Estado estado){
+        setId(id);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setCpf(cpf);
+        setTelefone(telefone);
+        setCelular(celular);
+        setEmail(email);
+        setEndereco(endereco);
+        setBairro(bairro);
+        setCidade(cidade);
+        setEstado(estado);
     }
     
     public String[] addTable(){
