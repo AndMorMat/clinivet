@@ -195,4 +195,8 @@
       </Properties>
     </Component>
   </SubComponents>
+<<<<<<< HEAD
 </Form>
+=======
+</Form>
+>>>>>>> parent of b8c8e04... Removendo arquivos .form que o netbeans gera, para que o github fique mais limpo. Esse arquivo não é necessário pois cada vez que executamos o programa no netbeans ele é gerado para nós
