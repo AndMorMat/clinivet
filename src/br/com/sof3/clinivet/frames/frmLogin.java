@@ -59,7 +59,7 @@ public class frmLogin extends javax.swing.JDialog {
             }
         });
 
-        lblImagensAnimais.setIcon(new javax.swing.ImageIcon("/home/andrematos/NetBeansProjects/clinivet/imagens/animais copy.png")); // NOI18N
+        lblImagensAnimais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/animais copy.png"))); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
