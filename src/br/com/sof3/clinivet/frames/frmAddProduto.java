@@ -111,9 +111,15 @@ public class frmAddProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblFornecedores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblFornecedores);
 
-        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setText("Filtrar por");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         btnCadastrarFornecedor.setText("Cadastrar Fornecedor");
         btnCadastrarFornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -129,12 +135,14 @@ public class frmAddProduto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCadastrarFornecedor)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,10 +252,10 @@ public class frmAddProduto extends javax.swing.JFrame {
                               Integer.parseInt(txtEstoque.getText()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
             Fornecedor forn = new Fornecedor();
             forn = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
-            JOptionPane.showMessageDialog(null,"id: "+ forn.getId());
-            JOptionPane.showMessageDialog(null,"cnpj: "+ String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
-            JOptionPane.showMessageDialog(null,"nome: "+ prod.getFornecedor().getNome());
-            JOptionPane.showMessageDialog(null, prod.exibir());
+//            JOptionPane.showMessageDialog(null,"id: "+ forn.getId());
+//            JOptionPane.showMessageDialog(null,"cnpj: "+ String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
+//            JOptionPane.showMessageDialog(null,"nome: "+ prod.getFornecedor().getNome());
+//            JOptionPane.showMessageDialog(null, prod.exibir());
             pdao.adicionaProduto(prod);
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
         } catch (Exception e) {
@@ -256,14 +264,12 @@ public class frmAddProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
     private void btnCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFornecedorActionPerformed
-        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor();
-            DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
-            int cont = dtm.getRowCount();
-            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
-                dtm.removeRow(aux);
-            }
-            //dtm.addRow(dados);
+        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor();  
     }//GEN-LAST:event_btnCadastrarFornecedorActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+         filtrarFornecedorPor filtrarFornecedor = new filtrarFornecedorPor();
+    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
@@ -278,7 +284,7 @@ public class frmAddProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPrecoCusto;
     private javax.swing.JLabel lblValidade;
-    private javax.swing.JTable tblFornecedores;
+    public static javax.swing.JTable tblFornecedores;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtMargemLucro;
     private javax.swing.JTextField txtNome;
