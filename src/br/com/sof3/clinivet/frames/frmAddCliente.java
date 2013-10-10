@@ -329,6 +329,7 @@ public class frmAddCliente extends javax.swing.JDialog {
 
         try {
             Cliente cliente = new Cliente();
+            
             cliente.setNome(txtNome.getText());
             cliente.setSobrenome(txtSobrenome.getText());
             cliente.setCpf(txtCPF.getText());

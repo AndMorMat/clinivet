@@ -31,12 +31,6 @@ public class frmAddAnimal extends javax.swing.JDialog {
      * Creates new form frmAddAnimal
      */
     
-    
-    
-        
-        
-    
-    
     public frmAddAnimal(java.awt.Frame parent, boolean modal, AnimalDAO dao, ClienteDAO cdao){//, frmAnimais frame) {
         super(parent, modal);
         //this.frame = frame;
