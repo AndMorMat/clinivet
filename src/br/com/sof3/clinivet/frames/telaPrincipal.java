@@ -71,6 +71,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenuAnimais = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuAgenda = new javax.swing.JMenu();
         submenuAgendar = new javax.swing.JMenuItem();
         submenuConsultarAgenda = new javax.swing.JMenuItem();
@@ -136,6 +137,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuBar1.add(jMenu3);
 
         jMenuConsultas.setText("Consultas");
+        jMenuConsultas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jMenuConsultasItemStateChanged(evt);
+            }
+        });
 
         jMenuItemVendedores.setText("Vendedores");
         jMenuItemVendedores.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +166,14 @@ public class telaPrincipal extends javax.swing.JDialog {
             }
         });
         jMenuConsultas.add(jMenuAnimais);
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuConsultas.add(jMenuItem2);
 
         jMenuBar1.add(jMenuConsultas);
 
@@ -197,7 +211,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(666, Short.MAX_VALUE))
+                .addContainerGap(670, Short.MAX_VALUE))
         );
 
         pack();
@@ -248,6 +262,14 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmPesquisaAnimal pesquisaAnimal = new frmPesquisaAnimal();
     }//GEN-LAST:event_jMenuAnimaisActionPerformed
 
+    private void jMenuConsultasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuConsultasItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuConsultasItemStateChanged
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        frmPesquisaProduto pesquisaProduto = new frmPesquisaProduto();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -294,6 +316,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenuCadastrarUsuario;
     private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
