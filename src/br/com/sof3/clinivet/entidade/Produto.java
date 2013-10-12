@@ -116,6 +116,7 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
+<<<<<<< HEAD
     public String getTipoProduto() {
         return tipoProduto;
     }
@@ -140,4 +141,14 @@ public class Produto {
         this.estoque = estoque;
     }
     
+=======
+
+    public void setPrecoCusto(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setMargemLucro(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+>>>>>>> aa2fc1cec2fdb26e2a06f1342f2cb01fa8f974c5
 }

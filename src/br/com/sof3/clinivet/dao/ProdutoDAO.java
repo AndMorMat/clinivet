@@ -1,7 +1,10 @@
 package br.com.sof3.clinivet.dao;
 
 import br.com.sof3.clinivet.entidade.Produto;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ProdutoDAO extends GenericoDAO{
@@ -28,5 +31,34 @@ public class ProdutoDAO extends GenericoDAO{
       }
         return produto.getId();
       
+    }
+    
+    public List<Produto> getProdutoByName(String nome) throws SQLException {
+        List<Produto> toReturn = new LinkedList<Produto>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE nome like \""+nome+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateProduto(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public static Produto populateProduto(ResultSet rs) throws SQLException {
+        final FornecedorDAO fornecedorDAO = new FornecedorDAO();
+        
+        Produto toReturn = new Produto();
+        toReturn.setId(rs.getInt("ID"));
+        toReturn.setCodigo(rs.getString("CODIGO"));
+        toReturn.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
+        toReturn.setMargemLucro(rs.getDouble("MARGEM_LUCRO"));
+        toReturn.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+        toReturn.setValidade(rs.getString("VALIDADE"));
+        toReturn.setFornecedor(fornecedorDAO.getFornecedor(rs.getInt("ID_FORNECEDOR")));
+        toReturn.setEstoque(rs.getInt("QTD_ESTOQUE"));
+        
+        return toReturn;
     }
 }

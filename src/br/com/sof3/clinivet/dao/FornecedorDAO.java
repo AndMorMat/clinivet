@@ -107,6 +107,17 @@ public class FornecedorDAO extends GenericoDAO{
         }
         return toReturn;
     }
+    
+    public Fornecedor getFornecedor(int idFornecedor) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE ID = ?", idFornecedor);
+        Fornecedor fornecedor = null;
+        if (rs.next()) {
+            fornecedor = populateFornecedorInfo(rs);
+        }
+        rs.close();
+        return fornecedor;
+    }
+    
     public static Fornecedor populateFornecedorInfo(ResultSet rs) throws SQLException {
         Fornecedor toReturn = new Fornecedor();
         CidadeDAO cdao = new CidadeDAO();
