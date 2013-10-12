@@ -4,8 +4,9 @@
  */
 package br.com.sof3.clinivet.frames;
 
-import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,10 +25,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     /**
      * Creates new form frmPesquisaProduto
      */
-    ClienteDAO cdao = new ClienteDAO();
+    ProdutoDAO cdao = new ProdutoDAO();
     public frmPesquisaProduto() {
         initComponents();
         setVisible(true);
+        carregarCbx();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         initComponents();
@@ -49,9 +51,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         rbtTipo2 = new javax.swing.JRadioButton();
         rbtQuant = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
-        cbxTipo = new javax.swing.JComboBox();
+        cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
-        txtBuscaCliente = new javax.swing.JTextField();
+        txtBuscaProduto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaCli = new javax.swing.JTable();
@@ -86,7 +88,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por tipo"));
 
-        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo" }));
+        cbxTipoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoProdutoActionPerformed(evt);
+            }
+        });
 
         btnBuscar1.setText("Buscar");
         btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +107,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(cbxTipo, 0, 170, Short.MAX_VALUE)
+                .addComponent(cbxTipoProduto, 0, 196, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar1)
                 .addContainerGap())
@@ -110,7 +117,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1)))
         );
 
@@ -134,10 +141,10 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtQuant))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -152,7 +159,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                             .addComponent(rbtTipo2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -232,11 +239,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             dtm.removeRow(aux);
         }
 
-        if(txtBuscaCliente.getText().isEmpty()){
+        if(txtBuscaProduto.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Digite para pesquisar");
 
         }else{
             int cont=0;
+            /*
             try {
 
                 List<Cliente> cli = new LinkedList<Cliente>();
@@ -244,19 +252,19 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 Cliente c = new Cliente();
 
                 if(rbtNome.isSelected()){
-                    cli = cdao.getClientesByName(txtBuscaCliente.getText());
+                   //cli = cdao.getClientesByName(txtBuscaProduto.getText());
                 }else{
                     int validador=0;
                     String letras="abcdefghyjklmnopqrstuvwxyz";
 
-                    String    texto = txtBuscaCliente.getText().toLowerCase();
+                    String    texto = txtBuscaProduto.getText().toLowerCase();
                     for(int i=0; i<texto.length(); i++){
                         if (letras.indexOf(texto.charAt(i),0)!=-1){
                             validador =1;
                         }
                     }
                     if(validador==0){
-                        cli = cdao.getClientesByCPF(Integer.parseInt(txtBuscaCliente.getText()));
+                        //cli = cdao.getClientesByCPF(Integer.parseInt(txtBuscaProduto.getText()));
                     }else{
                         cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                         JOptionPane.showMessageDialog(null, "Informe somente números");
@@ -275,7 +283,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
-            }
+            }*/
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -288,15 +296,16 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
 
             NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
-
+/*
             try {
-                cli = cdao.getDetalhes(NumCpf);
-            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
+              //  cli = cdao.getDetalhes(NumCpf);
+            }catch(SQLException ex){
                 Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             frmExibirCliente1.CadastrarDados(cli);
-
+*/
         }
     }//GEN-LAST:event_tblBuscaCliMouseClicked
 
@@ -312,6 +321,16 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
+    private void cbxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTipoProdutoActionPerformed
+    public void carregarCbx(){
+        for(EnumTipoProduto ep: EnumTipoProduto.values()){
+               cbxTipoProduto.addItem(ep.getNome());   
+            }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -351,9 +370,8 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox cbxTipo;
+    private javax.swing.JComboBox cbxTipoProduto;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscaProdutos;
@@ -361,6 +379,6 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtQuant;
     private javax.swing.JRadioButton rbtTipo2;
     private javax.swing.JTable tblBuscaCli;
-    private javax.swing.JTextField txtBuscaCliente;
+    private javax.swing.JTextField txtBuscaProduto;
     // End of variables declaration//GEN-END:variables
 }
