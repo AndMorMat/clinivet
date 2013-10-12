@@ -10,10 +10,11 @@ public class ProdutoDAO extends GenericoDAO{
     public int adicionaProduto(Produto produto)throws SQLException{
        try{
         produto.setId(getNextId("produtos"));  
-        String query = "insert into produtos (id,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque)"
-                + "values(?,?,?,?,?,?,?,?)";
+        String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque)"
+                + "values(?,?,?,?,?,?,?,?,?)";
         executeCommand(query, 
                              produto.getId(),
+                             produto.getCodigo(),
                              produto.getNome(),
                              produto.getPrecoCusto(),
                              produto.getMargemLucro(),
