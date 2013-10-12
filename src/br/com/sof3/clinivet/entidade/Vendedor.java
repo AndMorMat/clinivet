@@ -5,11 +5,20 @@ public class Vendedor {
     private String nome;
     private String login;
     private String senha;
-    
+    public String exibir(){
+        return "\nNome: " +nome+
+               "\nLogin: " +login+
+               "\nSenha: " +senha;
+    }
     public Vendedor() {
         
     }
-    
+    public void cadastrar(Integer id, String nome, String login, String senha){
+        setId(id);
+        setNome(nome);
+        setLogin(login);
+        setSenha(senha);
+    }
     public Vendedor(Integer id) {
         this.id = id;
     }
