@@ -65,7 +65,20 @@ public class ProdutoDAO extends GenericoDAO{
         List<Produto> toReturn = new LinkedList<Produto>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo like \""+tipo+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE tipo like \""+tipo+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateProduto(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Produto> getProdutosByQuant(int quant) throws SQLException {
+        List<Produto> toReturn = new LinkedList<Produto>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE qtdestoque <=\""+quant+"\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
