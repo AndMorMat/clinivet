@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendedorDAO;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -238,7 +239,8 @@ public class telaPrincipal extends javax.swing.JDialog {
 
     private void jMenuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarClienteActionPerformed
         //cadastrar usuario
-        frmAddVendedor addUsuario = new frmAddVendedor(new javax.swing.JFrame(), true, vdao);
+        Vendedor v = new  Vendedor();
+        frmAddVendedor addUsuario = new frmAddVendedor(new javax.swing.JFrame(), true, vdao,"cadastrar",v);
     }//GEN-LAST:event_jMenuCadastrarClienteActionPerformed
 
     private void jMenuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarProdutoActionPerformed
@@ -256,7 +258,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedoresActionPerformed
-        frmPesquisaVendedor pesquisaVendedor = new frmPesquisaVendedor();
+        frmPesquisaVendedor pesquisaVendedor = new frmPesquisaVendedor("pesquisar");
     }//GEN-LAST:event_jMenuItemVendedoresActionPerformed
 
     private void jMenuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadFornecedorActionPerformed
@@ -281,7 +283,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
-        
+        frmPesquisaVendedor frmPesquisaVendedor = new frmPesquisaVendedor("editar");
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
     /**
