@@ -38,6 +38,11 @@ public class Produto {
         return dados;  
     }
     
+    public String[] addTableConsulta(){
+        String [] dados = { codigo, nome, tipoProduto, String.valueOf(precoVenda), String.valueOf(estoque)};
+        return dados;
+}
+    
     public Produto(int id) {
         this.id = id;
     }

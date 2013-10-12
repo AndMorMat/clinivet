@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.EnumTipoProduto;
+import br.com.sof3.clinivet.entidade.Produto;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,14 +26,15 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     /**
      * Creates new form frmPesquisaProduto
      */
-    ProdutoDAO cdao = new ProdutoDAO();
+    ProdutoDAO pdao = new ProdutoDAO();
+    
     public frmPesquisaProduto() {
         initComponents();
         setVisible(true);
-        carregarCbx();
         setLocationRelativeTo(null);
+        rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        initComponents();
+        carregarCbx();
     }
 
     /**
@@ -48,15 +50,18 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         lblBuscaProdutos = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         rbtNome = new javax.swing.JRadioButton();
-        rbtTipo2 = new javax.swing.JRadioButton();
+        rbtCod = new javax.swing.JRadioButton();
         rbtQuant = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
-        txtBuscaProduto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        txtBuscaPro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBuscaCli = new javax.swing.JTable();
+        tblBuscaPro = new javax.swing.JTable();
+        lblValor = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblQuant = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,11 +75,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(rbtTipo2);
-        rbtTipo2.setText("Código");
-        rbtTipo2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbtCod);
+        rbtCod.setText("Código");
+        rbtCod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtTipo2ActionPerformed(evt);
+                rbtCodActionPerformed(evt);
             }
         });
 
@@ -88,7 +93,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por tipo"));
 
-        cbxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo" }));
+        cbxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Todos" }));
         cbxTipoProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoProdutoActionPerformed(evt);
@@ -115,7 +120,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1)))
@@ -128,25 +133,31 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             }
         });
 
+        txtBuscaPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaProActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(rbtNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtTipo2)
+                        .addComponent(rbtCod)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtQuant))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBuscar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,16 +167,16 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rbtNome)
                             .addComponent(rbtQuant)
-                            .addComponent(rbtTipo2))
+                            .addComponent(rbtCod))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar)))
+                            .addComponent(btnBuscar)
+                            .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tblBuscaCli.setModel(new javax.swing.table.DefaultTableModel(
+        tblBuscaPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -188,12 +199,18 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBuscaCli.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBuscaPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBuscaCliMouseClicked(evt);
+                tblBuscaProMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblBuscaCli);
+        jScrollPane1.setViewportView(tblBuscaPro);
+
+        lblValor.setText("Valor total: R$ 0,00");
+
+        lblTotal.setText("Total da Busca: 0 Resultado(s)");
+
+        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,26 +218,42 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBuscaProdutos)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 29, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTotal)
+                        .addGap(52, 52, 52)
+                        .addComponent(lblValor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblQuant)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblBuscaProdutos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblValor)
+                            .addComponent(lblTotal)
+                            .addComponent(lblQuant))
+                        .addGap(20, 20, 20))))
         );
 
         pack();
@@ -232,70 +265,92 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
 
         int cont2 = dtm.getRowCount();
         for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
             dtm.removeRow(aux);
         }
-
-        if(txtBuscaProduto.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Digite para pesquisar");
-
+        
+        if(txtBuscaPro.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Digite para pesquisar");
+               lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
+               lblValor.setText("Valor total: R$ 0,00");
+               lblTotal.setText("Total da Busca: 0 Resultado(s)");
+          
         }else{
-            int cont=0;
-            /*
+            int cont=0, quantEst=0, quantResul=0;
+            double preco = 0;
+            
             try {
 
-                List<Cliente> cli = new LinkedList<Cliente>();
+                List<Produto> pro = new LinkedList<Produto>();
 
-                Cliente c = new Cliente();
-
+                Produto p  = new Produto();
                 if(rbtNome.isSelected()){
-                   //cli = cdao.getClientesByName(txtBuscaProduto.getText());
+                   pro = pdao.getProdutoByName(txtBuscaPro.getText());
+                }else if(rbtCod.isSelected()){
+                    pro = pdao.getProdutoByCodigo(txtBuscaPro.getText());
                 }else{
                     int validador=0;
                     String letras="abcdefghyjklmnopqrstuvwxyz";
 
-                    String    texto = txtBuscaProduto.getText().toLowerCase();
+                    String    texto = txtBuscaPro.getText().toLowerCase();
                     for(int i=0; i<texto.length(); i++){
                         if (letras.indexOf(texto.charAt(i),0)!=-1){
                             validador =1;
                         }
                     }
                     if(validador==0){
-                        //cli = cdao.getClientesByCPF(Integer.parseInt(txtBuscaProduto.getText()));
+                        pro = pdao.getProdutosByQuant(Integer.parseInt(txtBuscaPro.getText()));
                     }else{
                         cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                         JOptionPane.showMessageDialog(null, "Informe somente números");
+                        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
+                        lblValor.setText("Valor total: R$ 0,00");
+                        lblTotal.setText("Total da Busca: 0 Resultado(s)");
                     }
                 }
-                for(int aux =0;aux<cli.size();aux++){
-                    c.setNome(cli.get(aux).getNome());
-                    c.setCpf(cli.get(aux).getCpf());
-                    c.setTelefone(cli.get(aux).getTelefone());
+                
+                for(int aux =0;aux<pro.size();aux++){
+                    p.setCodigo(pro.get(aux).getCodigo());
+                    p.setNome(pro.get(aux).getNome());
+                    p.setTipoProduto(pro.get(aux).getTipoProduto());
+                    p.setPrecoVenda(pro.get(aux).getPrecoVenda());
+                    p.setEstoque(pro.get(aux).getEstoque());
+                    
+                    quantResul++;
+                    quantEst+=pro.get(aux).getEstoque();
+                    preco+=pro.get(aux).getPrecoVenda();
 
-                    dtm.addRow(c.addTable());
+                    dtm.addRow(p.addTableConsulta());
                     cont++;
                 }
+                
+                lblQuant.setText("Quant Total Estoque: "+quantEst+" Iten(s)");
+                lblValor.setText("Valor total: R$ "+preco);
+                lblTotal.setText("Total da Busca: "+quantResul+" Resultado(s)");
+                
+                
+                
                 if(cont==0)//para exibir caso procura não exiba nada
                 JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
-            }*/
+            }
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
+    private void tblBuscaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaProMouseClicked
         String NumCpf;
         if (evt.getClickCount() == 2) {
             Cliente cli = new Cliente();
 
             frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
 
-            NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
+            NumCpf = String.valueOf(tblBuscaPro.getValueAt(tblBuscaPro.getSelectedRow(),1));
 /*
             try {
                 JOptionPane.showMessageDialog(null, "Digite para pesquisar");
@@ -307,23 +362,79 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             frmExibirCliente1.CadastrarDados(cli);
 */
         }
-    }//GEN-LAST:event_tblBuscaCliMouseClicked
+    }//GEN-LAST:event_tblBuscaProMouseClicked
 
     private void rbtQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtQuantActionPerformed
 
     }//GEN-LAST:event_rbtQuantActionPerformed
 
-    private void rbtTipo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTipo2ActionPerformed
+    private void rbtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtCodActionPerformed
 
-    }//GEN-LAST:event_rbtTipo2ActionPerformed
+    }//GEN-LAST:event_rbtCodActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
+        
+        int quantEst=0, quantResul=0;
+        double preco = 0;
+        
+        int cont2 = dtm.getRowCount();
+        for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
+            dtm.removeRow(aux);
+        }
+        try {
+                List<Produto> pro = new LinkedList<Produto>();
+
+                Produto p  = new Produto();
+                int cont=0;
+                               
+                if(!"Todos".equals(cbxTipoProduto.getSelectedItem())){//comparando combo caso usuario queira ver todos os tipos
+                   pro = pdao.getProdutosByTipo(String.valueOf(cbxTipoProduto.getSelectedItem()));
+                }else{ 
+                   pro = pdao.getProdutoByName("");
+                }
+                   
+
+                    for(int aux =0;aux<pro.size();aux++){
+                                p.setCodigo(pro.get(aux).getCodigo());
+                                p.setNome(pro.get(aux).getNome());
+                                p.setTipoProduto(pro.get(aux).getTipoProduto());
+                                p.setPrecoVenda(pro.get(aux).getPrecoVenda());
+                                p.setEstoque(pro.get(aux).getEstoque());
+                                    
+                                quantResul++;
+                                quantEst+=pro.get(aux).getEstoque();
+                                preco+=pro.get(aux).getPrecoVenda();
+                    
+                                dtm.addRow(p.addTableConsulta());
+                                cont++;
+                    }
+                    if(pro.size()==0){
+                        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
+                        lblValor.setText("Valor total: R$ 0,00");
+                        lblTotal.setText("Total da Busca: 0 Resultado(s)");
+                    }
+                    
+                     lblQuant.setText("Quant Total Estoque: "+quantEst+" Iten(s)");
+                     lblValor.setText("Valor total: R$ "+preco);
+                     lblTotal.setText("Total da Busca: "+quantResul+" Resultado(s)");
+                
+                    if(cont==0)//para exibir caso procura não exiba nada
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+        }catch(SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
+            }
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
     private void cbxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxTipoProdutoActionPerformed
+
+    private void txtBuscaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaProActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtBuscaProActionPerformed
     public void carregarCbx(){
         for(EnumTipoProduto ep: EnumTipoProduto.values()){
                cbxTipoProduto.addItem(ep.getNome());
@@ -375,10 +486,13 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscaProdutos;
+    private javax.swing.JLabel lblQuant;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JRadioButton rbtCod;
     private javax.swing.JRadioButton rbtNome;
     private javax.swing.JRadioButton rbtQuant;
-    private javax.swing.JRadioButton rbtTipo2;
-    private javax.swing.JTable tblBuscaCli;
-    private javax.swing.JTextField txtBuscaProduto;
+    private javax.swing.JTable tblBuscaPro;
+    private javax.swing.JTextField txtBuscaPro;
     // End of variables declaration//GEN-END:variables
 }
