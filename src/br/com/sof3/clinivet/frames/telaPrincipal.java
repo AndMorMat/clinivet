@@ -77,6 +77,8 @@ public class telaPrincipal extends javax.swing.JDialog {
         submenuAgendar = new javax.swing.JMenuItem();
         submenuConsultarAgenda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuVendas = new javax.swing.JMenu();
+        jMenuEfetuarVenda = new javax.swing.JMenuItem();
 
         setResizable(false);
 
@@ -205,6 +207,18 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(menuAgenda);
 
+        jMenuVendas.setText("Vendas");
+
+        jMenuEfetuarVenda.setText("Efetuar Venda");
+        jMenuEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEfetuarVendaActionPerformed(evt);
+            }
+        });
+        jMenuVendas.add(jMenuEfetuarVenda);
+
+        jMenuBar1.add(jMenuVendas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,6 +298,10 @@ public class telaPrincipal extends javax.swing.JDialog {
         
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
+    private void jMenuEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEfetuarVendaActionPerformed
+        frmEfetuarVenda venda = new frmEfetuarVenda();
+    }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,11 +348,13 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuCadastrarProduto;
     private javax.swing.JMenu jMenuCadastrarUsuario;
     private javax.swing.JMenu jMenuConsultas;
+    private javax.swing.JMenuItem jMenuEfetuarVenda;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
+    private javax.swing.JMenu jMenuVendas;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
     private javax.swing.JMenuItem submenuAgendar;

@@ -53,10 +53,27 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome Produto", "Preço"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableProdutos);
+        tableProdutos.getColumnModel().getColumn(0).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(2).setResizable(false);
 
         btnProcurar.setText("Procurar");
         btnProcurar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,11 +168,12 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnProcurarActionPerformed
-
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         DefaultTableModel dtm = (DefaultTableModel)tableProdutos.getModel();
+        
+        int cont2 = dtm.getRowCount();
+        for(int aux = cont2-1; aux >= 0;  aux--){//removendo valores da tabela
+            dtm.removeRow(aux);
+        }
         
         if(txtBuscar.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "O campo não pode estar em branco");
@@ -171,10 +189,10 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
                 if(radioNomeProduto.isSelected()){
                     pro = pdao.getProdutoByName(txtBuscar.getText());
                 }
-                if(radioCodigoProduto.isSelected()) {
+                else if(radioCodigoProduto.isSelected()) {
                     pro = pdao.getProdutoByCodigo(txtBuscar.getText());
                 }
-                if(radioTipo.isSelected()) {
+                else {
                     pro = pdao.getProdutosByTipo(txtBuscar.getText());
                 }
                 
@@ -190,8 +208,18 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                 }
              } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
+                JOptionPane.showMessageDialog(null, "Erro no try da classe frmAddProdutoParaVenda no botao buscar");
              }
+        }
+    }//GEN-LAST:event_btnProcurarActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        Integer qnt = Integer.parseInt(txtQuantidade.getText());
+
+        if (qnt <= 0) {
+            JOptionPane.showMessageDialog(this, "Qnt must be higher than 0","Error",JOptionPane.ERROR_MESSAGE);
+            txtQuantidade.requestFocus();
+            return;
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
