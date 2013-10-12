@@ -17,14 +17,24 @@ import javax.swing.JOptionPane;
  */
 public class frmAddVendedor extends javax.swing.JDialog {
     public final VendedorDAO dao;
-    /**
-     * Creates new form frmAddVendedor
-     */
-    public frmAddVendedor(java.awt.Frame parent, boolean modal,VendedorDAO dao) {
+    
+    String param = "";
+    
+    public frmAddVendedor(java.awt.Frame parent, boolean modal,VendedorDAO dao, String parametro, Vendedor vendedor) {
+        
         super(parent, modal);
         this.dao = dao;
         initComponents();
         setLocationRelativeTo(null);
+        param = parametro;
+        if(parametro.equals("editar")){
+            carregarCampos(vendedor);
+            btnOk.setText("Editar");
+            lblTitulo.setText("Editar Vendedor");
+        }else if(parametro.equals("cadastrar")){
+            btnOk.setText("Cadastrar");
+            lblTitulo.setText("Cadastrar Vendedor");
+        }
         setVisible(true);
         
     }
@@ -48,7 +58,7 @@ public class frmAddVendedor extends javax.swing.JDialog {
         txtLogin = new javax.swing.JTextField();
         txtRepitaSenha = new javax.swing.JPasswordField();
         txtSenha = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,20 +84,20 @@ public class frmAddVendedor extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Cadastrar Vendedor");
+        lblTitulo.setText("Cadastrar Vendedor");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(btnOk)
-                        .add(18, 18, 18)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnCancelar)
-                        .add(117, 117, 117))
+                        .add(141, 141, 141))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, lblRepitaSenha)
@@ -107,17 +117,16 @@ public class frmAddVendedor extends javax.swing.JDialog {
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, txtRepitaSenha)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, txtSenha)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, txtLogin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 116, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(20, 20, 20))))
-            .add(layout.createSequentialGroup()
-                .add(119, 119, 119)
-                .add(jLabel2)
-                .add(0, 0, Short.MAX_VALUE))
+                        .add(41, 41, 41))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(lblTitulo)
+                        .add(152, 152, 152))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel2)
+                .add(lblTitulo)
                 .add(28, 28, 28)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblNome)
@@ -145,24 +154,41 @@ public class frmAddVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if (!txtSenha.getText().equals(txtRepitaSenha.getText())) {
-             JOptionPane.showMessageDialog(this, "As senhas não são iguais","Erro",JOptionPane.ERROR_MESSAGE);
-             return;
-         }
+        if(param.equals("cadastrar")){
+            if (!txtSenha.getText().equals(txtRepitaSenha.getText())) {
+                 JOptionPane.showMessageDialog(this, "As senhas não são iguais","Erro",JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
 
-         int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adicionar novo vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-         if (result==2) return;
+             int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adicionar novo vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+             if (result==2) return;
 
-         Vendedor vendedor = new Vendedor();
-         vendedor.setNome(txtNome.getText());
-         vendedor.setLogin(txtLogin.getText());
-         vendedor.setSenha(txtSenha.getText());
-        try {
-            dao.adicionaVendedor(vendedor);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showConfirmDialog(null, "teste");
-            JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
+             Vendedor vendedor = new Vendedor();
+             vendedor.setNome(txtNome.getText());
+             vendedor.setLogin(txtLogin.getText());
+             vendedor.setSenha(txtSenha.getText());
+            try {
+                dao.adicionaVendedor(vendedor);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                
+                JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
+            }
+        }else if(param.equals("editar")){
+            int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar esse vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+             if (result==2) return;
+             Vendedor vendedor = new Vendedor();
+             //Integer id, String nome, String login, String senha
+             JOptionPane.showMessageDialog(null, "Teste");
+             try{
+                 JOptionPane.showMessageDialog(null, "Antes de cadastrar");
+                 vendedor.cadastrar(dao.getIdVendedor(txtLogin.getText()),txtNome.getText(), txtLogin.getText(), txtSenha.getText());
+                 JOptionPane.showMessageDialog(null, "Antes de chamar o DAO\n"+vendedor.exibir());
+                 dao.atualizaVendedor(vendedor);
+                 JOptionPane.showMessageDialog(null, "Editado com sucesso");
+             }catch(Exception ex){
+                 JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor na classe frmAddVendedor");
+             }
         }
         setVisible(false);
     }//GEN-LAST:event_btnOkActionPerformed
@@ -170,15 +196,20 @@ public class frmAddVendedor extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    public void carregarCampos(Vendedor v){
+        txtLogin.setText(v.getLogin());
+        txtNome.setText(v.getNome());
+        txtSenha.setText(v.getSenha());
+        txtRepitaSenha.setText(v.getSenha());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblRepitaSenha;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtRepitaSenha;

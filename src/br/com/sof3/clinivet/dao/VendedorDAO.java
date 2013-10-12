@@ -43,16 +43,37 @@ public class VendedorDAO extends GenericoDAO {
     public void removeVendedor(int idVendedor) throws SQLException {
         executeCommand("DELETE FROM VENDEDORES WHERE ID = ?", idVendedor);
     }
+    public int getIdVendedor(String login) throws SQLException{
+        Vendedor vendedor = new Vendedor();
+        try{
+            ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login = ?", login);
+            JOptionPane.showMessageDialog(null, login);
+            
 
+            while(rs.next()) {
+                vendedor = populateVendedorInfo(rs);
+            }
+            rs.close();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao pegar id na classe vendedorDAO");
+        }
+        return vendedor.getId();
+    }
     public void atualizaVendedor(Vendedor vendedor) throws SQLException {
-        String query = "UPDATE VENDEDORES SET NOME=?, LOGIN=?, SENHA=? WHERE ID = ?";
-        executeCommand(query, vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(), vendedor.getId());
+        try{
+            String query = "UPDATE vendedores SET nome = ?, login = ?, senha = ? WHERE id = ?";
+//            update vendedores set nome = "Andre Matos", login = "AndMat", senha = "34x88=2992" where id = 2;
+
+            executeCommand(query, vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(), vendedor.getId());
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedores na classe VendedorDAO");
+        }
     }
 
     public Vendedor getVendedor(int idVendedor) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM VENDEDORES WHERE ID = ?", idVendedor);
         Vendedor vendedor = null;
-        if (rs.next()) {
+        while(rs.next()) {
             vendedor = populateVendedorInfo(rs);
         }
         rs.close();
