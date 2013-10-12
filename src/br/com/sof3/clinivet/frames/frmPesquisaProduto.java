@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.EnumTipoProduto;
+import br.com.sof3.clinivet.entidade.Produto;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,14 +26,15 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     /**
      * Creates new form frmPesquisaProduto
      */
-    ProdutoDAO cdao = new ProdutoDAO();
+    ProdutoDAO pdao = new ProdutoDAO();
+    
     public frmPesquisaProduto() {
         initComponents();
         setVisible(true);
-        carregarCbx();
         setLocationRelativeTo(null);
+        rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        initComponents();
+        carregarCbx();
     }
 
     /**
@@ -53,10 +55,10 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
-        txtBuscaProduto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        txtBuscaPro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBuscaCli = new javax.swing.JTable();
+        tblBuscaPro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +117,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1)))
@@ -125,6 +127,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtBuscaPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaProActionPerformed(evt);
             }
         });
 
@@ -141,8 +149,8 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtQuant))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBuscar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,13 +167,13 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                             .addComponent(rbtTipo2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar)))
+                            .addComponent(btnBuscar)
+                            .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        tblBuscaCli.setModel(new javax.swing.table.DefaultTableModel(
+        tblBuscaPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -188,12 +196,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBuscaCli.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBuscaPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBuscaCliMouseClicked(evt);
+                tblBuscaProMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblBuscaCli);
+        jScrollPane1.setViewportView(tblBuscaPro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,70 +240,72 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
 
         int cont2 = dtm.getRowCount();
         for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
             dtm.removeRow(aux);
         }
-
-        if(txtBuscaProduto.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Digite para pesquisar");
-
+        
+        if(txtBuscaPro.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Digite para pesquisar");
+          
         }else{
             int cont=0;
-            /*
             try {
 
-                List<Cliente> cli = new LinkedList<Cliente>();
+                List<Produto> pro = new LinkedList<Produto>();
 
-                Cliente c = new Cliente();
-
+                Produto p  = new Produto();
                 if(rbtNome.isSelected()){
-                   //cli = cdao.getClientesByName(txtBuscaProduto.getText());
+                   pro = pdao.getProdutoByName(txtBuscaPro.getText());
                 }else{
                     int validador=0;
                     String letras="abcdefghyjklmnopqrstuvwxyz";
 
-                    String    texto = txtBuscaProduto.getText().toLowerCase();
+                    String    texto = txtBuscaPro.getText().toLowerCase();
                     for(int i=0; i<texto.length(); i++){
                         if (letras.indexOf(texto.charAt(i),0)!=-1){
                             validador =1;
                         }
                     }
                     if(validador==0){
-                        //cli = cdao.getClientesByCPF(Integer.parseInt(txtBuscaProduto.getText()));
+                        pro = pdao.getProdutoByCodigo(txtBuscaPro.getText());
                     }else{
                         cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                         JOptionPane.showMessageDialog(null, "Informe somente números");
                     }
                 }
-                for(int aux =0;aux<cli.size();aux++){
-                    c.setNome(cli.get(aux).getNome());
-                    c.setCpf(cli.get(aux).getCpf());
-                    c.setTelefone(cli.get(aux).getTelefone());
+                for(int aux =0;aux<pro.size();aux++){
+                    p.setCodigo(pro.get(aux).getCodigo());
+                    p.setNome(pro.get(aux).getNome());
+                    p.setTipoProduto(pro.get(aux).getTipoProduto());
+                    p.setPrecoVenda(pro.get(aux).getPrecoVenda());
+                    p.setEstoque(pro.get(aux).getEstoque());
+                    
 
-                    dtm.addRow(c.addTable());
+                    dtm.addRow(p.addTableConsulta());
                     cont++;
                 }
+                
                 if(cont==0)//para exibir caso procura não exiba nada
                 JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
-            }*/
+            }
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
+    private void tblBuscaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaProMouseClicked
         String NumCpf;
         if (evt.getClickCount() == 2) {
             Cliente cli = new Cliente();
 
             frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
 
-            NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
+            NumCpf = String.valueOf(tblBuscaPro.getValueAt(tblBuscaPro.getSelectedRow(),1));
 /*
             try {
                 JOptionPane.showMessageDialog(null, "Digite para pesquisar");
@@ -307,7 +317,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             frmExibirCliente1.CadastrarDados(cli);
 */
         }
-    }//GEN-LAST:event_tblBuscaCliMouseClicked
+    }//GEN-LAST:event_tblBuscaProMouseClicked
 
     private void rbtQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtQuantActionPerformed
 
@@ -324,6 +334,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private void cbxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxTipoProdutoActionPerformed
+
+    private void txtBuscaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaProActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtBuscaProActionPerformed
     public void carregarCbx(){
         for(EnumTipoProduto ep: EnumTipoProduto.values()){
                cbxTipoProduto.addItem(ep.getNome());
@@ -378,7 +393,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtNome;
     private javax.swing.JRadioButton rbtQuant;
     private javax.swing.JRadioButton rbtTipo2;
-    private javax.swing.JTable tblBuscaCli;
-    private javax.swing.JTextField txtBuscaProduto;
+    private javax.swing.JTable tblBuscaPro;
+    private javax.swing.JTextField txtBuscaPro;
     // End of variables declaration//GEN-END:variables
 }
