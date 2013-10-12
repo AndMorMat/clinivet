@@ -17,7 +17,6 @@ public class ProdutoDAO extends GenericoDAO{
                 + "values(?,?,?,?,?,?,?,?,?,?)";
         executeCommand(query, 
                              produto.getId(),
-                             produto.getCodigo(),
                              produto.getNome(),
                              produto.getPrecoCusto(),
                              produto.getMargemLucro(),
@@ -25,7 +24,9 @@ public class ProdutoDAO extends GenericoDAO{
                              produto.getValidade(),
                              produto.getFornecedor().getId(),
                              produto.getEstoque(),
+                             produto.getCodigo(),
                              produto.getTipoProduto());
+        
       }catch(Exception ex){
           JOptionPane.showMessageDialog(null, "Erro ao cadastrar produtos no banco de dados :: na classe produtoDAO");
       }
@@ -46,6 +47,7 @@ public class ProdutoDAO extends GenericoDAO{
         return toReturn;
     }
     
+   
     public List<Produto> getProdutoByCodigo(String codigo) throws SQLException {
         List<Produto> toReturn = new LinkedList<Produto>();
         
@@ -77,13 +79,14 @@ public class ProdutoDAO extends GenericoDAO{
         
         Produto toReturn = new Produto();
         toReturn.setId(rs.getInt("ID"));
-        toReturn.setCodigo(rs.getString("CODIGO"));
+        toReturn.setNome(rs.getString("NOME"));
         toReturn.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
         toReturn.setMargemLucro(rs.getDouble("MARGEM_LUCRO"));
         toReturn.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
         toReturn.setValidade(rs.getString("VALIDADE"));
         toReturn.setFornecedor(fornecedorDAO.getFornecedor(rs.getInt("ID_FORNECEDOR")));
-        toReturn.setEstoque(rs.getInt("QTD_ESTOQUE"));
+        toReturn.setEstoque(rs.getInt("QTDESTOQUE"));
+        toReturn.setCodigo(rs.getString("CODIGO"));
         toReturn.setTipoProduto(rs.getString("TIPO"));
         
         return toReturn;
