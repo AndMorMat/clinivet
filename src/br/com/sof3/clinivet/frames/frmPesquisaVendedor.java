@@ -8,6 +8,7 @@ import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,12 +24,19 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
     /**
      * Creates new form frmPesquisaVendedor
      */
-    public frmPesquisaVendedor() {
+    public frmPesquisaVendedor(String parametro) {
         initComponents();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-         rbtNome.setSelected(true);
+        rbtNome.setSelected(true);
+        if(parametro.equals("editar")){//configurações carregadas caso o parametro for editar
+            btnEditar.setVisible(true);
+            lblBuscarVendedor.setText("Editar Usuário");
+        }else if(parametro.equals("pesquisar")){
+            btnEditar.setVisible(false);
+            lblBuscarVendedor.setText("Buscar Usuário");
+        }
     }
 
     /**
@@ -43,13 +51,14 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaVendedor = new javax.swing.JTable();
-        lblNomeVendedor = new javax.swing.JLabel();
+        lblBuscarVendedor = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         rbtNome = new javax.swing.JRadioButton();
         rbtLogin = new javax.swing.JRadioButton();
         btnUltimosCad = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         txtBuscaVendedor = new javax.swing.JTextField();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,7 +90,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         tblBuscaVendedor.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblBuscaVendedor.getColumnModel().getColumn(1).setResizable(false);
 
-        lblNomeVendedor.setText("Buscar Vendedores");
+        lblBuscarVendedor.setText("Buscar Vendedores");
 
         buttonGroup1.add(rbtNome);
         rbtNome.setText("Nome");
@@ -130,49 +139,56 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeVendedor)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(36, 36, 36))))
+                            .addComponent(lblBuscarVendedor)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(266, 266, 266)
+                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(515, 515, 515)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNomeVendedor)
+                        .addComponent(lblBuscarVendedor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnUltimosCad)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnUltimosCad, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnEditar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -267,14 +283,30 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtNomeActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Vendedor vendedor = new Vendedor();
+        List<Vendedor> vend = new LinkedList<Vendedor>();
+        try{
+            DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
+            String login = String.valueOf(dtm.getValueAt(tblBuscaVendedor.getSelectedRow(), 1));
+
+            vend=vdao.getVendedorByLogin(login);
+
+            frmAddVendedor frmEditarVendedor = new frmAddVendedor(this, rootPaneCheckingEnabled,vdao,"editar", vend.get(0));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro no botão editar na classe frmPesquisaVendedor");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnUltimosCad;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblNomeVendedor;
+    private javax.swing.JLabel lblBuscarVendedor;
     private javax.swing.JRadioButton rbtLogin;
     private javax.swing.JRadioButton rbtNome;
     private javax.swing.JTable tblBuscaVendedor;
