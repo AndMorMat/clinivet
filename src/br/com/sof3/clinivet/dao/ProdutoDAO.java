@@ -14,7 +14,7 @@ public class ProdutoDAO extends GenericoDAO{
        try{
         produto.setId(getNextId("produtos"));  
         String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque)"
-                + "values(?,?,?,?,?,?,?,?,?)";
+                + "values(?,?,?,?,?,?,?,?,?,?)";
         executeCommand(query, 
                              produto.getId(),
                              produto.getCodigo(),
@@ -37,6 +37,32 @@ public class ProdutoDAO extends GenericoDAO{
         
         
         ResultSet rs = executeQuery("SELECT * FROM produtos WHERE nome like \""+nome+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateProduto(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Produto> getProdutoByCodigo(String codigo) throws SQLException {
+        List<Produto> toReturn = new LinkedList<Produto>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo like \""+codigo+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateProduto(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Produto> getProdutosByTipo(String tipo) throws SQLException {
+        List<Produto> toReturn = new LinkedList<Produto>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE tipo like \""+tipo+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
