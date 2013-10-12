@@ -13,29 +13,14 @@ public class Produto {
     private String validade;
     private Fornecedor fornecedor;
     private int estoque;
+    private String tipoProduto;
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public int getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
-    }
     
     public Produto() {
         
     }
     public void cadastrar(int id, String codigo, String nome, double precoCusto, double margemLucro,
-            double precoVenda, String validade, Fornecedor fornecedor,int estoque) {
-        
+            double precoVenda, String validade, Fornecedor fornecedor,int estoque,String tipoProduto) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
@@ -45,6 +30,7 @@ public class Produto {
         this.estoque = estoque;
         this.validade = validade;
         this.fornecedor = fornecedor;
+        this.tipoProduto = tipoProduto;
     }
     public Produto(int id) {
         this.id = id;
@@ -130,4 +116,28 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
+    public String getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(String tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+    }
+    
 }

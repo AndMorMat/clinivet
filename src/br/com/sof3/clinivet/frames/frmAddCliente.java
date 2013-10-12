@@ -415,7 +415,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             CidadeDAO cidadeDAO = new CidadeDAO();
             
             Vector<Cidade> cidades = new Vector<Cidade>(cidadeDAO.getAllCidades());
-            JOptionPane.showMessageDialog(null, cidades.size());
+        
             DefaultComboBoxModel comboCidade = new DefaultComboBoxModel(cidades);
             comboCidades.setModel(comboCidade);
         } catch (Exception e) {

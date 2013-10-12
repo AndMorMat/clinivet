@@ -66,6 +66,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuCadFornecedor = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        editarUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
@@ -131,6 +132,15 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuBar1.add(jMenuCadastrarUsuario);
 
         jMenu2.setText("Editar");
+
+        editarUsuario.setText("Usuário");
+        editarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(editarUsuario);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Relatórios");
@@ -211,7 +221,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(670, Short.MAX_VALUE))
+                .addContainerGap(674, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,6 +280,10 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmPesquisaProduto pesquisaProduto = new frmPesquisaProduto();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
+        
+    }//GEN-LAST:event_editarUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,6 +319,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem editarUsuario;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
