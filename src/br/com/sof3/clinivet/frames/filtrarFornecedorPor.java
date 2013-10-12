@@ -43,12 +43,19 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
         rbtNome = new javax.swing.JRadioButton();
         rbtCnpj = new javax.swing.JRadioButton();
         rbtTelefone = new javax.swing.JRadioButton();
+        rbtTodos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Fornecedor por"));
 
-        btnFiltrar.setText("Filtrar");
+        txtParametro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtParametroKeyPressed(evt);
+            }
+        });
+
+        btnFiltrar.setText("Filtrar por Nome");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
@@ -58,30 +65,66 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
         buttonGrupFiltro.add(rbtNome);
         rbtNome.setSelected(true);
         rbtNome.setText("Nome");
+        rbtNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtNomeMouseClicked(evt);
+            }
+        });
 
         buttonGrupFiltro.add(rbtCnpj);
         rbtCnpj.setText("Cnpj");
+        rbtCnpj.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtCnpjMouseClicked(evt);
+            }
+        });
 
         buttonGrupFiltro.add(rbtTelefone);
         rbtTelefone.setText("Telefone");
+        rbtTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtTelefoneMouseClicked(evt);
+            }
+        });
+
+        buttonGrupFiltro.add(rbtTodos);
+        rbtTodos.setText("Todos");
+        rbtTodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtTodosMouseClicked(evt);
+            }
+        });
+        rbtTodos.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                rbtTodosAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(txtParametro, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(rbtNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbtCnpj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbtTelefone)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(txtParametro, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbtNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtCnpj)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtTelefone)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtTodos)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +133,8 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtNome)
                     .addComponent(rbtCnpj)
-                    .addComponent(rbtTelefone))
+                    .addComponent(rbtTelefone)
+                    .addComponent(rbtTodos))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtParametro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,6 +166,10 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
         FornecedorDAO fdao = new FornecedorDAO();
         ArrayList<Fornecedor> fornecedor = new ArrayList<>();
         try{
+            if(!rbtTodos.isSelected() && txtParametro.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Digite um valor para pesquisar");
+                return;
+            }else
             if(rbtNome.isSelected()){
                 
                 fornecedor = fdao.FiltrarFornecedorNome(txtParametro.getText());
@@ -130,7 +178,6 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
                 if(fornecedor.isEmpty()){
                     JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                 }else{
-                    JOptionPane.showMessageDialog(null, fornecedor.size());
                     for(int aux=0;aux<fornecedor.size();aux++)
                         dtm.addRow(fornecedor.get(aux).addTable());
                 }
@@ -145,8 +192,7 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
                     for(int aux=0;aux<fornecedor.size();aux++)
                         dtm.addRow(fornecedor.get(aux).addTable());
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Por Telefone");
+            }else if(rbtTelefone.isSelected()){
                 fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
                 limparTabela();
                 DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
@@ -156,12 +202,51 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
                     for(int aux=0;aux<fornecedor.size();aux++)
                         dtm.addRow(fornecedor.get(aux).addTable());
                 }
-            
+            }else{
+                fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
+                limparTabela();
+                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                if(fornecedor.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                }else{
+                    for(int aux=0;aux<fornecedor.size();aux++)
+                        dtm.addRow(fornecedor.get(aux).addTable());
+                }
+                
             }
+            setVisible(false);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro botao filtrar");
         }
     }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void txtParametroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtParametroKeyPressed
+        
+    }//GEN-LAST:event_txtParametroKeyPressed
+
+    private void rbtTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtTodosMouseClicked
+        txtParametro.setEnabled(false);
+        btnFiltrar.setText("Filtrar Todos");
+    }//GEN-LAST:event_rbtTodosMouseClicked
+
+    private void rbtTodosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_rbtTodosAncestorAdded
+        
+    }//GEN-LAST:event_rbtTodosAncestorAdded
+
+    private void rbtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtNomeMouseClicked
+        txtParametro.setEnabled(true);
+        btnFiltrar.setText("Filtrar por Nome");
+    }//GEN-LAST:event_rbtNomeMouseClicked
+
+    private void rbtCnpjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtCnpjMouseClicked
+        txtParametro.setEnabled(true);
+        btnFiltrar.setText("Filtrar por Cnpj");
+    }//GEN-LAST:event_rbtCnpjMouseClicked
+
+    private void rbtTelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtTelefoneMouseClicked
+        txtParametro.setEnabled(true);
+        btnFiltrar.setText("Filtrar por Telefone");
+    }//GEN-LAST:event_rbtTelefoneMouseClicked
 
     public void limparTabela(){
         DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
@@ -177,6 +262,7 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtCnpj;
     private javax.swing.JRadioButton rbtNome;
     private javax.swing.JRadioButton rbtTelefone;
+    private javax.swing.JRadioButton rbtTodos;
     private javax.swing.JTextField txtParametro;
     // End of variables declaration//GEN-END:variables
 }
