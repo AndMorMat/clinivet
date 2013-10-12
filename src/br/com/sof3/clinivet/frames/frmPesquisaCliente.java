@@ -186,7 +186,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
             dtm.removeRow(aux);
         }
-        
+        JOptionPane.showMessageDialog(null, "teste1"+txtBuscaCliente.getText());
         if(txtBuscaCliente.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
           
