@@ -9,6 +9,8 @@ import br.com.sof3.clinivet.dao.EstadoDAO;
 import br.com.sof3.clinivet.dao.FornecedorDAO;
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.Cidade;
+import br.com.sof3.clinivet.entidade.EnumTipoAnimal;
+import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import br.com.sof3.clinivet.entidade.Estado;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
@@ -65,6 +67,8 @@ public class frmAddProduto extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPrecoCusto = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cbxTipoProduto = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,11 +159,15 @@ public class frmAddProduto extends javax.swing.JFrame {
                     .addComponent(btnFiltrar)
                     .addComponent(btnCadastrarFornecedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
 
         jLabel2.setText("Codigo:");
+
+        jLabel3.setText("Tipo produto:");
+
+        cbxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,14 +188,16 @@ public class frmAddProduto extends javax.swing.JFrame {
                             .addComponent(lblValidade)
                             .addComponent(lblPrecoCusto)
                             .addComponent(lblMargemLucro)
-                            .addComponent(lblNome))
+                            .addComponent(lblNome)
+                            .addComponent(jLabel3))
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                             .addComponent(txtMargemLucro)
                             .addComponent(txtEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtValidade, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPrecoCusto))
+                            .addComponent(txtPrecoCusto)
+                            .addComponent(cbxTipoProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -211,7 +221,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome)
@@ -231,13 +241,17 @@ public class frmAddProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblValidade)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                            .addComponent(lblValidade))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -275,7 +289,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                               prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
                               txtValidade.getText(),
                               fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
-                              Integer.parseInt(txtEstoque.getText()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
+                              Integer.parseInt(txtEstoque.getText()),String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
             Fornecedor forn = new Fornecedor();
             forn = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
 //            JOptionPane.showMessageDialog(null,"id: "+ forn.getId());
@@ -297,6 +311,7 @@ public class frmAddProduto extends javax.swing.JFrame {
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
          filtrarFornecedorPor filtrarFornecedor = new filtrarFornecedorPor();
     }//GEN-LAST:event_btnFiltrarActionPerformed
+    
     public boolean verificaCampos(){
         if(txtCodigo.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Preencha o campo Codigo");
@@ -316,6 +331,9 @@ public class frmAddProduto extends javax.swing.JFrame {
         }else if(!(tblFornecedores.getSelectedRow()>0 && tblFornecedores.getSelectedRow()<tblFornecedores.getRowCount())){
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor");
             return false;
+        }else if(!(cbxTipoProduto.getSelectedIndex()>0)){
+            JOptionPane.showMessageDialog(null, "Selecione um Tipo");
+            return false;
         }else return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -323,8 +341,10 @@ public class frmAddProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarFornecedor;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFiltrar;
+    private javax.swing.JComboBox cbxTipoProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEstoque;
@@ -355,6 +375,14 @@ public class frmAddProduto extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao adicionar fornecedores na tabela");
+        }
+        try{
+            
+            for(EnumTipoProduto ep: EnumTipoProduto.values()){
+               cbxTipoProduto.addItem(ep.getNome());   
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar tipo do produto na cbxTipoProduto");
         }
     }
 }
