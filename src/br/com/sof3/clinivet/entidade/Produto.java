@@ -32,6 +32,12 @@ public class Produto {
         this.fornecedor = fornecedor;
         this.tipoProduto = tipoProduto;
     }
+    
+    public String[] addTable(){
+        String [] dados = { codigo, nome, String.valueOf(precoVenda) };
+        return dados;  
+    }
+    
     public Produto(int id) {
         this.id = id;
     }
