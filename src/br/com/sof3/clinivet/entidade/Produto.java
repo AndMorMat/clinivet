@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 public class Produto {
     private int id;
+    private String codigo;
     private String nome;
     private double precoCusto;
     private double margemLucro;
@@ -12,6 +13,14 @@ public class Produto {
     private String validade;
     private Fornecedor fornecedor;
     private int estoque;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
     public int getEstoque() {
         return estoque;
@@ -24,9 +33,11 @@ public class Produto {
     public Produto() {
         
     }
-    public void cadastrar(int id, String nome, double precoCusto, double margemLucro,
+    public void cadastrar(int id, String codigo, String nome, double precoCusto, double margemLucro,
             double precoVenda, String validade, Fornecedor fornecedor,int estoque) {
+        
         this.id = id;
+        this.codigo = codigo;
         this.nome = nome;
         this.precoCusto = precoCusto;
         this.margemLucro = margemLucro;
