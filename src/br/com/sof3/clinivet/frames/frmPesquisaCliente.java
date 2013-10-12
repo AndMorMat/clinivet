@@ -203,7 +203,6 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                      }else{
                         int validador=0; 
                         String letras="abcdefghyjklmnopqrstuvwxyz";
-
                         String    texto = txtBuscaCliente.getText().toLowerCase();
                         for(int i=0; i<texto.length(); i++){
                             if (letras.indexOf(texto.charAt(i),0)!=-1){

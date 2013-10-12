@@ -12,6 +12,7 @@ import br.com.sof3.clinivet.entidade.Estado;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
 import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Locale;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -27,13 +28,21 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     /**
      * Creates new form frmAddFornecedor
      */
-    public frmAddFornecedor() {
+    private int param=1; //variavel recebendo um valor da classe frmAddProduto para saber se e uma ação de lá que chamou essa tela
+    public frmAddFornecedor(){
         initComponents();
         loadInitialComboData();
         setVisible(true);
         setDefaultCloseOperation(WIDTH);
         setLocationRelativeTo(null);
-       
+    }
+    public frmAddFornecedor(int parametro) {
+        param = parametro;
+        initComponents();
+        loadInitialComboData();
+        setVisible(true);
+        setDefaultCloseOperation(WIDTH);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -55,13 +64,13 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         cbxCidade = new javax.swing.JComboBox();
         lblCidade = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtCnpj = new javax.swing.JTextField();
-        txtTelefone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtCnpj = new javax.swing.JFormattedTextField();
+        txtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +99,18 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
         jButton2.setText("Cancelar");
 
+        try {
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,17 +136,17 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNome)
-                            .addComponent(txtCnpj)
-                            .addComponent(txtTelefone)
                             .addComponent(txtEmail)
                             .addComponent(txtBairro)
-                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                             .addComponent(cbxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2)))))
-                .addContainerGap(102, Short.MAX_VALUE))
+                                .addComponent(jButton2))
+                            .addComponent(txtCnpj)
+                            .addComponent(txtTelefone))))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,6 +200,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         try {
             Fornecedor forn = new Fornecedor();
             FornecedorDAO fdao = new FornecedorDAO();
+            JOptionPane.showMessageDialog(null, txtCnpj.getText());
             forn.cadastrar(0,
                            txtNome.getText(),
                            txtCnpj.getText(),
@@ -187,11 +209,16 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                            txtEndereco.getText(),
                            txtBairro.getText(),
                            ((Cidade) cbxCidade.getSelectedItem()));
+            JOptionPane.showMessageDialog(null, "depois de cadastrar");
             fdao.adicionaFornecedor(forn);
-            limparTabela();
-            DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-            dtm.addRow(forn.addTable());
-            frmAddProduto.tblFornecedores.setSelectionMode(1);
+            JOptionPane.showMessageDialog(null, "depois de cadastrar");
+            if(param == 0){
+                limparTabela();
+                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                dtm.addRow(forn.addTable());
+                frmAddProduto.tblFornecedores.setSelectionMode(1);
+                param = 1;
+            }
             setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
@@ -226,11 +253,11 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
     private void loadInitialComboData() {
 

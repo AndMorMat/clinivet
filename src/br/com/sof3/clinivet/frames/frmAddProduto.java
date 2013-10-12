@@ -33,8 +33,9 @@ public class frmAddProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(WIDTH);
         loadInitialTableData();
         
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +51,6 @@ public class frmAddProduto extends javax.swing.JFrame {
         lblMargemLucro = new javax.swing.JLabel();
         lblValidade = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtPrecoCusto = new javax.swing.JTextField();
         txtMargemLucro = new javax.swing.JTextField();
         txtValidade = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
@@ -62,9 +62,13 @@ public class frmAddProduto extends javax.swing.JFrame {
         tblFornecedores = new javax.swing.JTable();
         btnFiltrar = new javax.swing.JButton();
         btnCadastrarFornecedor = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtPrecoCusto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel1.setText("Cadastrar Produto");
 
         lblNome.setText("Nome:");
@@ -151,49 +155,62 @@ public class frmAddProduto extends javax.swing.JFrame {
                     .addComponent(btnFiltrar)
                     .addComponent(btnCadastrarFornecedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
+
+        jLabel2.setText("Codigo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblEstoque)
-                    .addComponent(lblValidade)
-                    .addComponent(lblPrecoCusto)
-                    .addComponent(lblMargemLucro)
-                    .addComponent(lblNome))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addComponent(txtPrecoCusto)
-                    .addComponent(txtMargemLucro)
-                    .addComponent(txtEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtValidade, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
                 .addGap(262, 262, 262))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblEstoque)
+                            .addComponent(lblValidade)
+                            .addComponent(lblPrecoCusto)
+                            .addComponent(lblMargemLucro)
+                            .addComponent(lblNome))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                            .addComponent(txtMargemLucro)
+                            .addComponent(txtEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtValidade, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPrecoCusto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(254, 254, 254)
                 .addComponent(jLabel1)
-                .addGap(287, 287, 287))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(41, 41, 41)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -220,17 +237,25 @@ public class frmAddProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if(!verificaCampos()){ 
+            return;
+        }
+        
         int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Produto",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
         if (opc != 0) {
             return;
         }
+        
+        
+        
         try {
             Produto prod = new Produto();
             ProdutoDAO pdao = new ProdutoDAO();
@@ -243,7 +268,8 @@ public class frmAddProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, valor);
             */
             
-            prod.cadastrar(0, txtNome.getText(),
+            prod.cadastrar(0, txtCodigo.getText(),
+                              txtNome.getText(),
                               Double.parseDouble(txtPrecoCusto.getText()),
                               Double.parseDouble(txtMargemLucro.getText()),
                               prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
@@ -258,25 +284,47 @@ public class frmAddProduto extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, prod.exibir());
             pdao.adicionaProduto(prod);
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+            setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Produto :: na Classe frmAddProduto no botao cadastrar");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
     private void btnCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFornecedorActionPerformed
-        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor();  
+        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor(0);  
     }//GEN-LAST:event_btnCadastrarFornecedorActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
          filtrarFornecedorPor filtrarFornecedor = new filtrarFornecedorPor();
     }//GEN-LAST:event_btnFiltrarActionPerformed
-
+    public boolean verificaCampos(){
+        if(txtCodigo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha o campo Codigo");
+            return false;
+        }else if(txtNome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha o campo Nome");
+            return false;
+        }else if(txtPrecoCusto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha o campo Preço de Custo");
+            return false;
+        }else if(txtEstoque.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha o campo Estoque");
+            return false;
+        }else if(txtValidade.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha o campo Validade");
+            return false;
+        }else if(!(tblFornecedores.getSelectedRow()>0 && tblFornecedores.getSelectedRow()<tblFornecedores.getRowCount())){
+            JOptionPane.showMessageDialog(null, "Selecione um fornecedor");
+            return false;
+        }else return true;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCadastrarFornecedor;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEstoque;
@@ -285,6 +333,7 @@ public class frmAddProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecoCusto;
     private javax.swing.JLabel lblValidade;
     public static javax.swing.JTable tblFornecedores;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtMargemLucro;
     private javax.swing.JTextField txtNome;
