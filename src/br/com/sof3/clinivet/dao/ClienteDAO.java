@@ -81,7 +81,7 @@ public class ClienteDAO extends GenericoDAO {
         return toReturn;
     }
     
-    public List<Cliente> getClientesByCPF(int cpf) throws SQLException {
+    public List<Cliente> getClientesByCPF(String cpf) throws SQLException {
         List<Cliente> toReturn = new LinkedList<Cliente>();
         
         
