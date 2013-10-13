@@ -25,12 +25,19 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     /**
      * Creates new form Pesquisa
      */
-    public frmPesquisaCliente() {
+    public frmPesquisaCliente(String parametro) {
+        
         initComponents();
-        setVisible(true);
         setLocationRelativeTo(null);
         rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
+        if (parametro.equals("editar")){
+            btnEditar.setVisible(true);
+            lblNomeVendedor.setText("Editar Cliente");
+        }else if(parametro.equals("cadastrar")){
+            
+        }
+        setVisible(true);
     }
 
     /**
@@ -52,6 +59,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         rbtNome = new javax.swing.JRadioButton();
         rbtCpf = new javax.swing.JRadioButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +144,13 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 .addComponent(rbtCpf))
         );
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,17 +159,18 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeVendedor)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 443, Short.MAX_VALUE)
-                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,14 +181,16 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                     .addComponent(lblNomeVendedor)
                     .addComponent(btnUltimosCad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -210,7 +228,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                             }
                         }
                         if(validador==0){ 
-                         cli = cdao.getClientesByCPF(Integer.parseInt(txtBuscaCliente.getText()));
+                            cli = cdao.getClientesByCPF(txtBuscaCliente.getText());
                         }else{
                             cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                             JOptionPane.showMessageDialog(null, "Informe somente números");
@@ -305,12 +323,25 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtCpfActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        List<Cliente> cli = new LinkedList<>();
+        ClienteDAO cdao = new ClienteDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+        if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
+            try{
+                cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
+
+                frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+    }//GEN-LAST:event_btnEditarActionPerformed
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnUltimosCad;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
