@@ -284,18 +284,20 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtNomeActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        Vendedor vendedor = new Vendedor();
-        List<Vendedor> vend = new LinkedList<Vendedor>();
-        try{
-            DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
-            String login = String.valueOf(dtm.getValueAt(tblBuscaVendedor.getSelectedRow(), 1));
+        if(tblBuscaVendedor.getSelectedRow() >= 0 && tblBuscaVendedor.getSelectedRow()<tblBuscaVendedor.getRowCount()){
+            Vendedor vendedor = new Vendedor();
+            List<Vendedor> vend = new LinkedList<Vendedor>();
+            try{
+                DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
+                String login = String.valueOf(dtm.getValueAt(tblBuscaVendedor.getSelectedRow(), 1));
 
-            vend=vdao.getVendedorByLogin(login);
+                vend=vdao.getVendedorByLogin(login);
 
-            frmAddVendedor frmEditarVendedor = new frmAddVendedor(this, rootPaneCheckingEnabled,vdao,"editar", vend.get(0));
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro no botão editar na classe frmPesquisaVendedor");
-        }
+                frmAddVendedor frmEditarVendedor = new frmAddVendedor(this, rootPaneCheckingEnabled,vdao,"editar", vend.get(0));
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Erro no botão editar na classe frmPesquisaVendedor");
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Vendedor para editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
    
