@@ -23,10 +23,27 @@ public class ClienteDAO extends GenericoDAO {
     public void removeCliente(int idCliente) throws SQLException {
         executeCommand("DELETE FROM clientes WHERE ID = ?", idCliente);
     }
-
+    public int getIdByCpf(String cpf) throws SQLException{
+        int id=-1;
+        Cliente cli = new Cliente();
+        try{
+            ResultSet rs = executeQuery("select * from clientes where cpf = ?",cpf);
+            while(rs.next()){
+                cli = populateCliente(rs);
+                id=cli.getId();
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao pegar id do cliente");
+        }
+        return id;
+    }
     public void atualizarCliente(Cliente cliente) throws SQLException {
-        String query = "UPDATE clientes SET NOME = ?, SOBRENOME=?, CPF=?, TELEFONE=?, CELULAR=?, ENDERECO=?, BAIRRO=?, ID_CIDADE=?, EMAIL=? WHERE ID = ?";
-        executeCommand(query, cliente.getNome(), cliente.getSobrenome(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(), cliente.getId());
+        try{
+            String query = "UPDATE clientes SET NOME = ?, SOBRENOME=?, CPF=?, TELEFONE=?, CELULAR=?, ENDERECO=?, BAIRRO=?, ID_CIDADE=?, EMAIL=? WHERE ID = ?";
+            executeCommand(query, cliente.getNome(), cliente.getSobrenome(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(), cliente.getId());
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "erro dentro do atualizar cliente na classe clienteDAO");
+        }
     }
 
     public Cliente getCliente(int idCliente) throws SQLException {
@@ -84,13 +101,16 @@ public class ClienteDAO extends GenericoDAO {
     public List<Cliente> getClientesByCPF(String cpf) throws SQLException {
         List<Cliente> toReturn = new LinkedList<Cliente>();
         
-        
-        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE cpf like \""+cpf+"%\";");
-        
-        while (rs.next()) {
-            toReturn.add(populateCliente(rs));
+        try{
+            ResultSet rs = executeQuery("SELECT * FROM clientes WHERE cpf like \""+cpf+"%\";");
+
+            while (rs.next()) {
+                toReturn.add(populateCliente(rs));
+            }
+            rs.close();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar clientes pelo cpf");
         }
-        rs.close();
         return toReturn;
     }
     

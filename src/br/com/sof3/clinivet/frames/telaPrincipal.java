@@ -316,6 +316,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
         frmPesquisaCliente frmEdCliente = new frmPesquisaCliente("editar");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 

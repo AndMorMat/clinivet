@@ -15,7 +15,7 @@ public class CidadeDAO extends GenericoDAO {
     public Cidade getCidade(int idCidade) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM cidades WHERE ID = ?", idCidade);
         Cidade cidade = null;
-        if (rs.next()) {
+        while (rs.next()) {
             cidade = populateCidadeInfo(rs);
         }
         rs.close();
@@ -24,10 +24,16 @@ public class CidadeDAO extends GenericoDAO {
     public Cidade getCidadeByName(String nomeCidade) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM cidades WHERE nome = ?", nomeCidade);
         Cidade cidade = null;
-        if (rs.next()) {
-            cidade = populateCidadeInfo(rs);
+        try{
+            
+            while (rs.next()) {
+                cidade = populateCidadeInfo(rs);
+            }
+            rs.close();
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao buscar cidades pelo nome");
         }
-        rs.close();
         return cidade;
     }
     public List<Cidade> getAllCidades() throws SQLException {

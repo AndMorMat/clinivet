@@ -358,7 +358,44 @@ public class frmAddCliente extends javax.swing.JDialog {
                 return;
             }
         }else if(param.equals("editar")){
-            JOptionPane.showMessageDialog(null, "Editar em construção");
+            //JOptionPane.showMessageDialog(null, "Editar em construção");
+            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (opc != 0) {
+                return;
+            }
+            try{
+                
+                /*
+                 * (Integer id,String nome,String sobrenome,String cpf,String telefone,
+            String celular,String email,String endereco,String bairro,Cidade cidade,Estado estado)
+                 */
+                Cliente cli = new Cliente();
+                ClienteDAO cliDAO = new ClienteDAO();
+                CidadeDAO cityDAO = new CidadeDAO();
+                EstadoDAO estadoDAO = new EstadoDAO();
+                Cidade ci = new Cidade();
+                Estado es = new Estado();
+                ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
+                
+                JOptionPane.showMessageDialog(null, "Antes");
+                es = estadoDAO.getEstado(estadoDAO.getIdEstado(comboEstados.getSelectedItem().toString()));
+                JOptionPane.showMessageDialog(null, "Depois");
+                cli.cadastrar(cliDAO.getIdByCpf(txtCPF.getText()),
+                        txtNome.getText(),
+                        txtSobrenome.getText(),
+                        txtCPF.getText(),
+                        txtTelefone.getText(),
+                        txtCelular.getText(),
+                        txtEmail.getText(),
+                        txtEndereco.getText(),
+                        txtBairro.getText(),
+                        ci);
+                cliDAO.atualizarCliente(cli);
+                
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro ao editar cliente na classe frmAddCliente");
+            }
+            
         }
         setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
@@ -418,6 +455,8 @@ public class frmAddCliente extends javax.swing.JDialog {
         txtEmail.setText(c.getEmail());
         txtEndereco.setText(c.getEndereco());
         txtBairro.setText(c.getBairro());
+        comboCidades.setSelectedItem(c.getCidade().getNome());
+        comboEstados.setSelectedItem(c.getCidade().getEstado().getNome());
     }
     
     private void loadInitialComboData() {

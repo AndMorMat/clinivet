@@ -22,7 +22,7 @@ public class Cliente {
         return dados;
     }*/
     public void cadastrar(Integer id,String nome,String sobrenome,String cpf,String telefone,
-            String celular,String email,String endereco,String bairro,Cidade cidade,Estado estado){
+            String celular,String email,String endereco,String bairro,Cidade cidade){
         setId(id);
         setNome(nome);
         setSobrenome(sobrenome);
@@ -33,7 +33,7 @@ public class Cliente {
         setEndereco(endereco);
         setBairro(bairro);
         setCidade(cidade);
-        setEstado(estado);
+        
     }
     
     public String[] addTable(){
@@ -51,7 +51,7 @@ public class Cliente {
     
     public Cliente(Integer id, String nome, String sobrenome,
             String cpf, String telefone, String celular, String email,
-            String endereco, String bairro, Cidade cidade, Estado estado) {
+            String endereco, String bairro, Cidade cidade) {
         
         this.id = id;
         this.nome = nome;

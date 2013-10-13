@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class frmAddVendedor extends javax.swing.JDialog {
     public final VendedorDAO dao;
-    
+     
     String param = "";
     
     public frmAddVendedor(java.awt.Frame parent, boolean modal,VendedorDAO dao, String parametro, Vendedor vendedor) {
