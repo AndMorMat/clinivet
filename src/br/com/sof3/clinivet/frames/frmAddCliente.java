@@ -11,6 +11,7 @@ import br.com.sof3.clinivet.dao.EstadoDAO;
 import br.com.sof3.clinivet.entidade.Cidade;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Estado;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -29,7 +30,8 @@ public class frmAddCliente extends javax.swing.JDialog {
     private final ClienteDAO cdao;
     private final AnimalDAO adao;
     /** Creates new form frmAddCustomer */
-    public frmAddCliente(java.awt.Frame parent, boolean modal,ClienteDAO cdao, AnimalDAO adao) {
+    String param;
+    public frmAddCliente(java.awt.Frame parent, boolean modal,ClienteDAO cdao, AnimalDAO adao, String parametro, Cliente cli) {
         super(parent, modal);
         this.cdao = cdao;
         this.adao = adao;
@@ -37,6 +39,14 @@ public class frmAddCliente extends javax.swing.JDialog {
         txtNome.requestFocus();
         loadInitialComboData();
         setLocationRelativeTo(null);
+        param = parametro;
+        if(parametro.equals("editar")){
+            carregarCampos(cli);
+            btnOK.setText("Editar");
+        }else if(parametro.equals("cadastrar")){
+            
+        }
+        
         setVisible(true);
     }
     
@@ -321,31 +331,34 @@ public class frmAddCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if(param.equals("cadastrar")){
+            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (opc != 0) {
+                return;
+            }
 
-        int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if (opc != 0) {
-            return;
-        }
+            try {
+                Cliente cliente = new Cliente();
+                CidadeDAO citydao = new CidadeDAO();
+                cliente.setNome(txtNome.getText());
+                cliente.setSobrenome(txtSobrenome.getText());
+                cliente.setCpf(txtCPF.getText());
+                cliente.setTelefone(txtTelefone.getText());
+                cliente.setCelular(txtCelular.getText());
+                cliente.setEmail(txtEmail.getText());
+                cliente.setCidade(citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())));
+                cliente.setBairro(txtBairro.getText());
+                cliente.setEndereco(txtEndereco.getText());
 
-        try {
-            Cliente cliente = new Cliente();
-            
-            cliente.setNome(txtNome.getText());
-            cliente.setSobrenome(txtSobrenome.getText());
-            cliente.setCpf(txtCPF.getText());
-            cliente.setTelefone(txtTelefone.getText());
-            cliente.setCelular(txtCelular.getText());
-            cliente.setEmail(txtEmail.getText());
-            cliente.setCidade((Cidade) comboCidades.getSelectedItem());
-            cliente.setBairro(txtBairro.getText());
-            cliente.setEndereco(txtEndereco.getText());
-            
-            cdao.adicionaCliente(cliente);
-           
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this,"Erro ao adicionar o cliente "+ex,"Adicionar Cliente",JOptionPane.ERROR_MESSAGE);
-            return;
+                cdao.adicionaCliente(cliente);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this,"Erro ao adicionar o cliente "+ex,"Adicionar Cliente",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }else if(param.equals("editar")){
+            JOptionPane.showMessageDialog(null, "Editar em construção");
         }
         setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
@@ -396,14 +409,28 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
     
+    public void carregarCampos(Cliente c){
+        txtNome.setText(c.getNome());
+        txtSobrenome.setText(c.getSobrenome());
+        txtCPF.setText(c.getCpf());
+        txtTelefone.setText(c.getTelefone());
+        txtCelular.setText(c.getCelular());
+        txtEmail.setText(c.getEmail());
+        txtEndereco.setText(c.getEndereco());
+        txtBairro.setText(c.getBairro());
+    }
+    
     private void loadInitialComboData() {
 
         // carrega combo de estados
         try {
             EstadoDAO estadoDAO = new EstadoDAO();
             Vector<Estado> estados = new Vector<Estado>(estadoDAO.getAllEstados());
-            //JOptionPane.showMessageDialog(null, estados.size()); 
-            DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(estados);
+            String[] nomes = new String[estados.size()];
+            for(int aux=0; aux<estados.size();aux++){
+                nomes[aux] = estados.get(aux).getNome();
+            }
+            DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(nomes);
             comboEstados.setModel(comboEstado);
         } catch (Exception e) {
             e.printStackTrace();
@@ -413,10 +440,13 @@ public class frmAddCliente extends javax.swing.JDialog {
         try {
             
             CidadeDAO cidadeDAO = new CidadeDAO();
-            
             Vector<Cidade> cidades = new Vector<Cidade>(cidadeDAO.getAllCidades());
-        
-            DefaultComboBoxModel comboCidade = new DefaultComboBoxModel(cidades);
+            String[] nomes = new String[cidades.size()];
+            for(int aux=0; aux<cidades.size();aux++){
+                nomes[aux] = cidades.get(aux).getNome();
+            }
+            
+            DefaultComboBoxModel comboCidade = new DefaultComboBoxModel(nomes);
             comboCidades.setModel(comboCidade);
         } catch (Exception e) {
             e.printStackTrace();
