@@ -21,7 +21,15 @@ public class CidadeDAO extends GenericoDAO {
         rs.close();
         return cidade;
     }
-
+    public Cidade getCidadeByName(String nomeCidade) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM cidades WHERE nome = ?", nomeCidade);
+        Cidade cidade = null;
+        if (rs.next()) {
+            cidade = populateCidadeInfo(rs);
+        }
+        rs.close();
+        return cidade;
+    }
     public List<Cidade> getAllCidades() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM cidades");
         List<Cidade> toReturn = new LinkedList<Cidade>();
