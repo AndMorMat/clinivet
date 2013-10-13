@@ -120,7 +120,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 18, Short.MAX_VALUE)
+                .addGap(0, 15, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1)))
@@ -152,8 +152,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtQuant))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,18 +163,19 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rbtNome)
-                            .addComponent(rbtQuant)
-                            .addComponent(rbtCod))
+                            .addComponent(rbtCod)
+                            .addComponent(rbtQuant))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBuscar)
-                            .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         tblBuscaPro.setModel(new javax.swing.table.DefaultTableModel(
@@ -205,6 +207,14 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblBuscaPro);
+        tblBuscaPro.getColumnModel().getColumn(0).setResizable(false);
+        tblBuscaPro.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tblBuscaPro.getColumnModel().getColumn(1).setResizable(false);
+        tblBuscaPro.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblBuscaPro.getColumnModel().getColumn(2).setResizable(false);
+        tblBuscaPro.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblBuscaPro.getColumnModel().getColumn(3).setResizable(false);
+        tblBuscaPro.getColumnModel().getColumn(4).setResizable(false);
 
         lblValor.setText("Valor total: R$ 0,00");
 
@@ -218,22 +228,22 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBuscaProdutos)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 29, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblTotal)
                         .addGap(52, 52, 52)
                         .addComponent(lblValor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblQuant)
-                        .addGap(21, 21, 21))))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBuscaProdutos))
+                        .addGap(0, 29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,12 +252,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 .addComponent(lblBuscaProdutos)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(65, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(68, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValor)
@@ -274,29 +284,30 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         
         if(txtBuscaPro.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
-               lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
-               lblValor.setText("Valor total: R$ 0,00");
-               lblTotal.setText("Total da Busca: 0 Resultado(s)");
+               lblQuant.setText("Quant Total Estoque: 0 Iten(s)");//Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
+               lblValor.setText("Valor total: R$ 0,00");            //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
+               lblTotal.setText("Total da Busca: 0 Resultado(s)");  //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
           
-        }else{
-            int cont=0, quantEst=0, quantResul=0;
-            double preco = 0;
+        }else{//Caso não esteja campo vazio
+            int cont=0, quantEst=0, quantResul=0;//Variaveis de contagem  para resgistros encontrados, estoque, resultados de busca
+            double preco = 0;//Valor total Estoque
             
             try {
 
-                List<Produto> pro = new LinkedList<Produto>();
+                List<Produto> pro = new LinkedList<Produto>();//Criando lista de produtos para armazenar busca
 
                 Produto p  = new Produto();
-                if(rbtNome.isSelected()){
-                   pro = pdao.getProdutoByName(txtBuscaPro.getText());
-                }else if(rbtCod.isSelected()){
+                
+                if(rbtNome.isSelected()){//Se tiver buscando pelo nome
+                   pro = pdao.getProdutoByName(txtBuscaPro.getText());//Manda buscar nome
+                }else if(rbtCod.isSelected()){//Se tiver buscando pelo Código
                     pro = pdao.getProdutoByCodigo(txtBuscaPro.getText());
-                }else{
-                    int validador=0;
-                    String letras="abcdefghyjklmnopqrstuvwxyz";
+                }else{//Senão pela Quantidade
+                    int validador=0;//Verificando maiusculas e minusculas
+                    String letras="abcdefghyjklmnopqrstuvwxyz";//Validadores
 
                     String    texto = txtBuscaPro.getText().toLowerCase();
-                    for(int i=0; i<texto.length(); i++){
+                    for(int i=0; i<texto.length(); i++){//FOr para pesuqisa na palavra
                         if (letras.indexOf(texto.charAt(i),0)!=-1){
                             validador =1;
                         }
@@ -344,23 +355,22 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tblBuscaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaProMouseClicked
-        String NumCpf;
+        
+        String BuscCodigo;
         if (evt.getClickCount() == 2) {
-            Cliente cli = new Cliente();
+            Produto p = new Produto();
 
-            frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
+            frmExibirProduto frmExibirProduto = new frmExibirProduto();
 
-            NumCpf = String.valueOf(tblBuscaPro.getValueAt(tblBuscaPro.getSelectedRow(),1));
-/*
+            BuscCodigo = String.valueOf(tblBuscaPro.getValueAt(tblBuscaPro.getSelectedRow(),0));
+
             try {
-                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
-              //  cli = cdao.getDetalhes(NumCpf);
+                 p = pdao.getDetalhes(BuscCodigo);
             }catch(SQLException ex){
-                Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmPesquisaProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            frmExibirCliente1.CadastrarDados(cli);
-*/
+            frmExibirProduto.CadastrarDados(p);
         }
     }//GEN-LAST:event_tblBuscaProMouseClicked
 
@@ -405,11 +415,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                                     
                                 quantResul++;
                                 quantEst+=pro.get(aux).getEstoque();
-                                preco+=pro.get(aux).getPrecoVenda();
+                                preco+=pro.get(aux).getPrecoVenda()*pro.get(aux).getEstoque();
                     
                                 dtm.addRow(p.addTableConsulta());
                                 cont++;
                     }
+                    
                     if(pro.size()==0){
                         lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
                         lblValor.setText("Valor total: R$ 0,00");
