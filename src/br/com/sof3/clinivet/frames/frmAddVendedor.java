@@ -179,13 +179,13 @@ public class frmAddVendedor extends javax.swing.JDialog {
              if (result==2) return;
              Vendedor vendedor = new Vendedor();
              //Integer id, String nome, String login, String senha
-             JOptionPane.showMessageDialog(null, "Teste");
+             
              try{
-                 JOptionPane.showMessageDialog(null, "Antes de cadastrar");
+                 
                  vendedor.cadastrar(dao.getIdVendedor(txtLogin.getText()),txtNome.getText(), txtLogin.getText(), txtSenha.getText());
-                 JOptionPane.showMessageDialog(null, "Antes de chamar o DAO\n"+vendedor.exibir());
+                 
                  dao.atualizaVendedor(vendedor);
-                 JOptionPane.showMessageDialog(null, "Editado com sucesso");
+                 
              }catch(Exception ex){
                  JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor na classe frmAddVendedor");
              }
