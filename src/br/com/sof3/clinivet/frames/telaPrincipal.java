@@ -190,7 +190,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuAnimais);
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Produtos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -246,7 +246,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(678, Short.MAX_VALUE))
+                .addContainerGap(682, Short.MAX_VALUE))
         );
 
         pack();

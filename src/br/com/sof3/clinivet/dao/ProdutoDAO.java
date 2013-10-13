@@ -104,4 +104,16 @@ public class ProdutoDAO extends GenericoDAO{
         
         return toReturn;
     }
+    
+    public Produto getDetalhes(String Cod) throws SQLException {
+        
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo =  ?", Cod);
+        
+        Produto cliente = new Produto();
+        if (rs.next()) {
+            cliente = populateProduto(rs);
+        }
+        rs.close();
+        return cliente;
+    }
 }
