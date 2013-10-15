@@ -35,7 +35,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             btnEditar.setVisible(true);
             lblNomeVendedor.setText("Editar Cliente");
         }else if(parametro.equals("cadastrar")){
-            
+            btnEditar.setVisible(false);
         }
         setVisible(true);
     }

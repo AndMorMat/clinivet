@@ -17,10 +17,7 @@ public class frmLogin extends javax.swing.JDialog {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        setLocationRelativeTo(null);
-        
-        
-        
+        setLocationRelativeTo(null);        
     }
 
     /**
@@ -45,12 +42,6 @@ public class frmLogin extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(188, 255, 200));
 
         lblLogin.setText("Login:");
-
-        txtLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLoginActionPerformed(evt);
-            }
-        });
 
         lblSenha.setText("Senha:");
 
@@ -151,10 +142,6 @@ public class frmLogin extends javax.swing.JDialog {
             Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginActionPerformed
     public String usuarioLogado(){//função retorna o nome do usuario que esta acessando o sistema
         return txtLogin.getText();
     }

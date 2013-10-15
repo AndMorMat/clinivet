@@ -24,12 +24,13 @@ public class telaPrincipal extends javax.swing.JDialog {
      * Creates new form telaPrincipal
      */
     public telaPrincipal() {
+        frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
         setTitle("CliniVet");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
+        
         dialogLogin.setVisible(true);
         lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());//pegando o nome do usuario que esta logado no sistema
         
@@ -87,6 +88,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         lblUsuarioLogado.setText("Usuario:");
 
+        jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
         jMenuCadastrarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -136,6 +138,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(jMenuCadastrarUsuario);
 
+        Cliente.setMnemonic('e');
         Cliente.setText("Editar");
 
         editarUsuario.setText("Usuário");
@@ -156,9 +159,12 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(Cliente);
 
+        jMenu3.setMnemonic('r');
         jMenu3.setText("Relatórios");
+        jMenu3.setToolTipText("");
         jMenuBar1.add(jMenu3);
 
+        jMenuConsultas.setMnemonic('o');
         jMenuConsultas.setText("Consultas");
         jMenuConsultas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -200,6 +206,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(jMenuConsultas);
 
+        menuAgenda.setMnemonic('a');
         menuAgenda.setText("Agenda");
 
         submenuAgendar.setText("Agendar Animal");
@@ -218,6 +225,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(menuAgenda);
 
+        jMenuVendas.setMnemonic('v');
         jMenuVendas.setText("Vendas");
 
         jMenuEfetuarVenda.setText("Efetuar Venda");
@@ -246,7 +254,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(682, Short.MAX_VALUE))
+                .addContainerGap(686, Short.MAX_VALUE))
         );
 
         pack();

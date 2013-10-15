@@ -292,21 +292,26 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(15, 15, 15)
-                        .add(btnOK)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnCancelar))
-                    .add(layout.createSequentialGroup()
                         .add(306, 306, 306)
                         .add(tituloCadastroCliente))
                     .add(layout.createSequentialGroup()
-                        .add(37, 37, 37)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(29, 29, 29)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(btnCadAnimalTelaCadCliente))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(37, 37, 37)
+                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                .add(416, 416, 416)
+                                .add(btnOK, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(41, 41, 41)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnCadAnimalTelaCadCliente)))
+                            .add(layout.createSequentialGroup()
+                                .add(9, 9, 9)
+                                .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -320,7 +325,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 21, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnOK)
                     .add(btnCancelar))
@@ -364,22 +369,14 @@ public class frmAddCliente extends javax.swing.JDialog {
                 return;
             }
             try{
-                
-                /*
-                 * (Integer id,String nome,String sobrenome,String cpf,String telefone,
-            String celular,String email,String endereco,String bairro,Cidade cidade,Estado estado)
-                 */
                 Cliente cli = new Cliente();
                 ClienteDAO cliDAO = new ClienteDAO();
                 CidadeDAO cityDAO = new CidadeDAO();
-                EstadoDAO estadoDAO = new EstadoDAO();
+                
                 Cidade ci = new Cidade();
-                Estado es = new Estado();
+                
                 ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
                 
-                JOptionPane.showMessageDialog(null, "Antes");
-                es = estadoDAO.getEstado(estadoDAO.getIdEstado(comboEstados.getSelectedItem().toString()));
-                JOptionPane.showMessageDialog(null, "Depois");
                 cli.cadastrar(cliDAO.getIdByCpf(txtCPF.getText()),
                         txtNome.getText(),
                         txtSobrenome.getText(),

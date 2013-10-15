@@ -114,7 +114,7 @@ public class AnimalDAO extends GenericoDAO {
         final ClienteDAO clienteDAO = new ClienteDAO();
         Animal toReturn = new Animal();
         toReturn.setId(rs.getInt("ID"));
-        toReturn.setNome(rs.getString("NOME"));
+        toReturn.setNome(rs.getString("a.nome"));
         toReturn.setTipoAnimal(rs.getString("TIPO_ANIMAL"));
         toReturn.setRaca(rs.getString("RACA"));
         toReturn.setDataNasc(rs.getString("DATA_NASCIMENTO"));

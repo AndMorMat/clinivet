@@ -6,6 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenuCadastrarUsuario">
           <Properties>
+            <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <Events>
@@ -56,6 +57,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Cliente">
           <Properties>
+            <Property name="mnemonic" type="int" value="101"/>
             <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
           <SubComponents>
@@ -79,11 +81,14 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
+            <Property name="mnemonic" type="int" value="114"/>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuConsultas">
           <Properties>
+            <Property name="mnemonic" type="int" value="111"/>
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <Events>
@@ -126,6 +131,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuAgenda">
           <Properties>
+            <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Agenda"/>
           </Properties>
           <SubComponents>
@@ -151,6 +157,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuVendas">
           <Properties>
+            <Property name="mnemonic" type="int" value="118"/>
             <Property name="text" type="java.lang.String" value="Vendas"/>
           </Properties>
           <SubComponents>
@@ -202,7 +209,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblUsuarioLogado" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="682" max="32767" attributes="0"/>
+              <EmptySpace pref="690" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
