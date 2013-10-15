@@ -10,7 +10,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 public class frmLogin extends javax.swing.JDialog {
     
     private final VendedorDAO dao = new VendedorDAO();
-    String valido ="";
+    
    
     public frmLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,6 +38,12 @@ public class frmLogin extends javax.swing.JDialog {
         lblImagensAnimais = new javax.swing.JLabel();
         imgClinivet = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(188, 255, 200));
 
@@ -115,9 +121,7 @@ public class frmLogin extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE))
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -127,6 +131,10 @@ public class frmLogin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public void dispose(){
+        System.exit(0);
+    }
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
         try {
@@ -142,6 +150,10 @@ public class frmLogin extends javax.swing.JDialog {
             Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
     public String usuarioLogado(){//função retorna o nome do usuario que esta acessando o sistema
         return txtLogin.getText();
     }

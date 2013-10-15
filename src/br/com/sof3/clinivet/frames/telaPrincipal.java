@@ -25,22 +25,25 @@ public class telaPrincipal extends javax.swing.JDialog {
      */
     public telaPrincipal() {
         frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
-        initComponents();
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setTitle("CliniVet");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        
         
         dialogLogin.setVisible(true);
-        lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());//pegando o nome do usuario que esta logado no sistema
+        
         
         try{//caso o usuario só feche a tela login sem validar os dados os menus são definidos como setEnabled(false);
-            if(!vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
-                Cliente.setEnabled(false);//editar
-                jMenu3.setEnabled(false);//relatorios
-                jMenuCadastrarUsuario.setEnabled(false);//usuarios
-                jMenuConsultas.setEnabled(false);
-                lblUsuarioLogado.setText("Usuario não logado");
+            if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
+                initComponents();
+                setLocationRelativeTo(null);
+                setVisible(true);
+                setTitle("CliniVet");
+                setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());//pegando o nome do usuario que esta logado no sistema
+                //                Cliente.setEnabled(false);//editar
+//                jMenu3.setEnabled(false);//relatorios
+//                jMenuCadastrarUsuario.setEnabled(false);//usuarios
+//                jMenuConsultas.setEnabled(false);
+//                lblUsuarioLogado.setText("Usuario não logado");
             }
             /*if(!dialogLogin.usuarioLogado().equals("admin")){//somente o administrador poderá cadastrar um novo vendedor
                 jMenuCadastrarCliente.setEnabled(false);
@@ -85,6 +88,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
 
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lblUsuarioLogado.setText("Usuario:");
 
@@ -254,12 +262,17 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(686, Short.MAX_VALUE))
+                .addContainerGap(690, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public void dispose(){
+        System.exit(0);
+    }
+    
     private void jMenuCadastrarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCadastrarUsuarioMouseClicked
         //não serve pra nada!!!!!!!!!!
     }//GEN-LAST:event_jMenuCadastrarUsuarioMouseClicked
@@ -327,6 +340,10 @@ public class telaPrincipal extends javax.swing.JDialog {
         
         frmPesquisaCliente frmEdCliente = new frmPesquisaCliente("editar");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
