@@ -359,7 +359,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuVendasEfetuadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVendasEfetuadasActionPerformed
-        // TODO add your handling code here:
+        frmVendasEfetuadas vendasEfetuadas = new frmVendasEfetuadas();
+        vendasEfetuadas.setVisible(true);
     }//GEN-LAST:event_jMenuVendasEfetuadasActionPerformed
 
     /**
