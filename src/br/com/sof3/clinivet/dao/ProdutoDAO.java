@@ -116,4 +116,13 @@ public class ProdutoDAO extends GenericoDAO{
         rs.close();
         return cliente;
     }
+    
+    public List<Produto> getTodosProdutos() throws SQLException {
+        List<Produto> toReturn = new LinkedList<Produto>();
+        ResultSet rs = executeQuery("SELECT * FROM produtos");
+        while (rs.next()) {
+            toReturn.add(populateProduto(rs));
+        }
+        return toReturn;
+    }
 }

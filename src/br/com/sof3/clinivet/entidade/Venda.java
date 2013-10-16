@@ -1,13 +1,15 @@
 package br.com.sof3.clinivet.entidade;
 
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Venda {
     private Integer id;
     private Date dataVenda;
     private double totalVenda;
-    private String formaPagamento;
     private Vendedor vendedor;
+    private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     
     public Venda() {
         
@@ -17,13 +19,12 @@ public class Venda {
         this.id = id;
     }
     
-    public Venda(Integer id, Date dataVenda, double totalVenda, String formaPagamento,
+    public Venda(Integer id, Date dataVenda, double totalVenda,
             Vendedor vendedor) {
         
         this.id = id;
         this.dataVenda = dataVenda;
         this.totalVenda = totalVenda;
-        this.formaPagamento = formaPagamento;
         this.vendedor = vendedor;
     }
 
@@ -51,19 +52,19 @@ public class Venda {
         this.totalVenda = totalVenda;
     }
 
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
     public Vendedor getVendedor() {
         return vendedor;
     }
 
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
+    }
+
+    public List<VendaProduto> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<VendaProduto> itens) {
+        this.itens = itens;
     }
 }

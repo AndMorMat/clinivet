@@ -6,9 +6,11 @@ package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Vendedor;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -20,6 +22,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private final ClienteDAO cdao = new ClienteDAO();
     private final VendedorDAO vdao = new VendedorDAO();
     private final AnimalDAO adao = new AnimalDAO();
+    private final VendaDAO dao = new VendaDAO();
     /**
      * Creates new form telaPrincipal
      */
@@ -86,6 +89,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuVendas = new javax.swing.JMenu();
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
+        jMenuVendasEfetuadas = new javax.swing.JMenuItem();
 
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -244,6 +248,9 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuVendas.add(jMenuEfetuarVenda);
 
+        jMenuVendasEfetuadas.setText("Vendas Efetuadas");
+        jMenuVendas.add(jMenuVendasEfetuadas);
+
         jMenuBar1.add(jMenuVendas);
 
         setJMenuBar(jMenuBar1);
@@ -333,7 +340,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
     private void jMenuEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEfetuarVendaActionPerformed
-        frmEfetuarVenda venda = new frmEfetuarVenda();
+        frmEfetuarVenda venda = new frmEfetuarVenda(new Frame(), true, dao);
+        venda.setVisible(true);
     }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -399,6 +407,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;
+    private javax.swing.JMenuItem jMenuVendasEfetuadas;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
     private javax.swing.JMenuItem submenuAgendar;
