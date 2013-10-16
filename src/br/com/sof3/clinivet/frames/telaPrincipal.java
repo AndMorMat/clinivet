@@ -249,6 +249,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuVendas.add(jMenuEfetuarVenda);
 
         jMenuVendasEfetuadas.setText("Vendas Efetuadas");
+        jMenuVendasEfetuadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuVendasEfetuadasActionPerformed(evt);
+            }
+        });
         jMenuVendas.add(jMenuVendasEfetuadas);
 
         jMenuBar1.add(jMenuVendas);
@@ -352,6 +357,10 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuVendasEfetuadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVendasEfetuadasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuVendasEfetuadasActionPerformed
 
     /**
      * @param args the command line arguments
