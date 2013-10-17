@@ -9,6 +9,7 @@ import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.VendaProduto;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -33,7 +34,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         this.itens = itens;
         this.vendaForm = vendaForm;
         initComponents();
-        loadComboData();
         carregarCbx(); 
     }
 
@@ -56,7 +56,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -153,8 +152,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
                     .add(btnBuscar1)))
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,11 +184,8 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
                                         .add(btnAdicionar)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(btnCancelar))
-                                    .add(layout.createSequentialGroup()
-                                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(61, 61, 61)
-                                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .add(0, 0, Short.MAX_VALUE))))
+                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(0, 229, Short.MAX_VALUE))))
                     .add(layout.createSequentialGroup()
                         .add(28, 28, 28)
                         .add(lblProcurarPor)))
@@ -222,10 +216,7 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(btnAdicionar)
                             .add(btnCancelar)))
-                    .add(layout.createSequentialGroup()
-                        .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(93, 93, 93)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -276,6 +267,10 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_btnProcurarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel)tableProdutos.getModel();
+        DefaultTableModel dtm2 = (DefaultTableModel) frmEfetuarVenda.tableProdutos.getModel();
+        List<Produto> pro = new ArrayList();
+        ProdutoDAO pdao = new ProdutoDAO();
         
         Integer qnt = Integer.parseInt(txtQuantidade.getText());
 
@@ -284,18 +279,26 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
             txtQuantidade.requestFocus();
             return;
         }
+        
+        
 
         int opt = JOptionPane.showConfirmDialog(this,"Você tem certeza? ?","Adicionar novo produto",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if (opt == 0) {
-           VendaProduto item = new VendaProduto();
-           item.setQtd(qnt);
-           item.setProduto((Produto) jComboBox1.getSelectedItem());
-           itens.add(item);
-           if (vendaForm != null) {
-               vendaForm.atualizaItens();
-           }
-           setVisible(false);
+            try {
+                pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(0, tableProdutos.getSelectedRow())));
+                VendaProduto item = new VendaProduto();
+                dtm2.addRow(pro.get(0).addTable());
+                item.setQtd(qnt);
+                item.setProduto((Produto) pro.get(0));
+                itens.add(item);
+                if (vendaForm != null) {
+                    vendaForm.atualizaItens();
+                }
+                setVisible(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmAddProdutoParaVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
@@ -349,7 +352,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
     private javax.swing.JToggleButton btnCancelar;
     private javax.swing.JToggleButton btnProcurar;
     private javax.swing.JComboBox cbxTipoProduto;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblProcurarPor;
@@ -366,16 +368,5 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         for(EnumTipoProduto ep: EnumTipoProduto.values()){
                cbxTipoProduto.addItem(ep.getNome());
             }
-    }
-    
-    private void loadComboData() {
-        try {
-            Vector<Produto> produtos = new Vector<Produto>(new ProdutoDAO().getTodosProdutos());
-            jComboBox1.setModel(new DefaultComboBoxModel(produtos));
-        } catch (SQLException ex) {
-            Logger.getLogger(frmAddProdutoParaVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
     }
 }

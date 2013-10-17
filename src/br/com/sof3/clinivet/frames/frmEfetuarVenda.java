@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -93,16 +94,30 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome", "Preço"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableProdutos);
+        tableProdutos.getColumnModel().getColumn(0).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(2).setResizable(false);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +161,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnConcluirVenda)
                     .add(btnCancelarVenda))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -199,7 +214,9 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         int opt = JOptionPane.showConfirmDialog(this, "Are you sure ?","Confirm Delete",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
         if (opt == 0) {
+            DefaultTableModel dtm =(DefaultTableModel)tableProdutos.getModel();
             itens.remove(tableProdutos.getSelectedRow());
+            dtm.removeRow(tableProdutos.getSelectedRow());
             atualizaItens();
         }
     }//GEN-LAST:event_btnRemoverProdutoListaActionPerformed
@@ -217,7 +234,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataVenda;
     private javax.swing.JLabel lblTotal;
-    private javax.swing.JTable tableProdutos;
+    public static javax.swing.JTable tableProdutos;
     private javax.swing.JTextField txtDataVenda;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
@@ -232,8 +249,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         for (VendaProduto sellItem : itens) {
             value += sellItem.getProduto().getPrecoVenda()*sellItem.getQtd();
             sellItem.setTotal(sellItem.getProduto().getPrecoVenda()*sellItem.getQtd());
-        }
-        tableProdutos.setModel(new MyTableModel(VendaProduto.class, itens, tableProdutos));
-        txtTotal.setText("R$ "+value);
+        } 
+       txtTotal.setText("R$ "+value);
     }
 }

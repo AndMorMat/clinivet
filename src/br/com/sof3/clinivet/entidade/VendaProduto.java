@@ -5,11 +5,8 @@ import br.com.sof3.clinivet.frames.SwingColumn;
 public class VendaProduto {
     private Integer id;
     private Venda venda;
-    @SwingColumn(description="Produto")
     private Produto produto;
-    @SwingColumn(description="Quantidade")
     private int qtd;
-    @SwingColumn(description="Total")
     private double total;
     
     public VendaProduto() {
