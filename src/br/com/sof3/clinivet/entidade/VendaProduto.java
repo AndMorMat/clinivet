@@ -1,10 +1,13 @@
 package br.com.sof3.clinivet.entidade;
 
+import br.com.sof3.clinivet.frames.SwingColumn;
+
 public class VendaProduto {
     private Integer id;
     private Venda venda;
     private Produto produto;
     private int qtd;
+    private double total;
     
     public VendaProduto() {
         
@@ -51,5 +54,16 @@ public class VendaProduto {
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
+    }
+
+    public double getTotal() {
+        if (getProduto()!= null) {
+            return getProduto().getPrecoVenda()*getQtd();
+        }
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

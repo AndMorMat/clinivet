@@ -7,24 +7,34 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import br.com.sof3.clinivet.entidade.Produto;
+import br.com.sof3.clinivet.entidade.VendaProduto;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Renan
  */
-public class frmAddProdutoParaVenda extends javax.swing.JFrame {
+public class frmAddProdutoParaVenda extends javax.swing.JDialog {
     ProdutoDAO pdao = new ProdutoDAO();
+    private final List<VendaProduto> itens;
+    private frmEfetuarVenda vendaForm;
 
-    public frmAddProdutoParaVenda() {
-        
+    public frmAddProdutoParaVenda(java.awt.Frame parent, boolean modal, List<VendaProduto> itens, frmEfetuarVenda vendaForm) {
+        super(parent, modal);
+        this.itens = itens;
+        this.vendaForm = vendaForm;
         initComponents();
-        carregarCbx();
-        setVisible(true); 
+        carregarCbx(); 
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +57,7 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
         cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblProcurarPor.setText("Procurar por:");
 
@@ -88,7 +98,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
         });
 
         radioGroupBuscarPor.add(radioCodigoProduto);
-        radioCodigoProduto.setSelected(true);
         radioCodigoProduto.setText("Código do Produto");
 
         radioGroupBuscarPor.add(radioNomeProduto);
@@ -102,6 +111,11 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por tipo"));
 
@@ -147,16 +161,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
                     .add(layout.createSequentialGroup()
                         .add(20, 20, 20)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createSequentialGroup()
-                                .add(8, 8, 8)
-                                .add(lblQuantidade)
-                                .add(18, 18, 18)
-                                .add(txtQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 77, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(btnAdicionar)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(btnCancelar))
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                     .add(layout.createSequentialGroup()
@@ -168,7 +172,20 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                         .add(radioNomeProduto)))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
-                                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(layout.createSequentialGroup()
+                                        .add(8, 8, 8)
+                                        .add(lblQuantidade)
+                                        .add(18, 18, 18)
+                                        .add(txtQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 77, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(btnAdicionar)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(btnCancelar))
+                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(0, 229, Short.MAX_VALUE))))
                     .add(layout.createSequentialGroup()
                         .add(28, 28, 28)
                         .add(lblProcurarPor)))
@@ -250,18 +267,39 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcurarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel)tableProdutos.getModel();
+        DefaultTableModel dtm2 = (DefaultTableModel) frmEfetuarVenda.tableProdutos.getModel();
+        List<Produto> pro = new ArrayList();
+        ProdutoDAO pdao = new ProdutoDAO();
+        
         Integer qnt = Integer.parseInt(txtQuantidade.getText());
 
         if (qnt <= 0) {
-            JOptionPane.showMessageDialog(this, "Quantidade deve ser maior do que 0", "Erro",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que 0","Erro",JOptionPane.ERROR_MESSAGE);
             txtQuantidade.requestFocus();
             return;
         }
-        if(txtBuscar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo de busca não pode ficar em branco", "Erro",JOptionPane.ERROR_MESSAGE);
-            txtBuscar.requestFocus();
-            return;
-        }        
+        
+        
+
+        int opt = JOptionPane.showConfirmDialog(this,"Você tem certeza? ?","Adicionar novo produto",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if (opt == 0) {
+            try {
+                pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(0, tableProdutos.getSelectedRow())));
+                VendaProduto item = new VendaProduto();
+                dtm2.addRow(pro.get(0).addTable());
+                item.setQtd(qnt);
+                item.setProduto((Produto) pro.get(0));
+                itens.add(item);
+                if (vendaForm != null) {
+                    vendaForm.atualizaItens();
+                }
+                setVisible(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmAddProdutoParaVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void cbxTipoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoProdutoActionPerformed
@@ -303,6 +341,10 @@ public class frmAddProdutoParaVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error");
         }
     }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAdicionar;
