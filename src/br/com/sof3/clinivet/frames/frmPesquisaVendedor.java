@@ -293,7 +293,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
 
                 vend=vdao.getVendedorByLogin(login);
 
-                frmAddVendedor frmEditarVendedor = new frmAddVendedor(this, rootPaneCheckingEnabled,vdao,"editar", vend.get(0));
+                frmAddVendedor frmEditarVendedor = new frmAddVendedor("editar", vend.get(0));
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Erro no botão editar na classe frmPesquisaVendedor");
             }

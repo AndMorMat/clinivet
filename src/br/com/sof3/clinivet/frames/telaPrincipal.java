@@ -286,7 +286,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void jMenuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarClienteActionPerformed
         //cadastrar usuario
         Vendedor v = new  Vendedor();
-        frmAddVendedor addUsuario = new frmAddVendedor(new javax.swing.JFrame(), true, vdao,"cadastrar",v);
+        frmAddVendedor addUsuario = new frmAddVendedor("cadastrar",v);
     }//GEN-LAST:event_jMenuCadastrarClienteActionPerformed
 
     private void jMenuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarProdutoActionPerformed

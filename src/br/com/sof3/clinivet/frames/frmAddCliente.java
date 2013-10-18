@@ -72,7 +72,6 @@ public class frmAddCliente extends javax.swing.JDialog {
         lblBairro = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         txtSobrenome = new javax.swing.JTextField();
-        txtCPF = new javax.swing.JTextField();
         comboCidades = new javax.swing.JComboBox();
         comboEstados = new javax.swing.JComboBox();
         txtEmail = new javax.swing.JTextField();
@@ -86,6 +85,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         lblCelular = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JFormattedTextField();
         btnCadAnimalTelaCadCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,6 +172,12 @@ public class frmAddCliente extends javax.swing.JDialog {
 
         lblEmail.setText("E-mail:");
 
+        try {
+            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -230,8 +236,8 @@ public class frmAddCliente extends javax.swing.JDialog {
                                 .add(jPanel1Layout.createSequentialGroup()
                                     .add(44, 44, 44)
                                     .add(lblCPF)
-                                    .add(18, 18, 18)
-                                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 330, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
+                                    .add(21, 21, 21)
+                                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 327, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -247,8 +253,8 @@ public class frmAddCliente extends javax.swing.JDialog {
                     .add(txtSobrenome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblCPF))
+                    .add(lblCPF)
+                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -434,7 +440,7 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel tituloCadastroCliente;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;

@@ -17,6 +17,7 @@ public class ProdutoDAO extends GenericoDAO{
                 + "values(?,?,?,?,?,?,?,?,?,?)";
         executeCommand(query, 
                              produto.getId(),
+                             produto.getCodigo(),
                              produto.getNome(),
                              produto.getPrecoCusto(),
                              produto.getMargemLucro(),
@@ -24,7 +25,6 @@ public class ProdutoDAO extends GenericoDAO{
                              produto.getValidade(),
                              produto.getFornecedor().getId(),
                              produto.getEstoque(),
-                             produto.getCodigo(),
                              produto.getTipoProduto());
         
       }catch(Exception ex){

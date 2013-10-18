@@ -15,15 +15,15 @@ import javax.swing.JOptionPane;
  *
  * @author Renan
  */
-public class frmAddVendedor extends javax.swing.JDialog {
-    public final VendedorDAO dao;
+public class frmAddVendedor extends javax.swing.JFrame {
+    public VendedorDAO dao;
      
     String param = "";
     
-    public frmAddVendedor(java.awt.Frame parent, boolean modal,VendedorDAO dao, String parametro, Vendedor vendedor) {
+    public frmAddVendedor(String parametro, Vendedor vendedor) {
         
-        super(parent, modal);
-        this.dao = dao;
+       
+        
         initComponents();
         setLocationRelativeTo(null);
         param = parametro;
