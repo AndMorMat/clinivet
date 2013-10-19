@@ -265,7 +265,7 @@ public class frmExibirCliente extends javax.swing.JFrame {
             Animal animal = new Animal();
          
             ani = anidao.getTodosAnimaisDoCliente(id);
-
+            
             for(int aux =0;aux<ani.size();aux++){
                animal.setTipoAnimal(ani.get(aux).getTipoAnimal());
                animal.setRaca(ani.get(aux).getRaca());

@@ -2,6 +2,7 @@ package br.com.sof3.clinivet.dao;
 
 import br.com.sof3.clinivet.entidade.Venda;
 import br.com.sof3.clinivet.entidade.VendaProduto;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;

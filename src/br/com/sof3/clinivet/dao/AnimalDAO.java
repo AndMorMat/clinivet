@@ -3,6 +3,7 @@ package br.com.sof3.clinivet.dao;
 import static br.com.sof3.clinivet.dao.AnimalDAO.populateAnimal;
 import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.EnumTipoAnimal;
+import br.com.sof3.clinivet.entidade.Raca;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -38,9 +39,7 @@ public class AnimalDAO extends GenericoDAO {
     public int adicionaAnimal(Animal an) throws SQLException {
         an.setId(getNextId("animais"));
         String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, RACA, DATA_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
-        JOptionPane.showMessageDialog(null, "Antes de executar a query");
         executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca(), an.getDataNasc(), an.getSexo(), an.getDono().getId());
-        JOptionPane.showMessageDialog(null, "Depois de executar a query");
         return an.getId();
     }
 
@@ -54,7 +53,7 @@ public class AnimalDAO extends GenericoDAO {
     }
 
     public Animal getAnimal(int idAnimal) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM animais WHERE ID = ?", idAnimal);
+        ResultSet rs = executeQuery("SELECT * FROM animais  a WHERE ID = ?", idAnimal);
         Animal an = null;
         while (rs.next()) {
             an = populateAnimal(rs);
@@ -64,7 +63,7 @@ public class AnimalDAO extends GenericoDAO {
     }
 
     public List<Animal> getAllAnimais() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM animais");
+        ResultSet rs = executeQuery("SELECT * FROM animais a");
         List<Animal> toReturn = new LinkedList<Animal>();
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
@@ -76,7 +75,7 @@ public class AnimalDAO extends GenericoDAO {
 
     public List<Animal> getAnimalByName(String nome) throws SQLException {
         List<Animal> toReturn = new LinkedList<Animal>();
-        ResultSet rs = executeQuery("SELECT * FROM animais WHERE nome like \""+nome+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE nome like \""+nome+"%\";");
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
         }
@@ -112,11 +111,12 @@ public class AnimalDAO extends GenericoDAO {
 
     public static Animal populateAnimal(ResultSet rs) throws SQLException {
         final ClienteDAO clienteDAO = new ClienteDAO();
+        final RacaDAO racaDAO = new RacaDAO();
         Animal toReturn = new Animal();
         toReturn.setId(rs.getInt("ID"));
-        toReturn.setNome(rs.getString("a.nome"));
+        toReturn.setNome(rs.getString("a.NOME"));//ajustado para exibir somente o nome do animal e não do 
         toReturn.setTipoAnimal(rs.getString("TIPO_ANIMAL"));
-        toReturn.setRaca(rs.getString("RACA"));
+        toReturn.setRaca(racaDAO.getRaca(rs.getInt("ID_RACA")));
         toReturn.setDataNasc(rs.getString("DATA_NASCIMENTO"));
         toReturn.setSexo(rs.getString("SEXO"));
         toReturn.setDono(clienteDAO.getCliente(rs.getInt("ID_DONO")));
@@ -128,8 +128,8 @@ public class AnimalDAO extends GenericoDAO {
         List<Animal> toReturn = new LinkedList<Animal>();
         
 
-        ResultSet rs = executeQuery("SELECT * FROM animais ORDER BY id DESC;");
-        
+        ResultSet rs = executeQuery("SELECT * FROM animais  a ORDER BY id DESC;");
+   
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
         }
@@ -142,7 +142,7 @@ public class AnimalDAO extends GenericoDAO {
     public List<Animal> getAnimalbyIDcod(int id) throws SQLException {//procurar somente por código
         List<Animal> toReturn = new LinkedList<Animal>();
         
-        ResultSet rs = executeQuery("SELECT * FROM animais WHERE id like \""+id+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE id like \""+id+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
@@ -153,8 +153,8 @@ public class AnimalDAO extends GenericoDAO {
     
     public List<Animal> getAnimalbyTipoAni(String tipo) throws SQLException {//procurar somente por código
         List<Animal> toReturn = new LinkedList<Animal>();
-        
-        ResultSet rs = executeQuery("SELECT * FROM animais WHERE tipo_animal like \""+tipo+"%\";");
+                            
+        ResultSet rs = executeQuery("SELECT * FROM animais a INNER JOIN raca r on a.id_raca = r.id WHERE r.nome like \""+tipo+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));

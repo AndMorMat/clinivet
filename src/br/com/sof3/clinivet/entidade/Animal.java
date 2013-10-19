@@ -6,7 +6,7 @@ public class Animal {
     private Integer id;
     private String nome;
     private String tipoAnimal;
-    private String raca;
+    private Raca raca;
     private String data_nasc;
     private String sexo;
     private Cliente dono;
@@ -30,20 +30,20 @@ public class Animal {
     }
     
     public String[] addTable(){
-        String [] dados={tipoAnimal, raca, nome, sexo};
+        String [] dados={tipoAnimal, raca.getNome(), nome, sexo};
         return dados;
        
     }
     
     public String[] addTableConsulta(){
         String cod = String.valueOf(id);
-        String [] dados={cod, nome,raca, tipoAnimal};
+        String [] dados={cod, nome,raca.getNome(), tipoAnimal};
         
         return dados;
        
     }
     
-    public Animal(Integer id, String nome, String tipoAnimal, String raca,
+    public Animal(Integer id, String nome, String tipoAnimal, Raca raca,
             String data_nasc, String sexo, Cliente dono) {
         
         this.id = id;
@@ -79,11 +79,11 @@ public class Animal {
         this.tipoAnimal = tipoAnimal;
     }
 
-    public String getRaca() {
+    public Raca getRaca() {
         return raca;
     }
 
-    public void setRaca(String raca) {
+    public void setRaca(Raca raca) {
         this.raca = raca;
     }
 

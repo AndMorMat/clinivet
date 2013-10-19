@@ -200,7 +200,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         dtm.removeRow(aux);
 
         try {
-
+            
             List<Animal>  listan = new LinkedList<Animal>();
 
             Animal a = new Animal();
@@ -211,11 +211,11 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                 dtm.removeRow(aux);
             }
             
-
+            
             listan = anidao.getAnimalByID();
-
+            
             for(int aux=0 ;aux<listan.size();aux++){
-                if(aux<6){
+                if(aux<6){                  
                     a.setId(listan.get(aux).getId());
                     a.setNome(listan.get(aux).getNome());
                     a.setRaca(listan.get(aux).getRaca());
@@ -227,7 +227,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
+            JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar ");
         }
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 

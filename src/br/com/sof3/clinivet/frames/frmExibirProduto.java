@@ -8,6 +8,7 @@ import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Venda;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -30,10 +31,10 @@ public class frmExibirProduto extends javax.swing.JFrame {
     
     public void CadastrarDados(Produto p){
         txtProduto.setText(p.getNome());
-        txtPrecoV.setText(String.valueOf(p.getPrecoVenda()));
-        txtPrecoC.setText(String.valueOf(p.getPrecoCusto()));
+        txtPrecoV.setText(String.valueOf("R$"+String.format("%.2f", p.getPrecoVenda())));
+        txtPrecoC.setText(String.valueOf("R$"+String.format("%.2f",p.getPrecoCusto())));
         txtCodigo.setText(p.getCodigo());
-        txtMargemLucro.setText(String.valueOf(p.getMargemLucro()));
+        txtMargemLucro.setText(String.valueOf(p.getMargemLucro()+"%"));
         txtTipo.setText(p.getTipoProduto());
         txtQuantEs.setText(String.valueOf(p.getEstoque()));
         txtTelFor.setText(p.getFornecedor().getTelefone());
@@ -42,7 +43,7 @@ public class frmExibirProduto extends javax.swing.JFrame {
     }
     
     public void CadastrarVendas(String cod){
-        /*DefaultTableModel dtm = (DefaultTableModel)tblAnimal.getModel();
+       /* DefaultTableModel dtm = (DefaultTableModel)tblAnimal.getModel();
         
         int cont=0;
         int cont2 = dtm.getRowCount();
@@ -58,7 +59,7 @@ public class frmExibirProduto extends javax.swing.JFrame {
 
             Venda venEfetuada = new Venda();
          
-            ani = Vedao.getTodasVendasProduto(cod);
+            ani = Vedao.
 
             for(int aux =0;aux<ani.size();aux++){
                venEfetuada.setTipoAnimal(ani.get(aux).getTipoAnimal());
