@@ -7,6 +7,7 @@ public class VendaProduto {
     private Venda venda;
     private Produto produto;
     private int qtd;
+    private double desconto;
     private double total;
     
     public VendaProduto() {
@@ -17,11 +18,12 @@ public class VendaProduto {
         this.id = id;
     }
     
-    public VendaProduto(Integer id, Venda venda, Produto produto, int qtd) {
+    public VendaProduto(Integer id, Venda venda, Produto produto, int qtd, double desconto) {
         this.id = id;
         this.venda = venda;
         this.produto = produto;
         this.qtd = qtd;
+        this.desconto = desconto;
     }
 
     public Integer getId() {
@@ -65,5 +67,13 @@ public class VendaProduto {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
     }
 }
