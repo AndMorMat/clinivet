@@ -136,23 +136,23 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                         .add(28, 28, 28)
                         .add(btnCancelarVenda))
                     .add(layout.createSequentialGroup()
-                        .add(btnAddProduto)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnRemoverProdutoLista))
-                    .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(lblDesconto)
-                            .add(layout.createSequentialGroup()
-                                .add(lblDataVenda)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(214, 214, 214)
-                                .add(lblTotal)))
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(layout.createSequentialGroup()
+                                    .add(lblDataVenda)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(214, 214, 214)
+                                    .add(lblTotal))
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnAddProduto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(txtTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                             .add(txtDesconto))))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -167,17 +167,17 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblDesconto)
                     .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(56, 56, 56)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnAddProduto)
-                    .add(btnRemoverProdutoLista))
-                .add(18, 18, 18)
+                .add(14, 14, 14)
+                .add(btnAddProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnConcluirVenda)
                     .add(btnCancelarVenda))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,12 +201,11 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         if (opt == 0) {
             Venda venda = new Venda();
             venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
-            venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)));
+            venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)) - desconto);
             venda.setItens(itens);
             for (VendaProduto vendaItem : itens) {
                 vendaItem.setVenda(venda);
             }
-
             try {
                 dao.addVenda(venda, true);
                 setVisible(false);
@@ -215,7 +214,6 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar a venda "+ex,"Error",JOptionPane.ERROR_MESSAGE);
 
             }
-
         }
     }//GEN-LAST:event_btnConcluirVendaActionPerformed
 
