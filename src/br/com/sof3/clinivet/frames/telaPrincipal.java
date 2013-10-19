@@ -77,6 +77,9 @@ public class telaPrincipal extends javax.swing.JDialog {
         Cliente = new javax.swing.JMenu();
         editarUsuario = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        JMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
@@ -151,7 +154,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuBar1.add(jMenuCadastrarUsuario);
 
         Cliente.setMnemonic('e');
-        Cliente.setText("Editar");
+        Cliente.setText("Editar/Excluir");
 
         editarUsuario.setText("Usuário");
         editarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +171,30 @@ public class telaPrincipal extends javax.swing.JDialog {
             }
         });
         Cliente.add(jMenuItem4);
+
+        jMenuItem5.setText("Animal");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        Cliente.add(jMenuItem5);
+
+        jMenuItem6.setText("Produto");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        Cliente.add(jMenuItem6);
+
+        JMenuItem7.setText("Fornecedor");
+        JMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItem7ActionPerformed(evt);
+            }
+        });
+        Cliente.add(JMenuItem7);
 
         jMenuBar1.add(Cliente);
 
@@ -274,7 +301,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(690, Short.MAX_VALUE))
+                .addContainerGap(694, Short.MAX_VALUE))
         );
 
         pack();
@@ -312,7 +339,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
-        frmPesquisaCliente pesquisaCliente = new frmPesquisaCliente("cadastrar");
+        frmPesquisaCliente pesquisaCliente = new frmPesquisaCliente("consultar");
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedoresActionPerformed
@@ -363,6 +390,18 @@ public class telaPrincipal extends javax.swing.JDialog {
         vendasEfetuadas.setVisible(true);
     }//GEN-LAST:event_jMenuVendasEfetuadasActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        JOptionPane.showMessageDialog(null, "Em Construção");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        JOptionPane.showMessageDialog(null, "Em Construção");
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void JMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem7ActionPerformed
+        JOptionPane.showMessageDialog(null, "Em Construção");
+    }//GEN-LAST:event_JMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -399,6 +438,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Cliente;
+    private javax.swing.JMenuItem JMenuItem7;
     private javax.swing.JMenuItem editarUsuario;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
@@ -414,6 +454,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;

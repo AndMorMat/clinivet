@@ -8,6 +8,7 @@ public class Venda {
     private Integer id;
     private Date dataVenda;
     private double totalVenda;
+    private String formaPagamento;
     private Vendedor vendedor;
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     
@@ -19,12 +20,13 @@ public class Venda {
         this.id = id;
     }
     
-    public Venda(Integer id, Date dataVenda, double totalVenda,
+    public Venda(Integer id, Date dataVenda, double totalVenda, String formaPagamento,
             Vendedor vendedor) {
         
         this.id = id;
         this.dataVenda = dataVenda;
         this.totalVenda = totalVenda;
+        this.formaPagamento = formaPagamento;
         this.vendedor = vendedor;
     }
 
@@ -66,5 +68,13 @@ public class Venda {
 
     public void setItens(List<VendaProduto> itens) {
         this.itens = itens;
+    }
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 }

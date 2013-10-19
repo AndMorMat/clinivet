@@ -35,7 +35,17 @@ public class Cliente {
         setCidade(cidade);
         
     }
-    
+    public String exibir(){
+        return "Nome: "+nome+
+                "\nSobrenome: "+sobrenome+
+                "\nCpf: "+cpf+
+                "\nTelefone: "+telefone+
+                "\nCelular: "+celular+
+                "\nEmail: "+email+
+                "\nEndereço: "+endereco+
+                "\nBairro: "+bairro;
+        
+    }
     public String[] addTable(){
         String [] dados={nome,cpf,telefone};
         return dados;

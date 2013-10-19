@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 public class frmAddCliente extends javax.swing.JDialog {
     private final ClienteDAO cdao;
     private final AnimalDAO adao;
+    private Cliente cliAntigo = new Cliente();
     /** Creates new form frmAddCustomer */
     String param;
     public frmAddCliente(java.awt.Frame parent, boolean modal,ClienteDAO cdao, AnimalDAO adao, String parametro, Cliente cli) {
@@ -42,6 +43,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         param = parametro;
         if(parametro.equals("editar")){
             carregarCampos(cli);
+            cliAntigo = cli;
             btnOK.setText("Editar");
         }else if(parametro.equals("cadastrar")){
             
@@ -87,6 +89,8 @@ public class frmAddCliente extends javax.swing.JDialog {
         lblEmail = new javax.swing.JLabel();
         txtCPF = new javax.swing.JFormattedTextField();
         btnCadAnimalTelaCadCliente = new javax.swing.JButton();
+        btnCadastrarCliente = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -291,33 +295,42 @@ public class frmAddCliente extends javax.swing.JDialog {
             }
         });
 
+        btnCadastrarCliente.setText("Cadastrar Cliente");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Cadastrar Animal para Fulano?");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(306, 306, 306)
+                .add(tituloCadastroCliente)
+                .addContainerGap(402, Short.MAX_VALUE))
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(416, 416, 416)
+                        .add(btnOK, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(37, 37, 37)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(btnCadastrarCliente)
+                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(306, 306, 306)
-                        .add(tituloCadastroCliente))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(9, 9, 9)
+                        .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(layout.createSequentialGroup()
-                                .add(37, 37, 37)
-                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .add(416, 416, 416)
-                                .add(btnOK, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(41, 41, 41)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(btnCadAnimalTelaCadCliente)))
-                            .add(layout.createSequentialGroup()
-                                .add(9, 9, 9)
-                                .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .add(jLabel1)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(btnCadAnimalTelaCadCliente))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -327,11 +340,15 @@ public class frmAddCliente extends javax.swing.JDialog {
                 .add(27, 27, 27)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(btnCadAnimalTelaCadCliente)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(btnCadAnimalTelaCadCliente)
+                            .add(jLabel1)))
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnCadastrarCliente)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnOK)
                     .add(btnCancelar))
@@ -383,7 +400,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                 
                 ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
                 
-                cli.cadastrar(cliDAO.getIdByCpf(txtCPF.getText()),
+                cli.cadastrar(cliDAO.getIdByCpf((cliAntigo.getCpf())),
                         txtNome.getText(),
                         txtSobrenome.getText(),
                         txtCPF.getText(),
@@ -393,6 +410,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         txtEndereco.getText(),
                         txtBairro.getText(),
                         ci);
+                JOptionPane.showMessageDialog(null, "cliente cadastrado:\n\n"+cli.exibir());
                 cliDAO.atualizarCliente(cli);
                 
             }catch(Exception ex){
@@ -421,10 +439,12 @@ public class frmAddCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadAnimalTelaCadCliente;
+    private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnOK;
     private javax.swing.JComboBox comboCidades;
     private javax.swing.JComboBox comboEstados;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
