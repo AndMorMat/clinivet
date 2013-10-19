@@ -57,8 +57,6 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         cbxTipoProduto = new javax.swing.JComboBox();
         btnBuscar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
         lblProcurarPor.setText("Procurar por:");
 
         lblQuantidade.setText("Quantidade:");
@@ -68,14 +66,14 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome Produto", "Preço"
+                "Código", "Nome Produto", "Preço", "Estoque"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -89,6 +87,7 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tableProdutos);
         tableProdutos.getColumnModel().getColumn(0).setResizable(false);
         tableProdutos.getColumnModel().getColumn(2).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(3).setResizable(false);
 
         btnProcurar.setText("Procurar");
         btnProcurar.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +272,13 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
         ProdutoDAO pdao = new ProdutoDAO();
         
         Integer qnt = Integer.parseInt(txtQuantidade.getText());
+        
+        String estoque = String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 3));
+        
+        if(qnt > Integer.parseInt(estoque)) {
+            JOptionPane.showMessageDialog(null, "Quantidade não permitida! Verifique o estoque.", "Erro",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (qnt <= 0) {
             JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que 0","Erro",JOptionPane.ERROR_MESSAGE);
@@ -280,13 +286,12 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
             return;
         }
         
-        
-
         int opt = JOptionPane.showConfirmDialog(this,"Você tem certeza? ?","Adicionar novo produto",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         
         if (opt == 0) {
             try {
-                pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(0, tableProdutos.getSelectedRow())));
+                pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 0)));        
+                
                 VendaProduto item = new VendaProduto();
                 dtm2.addRow(pro.get(0).addTable());
                 item.setQtd(qnt);
@@ -330,6 +335,7 @@ public class frmAddProdutoParaVenda extends javax.swing.JDialog {
                     p.setCodigo(pro.get(aux).getCodigo());
                     p.setNome(pro.get(aux).getNome());
                     p.setPrecoVenda(pro.get(aux).getPrecoVenda());
+                    p.setEstoque(pro.get(aux).getEstoque());
 
                     dtm.addRow(p.addTable());
                     cont++;

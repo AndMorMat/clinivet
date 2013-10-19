@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmEfetuarVenda extends javax.swing.JDialog {
     private final VendaDAO dao;
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
+    int desconto = 0;
     
     public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao) {
         super(parent, modal);
@@ -53,8 +54,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         btnCancelarVenda = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProdutos = new javax.swing.JTable();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        lblDesconto = new javax.swing.JLabel();
+        txtDesconto = new javax.swing.JTextField();
 
         lblDataVenda.setText("Data da Venda:");
 
@@ -97,14 +98,14 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome", "Preço"
+                "Código", "Nome", "Preço", "Estoque"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -118,6 +119,9 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tableProdutos);
         tableProdutos.getColumnModel().getColumn(0).setResizable(false);
         tableProdutos.getColumnModel().getColumn(2).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(3).setResizable(false);
+
+        lblDesconto.setText("Desconto:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,13 +140,18 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnRemoverProdutoLista))
                     .add(layout.createSequentialGroup()
-                        .add(lblDataVenda)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(214, 214, 214)
-                        .add(lblTotal)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(lblDesconto)
+                            .add(layout.createSequentialGroup()
+                                .add(lblDataVenda)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(214, 214, 214)
+                                .add(lblTotal)))
                         .add(18, 18, 18)
-                        .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 99, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(txtTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .add(txtDesconto))))
                 .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -154,7 +163,11 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                     .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblTotal)
                     .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(90, 90, 90)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblDesconto)
+                    .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(56, 56, 56)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnAddProduto)
                     .add(btnRemoverProdutoLista))
@@ -164,7 +177,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnConcluirVenda)
                     .add(btnCancelarVenda))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,11 +188,17 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "A lista de produtos está vazia!","Erro",JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        desconto = Integer.parseInt(txtDesconto.getText());
+        
+        if(desconto < 0) {
+            JOptionPane.showMessageDialog(null, "Não é permitido valores negativos no desconto" ,"Erro",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         int opt = JOptionPane.showConfirmDialog(this, "Você tem certeza?", "Confirmar", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
         if (opt == 0) {
-            frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
             Venda venda = new Venda();
             venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
             venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)));
@@ -233,9 +252,11 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private javax.swing.ButtonGroup groupFormaPagamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataVenda;
+    private javax.swing.JLabel lblDesconto;
     private javax.swing.JLabel lblTotal;
     public static javax.swing.JTable tableProdutos;
     private javax.swing.JTextField txtDataVenda;
+    private javax.swing.JTextField txtDesconto;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
@@ -249,7 +270,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         for (VendaProduto sellItem : itens) {
             value += sellItem.getProduto().getPrecoVenda()*sellItem.getQtd();
             sellItem.setTotal(sellItem.getProduto().getPrecoVenda()*sellItem.getQtd());
-        } 
+        }
        txtTotal.setText("R$ "+value);
     }
+
 }
