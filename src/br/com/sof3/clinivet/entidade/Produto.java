@@ -34,7 +34,7 @@ public class Produto {
     }
     
     public String[] addTable(){
-        String [] dados = { codigo, nome, String.valueOf(precoVenda) };
+        String [] dados = { codigo, nome, String.valueOf(precoVenda), String.valueOf(estoque) };
         return dados;  
     }
     
