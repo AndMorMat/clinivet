@@ -34,11 +34,11 @@ public class EstadoDAO extends GenericoDAO {
         int id=-1;
         try{
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Erro antes do populate");
+                
                 estado = populateEstadoInfo(rs);
-                JOptionPane.showMessageDialog(null, "passou o populate");
+                
                 id = estado.getId();
-                JOptionPane.showMessageDialog(null, "passou o idestado");
+
             }
             rs.close();
         }catch(Exception ex){
