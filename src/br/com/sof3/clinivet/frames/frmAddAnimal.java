@@ -165,7 +165,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
         tblClientes.getColumnModel().getColumn(0).setPreferredWidth(150);
         tblClientes.getColumnModel().getColumn(1).setResizable(false);
 
-        btnFiltrarPor.setText("Filtrar por");
+        btnFiltrarPor.setText("Filtrar dono por");
         btnFiltrarPor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarPorActionPerformed(evt);

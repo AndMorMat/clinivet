@@ -96,6 +96,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblBuscaCli.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblBuscaCli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBuscaCliMouseClicked(evt);

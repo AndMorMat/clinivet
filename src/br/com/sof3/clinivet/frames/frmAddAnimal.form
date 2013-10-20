@@ -302,7 +302,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnFiltrarPor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Filtrar por"/>
+        <Property name="text" type="java.lang.String" value="Filtrar dono por"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFiltrarPorActionPerformed"/>

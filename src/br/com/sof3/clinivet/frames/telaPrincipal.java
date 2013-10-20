@@ -356,7 +356,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
     private void jMenuAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAnimaisActionPerformed
         // TODO add your handling code here:
-        frmPesquisaAnimal pesquisaAnimal = new frmPesquisaAnimal();
+        frmPesquisaAnimal pesquisaAnimal = new frmPesquisaAnimal("consultar");
     }//GEN-LAST:event_jMenuAnimaisActionPerformed
 
     private void jMenuConsultasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuConsultasItemStateChanged
@@ -391,7 +391,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuVendasEfetuadasActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        JOptionPane.showMessageDialog(null, "Em Construção");
+       frmPesquisaAnimal frmPesquisaAnimal = new frmPesquisaAnimal("editar");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

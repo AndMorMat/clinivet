@@ -128,10 +128,8 @@ public class AnimalDAO extends GenericoDAO {
         return toReturn;
     }
     
-    public List<Animal> getAnimalByID() throws SQLException {
+    public List<Animal> getMaxAnimal() throws SQLException {
         List<Animal> toReturn = new LinkedList<Animal>();
-        
-
         ResultSet rs = executeQuery("SELECT * FROM animais  a ORDER BY id DESC;");
    
         while (rs.next()) {

@@ -5,7 +5,9 @@
 package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.AnimalDAO;
+import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.entidade.Animal;
+import br.com.sof3.clinivet.entidade.Cliente;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,12 +24,19 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
     /**
      * Creates new form frmPesquisaAnimal
      */
-    public frmPesquisaAnimal() {
+    public frmPesquisaAnimal(String parametro) {
         initComponents();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
         rbtID.setSelected(true);
+        if (parametro.equals("editar")){
+            btnEditar.setVisible(true);
+            
+        }else if(parametro.equals("consultar")){
+            btnEditar.setVisible(false);
+            btnExcluir.setVisible(false);
+        }
     }
 
     /**
@@ -50,6 +59,8 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaAnimal = new javax.swing.JTable();
         rbtID = new javax.swing.JRadioButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +136,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblBuscaAnimal.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblBuscaAnimal);
         tblBuscaAnimal.getColumnModel().getColumn(0).setPreferredWidth(2);
         tblBuscaAnimal.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -137,28 +149,39 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNomeVendedor)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rbtID)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscaAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNomeVendedor)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscaAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(36, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,15 +194,20 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbtID)))
-                    .addComponent(btnUltimosCad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscaAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                            .addComponent(rbtID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscaAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnUltimosCad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,7 +242,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
             
             
-            listan = anidao.getAnimalByID();
+            listan = anidao.getMaxAnimal();
             
             
             for(int aux=0 ;aux<listan.size();aux++){
@@ -303,8 +331,25 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtRacaActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        List<Animal> ani = new LinkedList<>();
+        AnimalDAO adao = new AnimalDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaAnimal.getModel();
+        if(tblBuscaAnimal.getSelectedRow()>=0 && tblBuscaAnimal.getSelectedRow()<tblBuscaAnimal.getRowCount()){
+            try{
+               //ani = adao.getAnimalByID(Integer.parseInt(String.valueOf(dtm.getValueAt(tblBuscaAnimal.getSelectedRow(), 0)));
+
+               //frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnUltimosCad;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
