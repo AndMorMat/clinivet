@@ -4,10 +4,13 @@
  */
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.FornecedorDAO;
+import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,16 +18,26 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andrematos
  */
-public class filtrarFornecedorPor extends javax.swing.JFrame {
+public class frmFiltrarPor extends javax.swing.JFrame {
 
     /**
-     * Creates new form filtrarFornecedorPor
+     * Creates new form frmFiltrarPor
      */
-    public filtrarFornecedorPor() {
+    private String param;
+    public frmFiltrarPor(String parametro) {
         initComponents();
+        param = parametro;
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
+        if(parametro.equals("fornecedor")){
+            rbtCnpj.setText("Cnpj");
+            btnFiltrar.setText("Cnpj");
+        }else if(parametro.equals("cliente")){
+            rbtCnpj.setText("Cpf");
+            btnFiltrar.setText("CPF");
+        }
+        
     }
 
     /**
@@ -47,7 +60,7 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Fornecedor por"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar por:"));
 
         txtParametro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -163,61 +176,125 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-        FornecedorDAO fdao = new FornecedorDAO();
-        ArrayList<Fornecedor> fornecedor = new ArrayList<>();
-        try{
-            if(!rbtTodos.isSelected() && txtParametro.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Digite um valor para pesquisar");
-                return;
-            }else
-            if(rbtNome.isSelected()){
-                
-                fornecedor = fdao.FiltrarFornecedorNome(txtParametro.getText());
-                limparTabela();
-                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                if(fornecedor.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+       if(param.equals("fornecedor")){     
+            FornecedorDAO fdao = new FornecedorDAO();
+            ArrayList<Fornecedor> fornecedor = new ArrayList<>();
+            try{
+                if(!rbtTodos.isSelected() && txtParametro.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Digite um valor para pesquisar");
+                    return;
+                }else
+                if(rbtNome.isSelected()){
+
+                    fornecedor = fdao.FiltrarFornecedorNome(txtParametro.getText());
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                    if(fornecedor.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<fornecedor.size();aux++)
+                            dtm.addRow(fornecedor.get(aux).addTable());
+                    }
+                }else if(rbtCnpj.isSelected()){
+
+                    fornecedor = fdao.FiltrarFornecedorCnpj(txtParametro.getText());
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                    if(fornecedor.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<fornecedor.size();aux++)
+                            dtm.addRow(fornecedor.get(aux).addTable());
+                    }
+                }else if(rbtTelefone.isSelected()){
+                    fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                    if(fornecedor.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<fornecedor.size();aux++)
+                            dtm.addRow(fornecedor.get(aux).addTable());
+                    }
                 }else{
-                    for(int aux=0;aux<fornecedor.size();aux++)
-                        dtm.addRow(fornecedor.get(aux).addTable());
+                    fornecedor = fdao.FiltrarFornecedorNome("");//mandar Parametro em branco ele filtra todos
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                    if(fornecedor.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<fornecedor.size();aux++)
+                            dtm.addRow(fornecedor.get(aux).addTable());
+                    }
+
                 }
-            }else if(rbtCnpj.isSelected()){
-               
-                fornecedor = fdao.FiltrarFornecedorCnpj(txtParametro.getText());
-                limparTabela();
-                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                if(fornecedor.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
-                }else{
-                    for(int aux=0;aux<fornecedor.size();aux++)
-                        dtm.addRow(fornecedor.get(aux).addTable());
-                }
-            }else if(rbtTelefone.isSelected()){
-                fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
-                limparTabela();
-                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                if(fornecedor.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
-                }else{
-                    for(int aux=0;aux<fornecedor.size();aux++)
-                        dtm.addRow(fornecedor.get(aux).addTable());
-                }
-            }else{
-                fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
-                limparTabela();
-                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                if(fornecedor.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
-                }else{
-                    for(int aux=0;aux<fornecedor.size();aux++)
-                        dtm.addRow(fornecedor.get(aux).addTable());
-                }
-                
+                setVisible(false);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro botao filtrar");
             }
-            setVisible(false);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Erro botao filtrar");
-        }
+       }else if(param.equals("cliente")){
+            
+            ClienteDAO clienteDAO = new ClienteDAO();
+            List<Cliente> cliente = new ArrayList<>();
+            
+            try{
+                if(!rbtTodos.isSelected() && txtParametro.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Digite um valor para pesquisar");
+                    return;
+                }else
+                if(rbtNome.isSelected()){
+                    
+                    cliente = clienteDAO.getClientesByName(txtParametro.getText());
+                    
+                    limparTabela();
+                    
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddAnimal.tblClientes.getModel();
+                    if(cliente.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<cliente.size();aux++)
+                            dtm.addRow(cliente.get(aux).addTable());
+                    }
+                }else if(rbtCnpj.isSelected()){
+
+                    cliente = clienteDAO.getClientesByCPF(txtParametro.getText());
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddAnimal.tblClientes.getModel();
+                    if(cliente.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<cliente.size();aux++)
+                            dtm.addRow(cliente.get(aux).addTable());
+                    }
+                }else if(rbtTelefone.isSelected()){
+                    cliente = clienteDAO.getClientesByTelefone(txtParametro.getText());
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddAnimal.tblClientes.getModel();
+                    if(cliente.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<cliente.size();aux++)
+                            dtm.addRow(cliente.get(aux).addTable());
+                    }
+                }else{
+                    cliente = clienteDAO.getClientesByName("");//mandar parametro em branco ele busca todos
+                    
+                    limparTabela();
+                    
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddAnimal.tblClientes.getModel();
+                    if(cliente.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+                    }else{
+                        for(int aux=0;aux<cliente.size();aux++)
+                            dtm.addRow(cliente.get(aux).addTable());
+                    }
+                }
+                
+                setVisible(false);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro botao filtrar");
+            }
+       }
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void txtParametroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtParametroKeyPressed
@@ -249,11 +326,21 @@ public class filtrarFornecedorPor extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtTelefoneMouseClicked
 
     public void limparTabela(){
-        DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-        int cont = dtm.getRowCount();
+        
+        if(param.equals("fornecedor")){
+            DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+            int cont = dtm.getRowCount();
+                for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                    dtm.removeRow(aux);
+            }
+        }else{
+            DefaultTableModel dtm = (DefaultTableModel)frmAddAnimal.tblClientes.getModel();
+            int cont = dtm.getRowCount();
             for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
                 dtm.removeRow(aux);
             }
+        }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;

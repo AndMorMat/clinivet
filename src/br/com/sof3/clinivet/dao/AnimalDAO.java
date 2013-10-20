@@ -37,9 +37,13 @@ public class AnimalDAO extends GenericoDAO {
     
     
     public int adicionaAnimal(Animal an) throws SQLException {
-        an.setId(getNextId("animais"));
-        String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, RACA, DATA_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
-        executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca(), an.getDataNasc(), an.getSexo(), an.getDono().getId());
+        try{
+            an.setId(getNextId("animais"));
+            String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, ID_RACA, DATA_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
+            executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.getDono().getId());
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar animal no metodo adicionaAnimal na classe AnimalDAO"+ex);
+        }
         return an.getId();
     }
 
@@ -116,7 +120,7 @@ public class AnimalDAO extends GenericoDAO {
         toReturn.setId(rs.getInt("ID"));
         toReturn.setNome(rs.getString("a.NOME"));//ajustado para exibir somente o nome do animal e não do 
         toReturn.setTipoAnimal(rs.getString("TIPO_ANIMAL"));
-        toReturn.setRaca(racaDAO.getRaca(rs.getInt("ID_RACA")));
+        toReturn.setRaca(racaDAO.getRacaById(rs.getInt("ID_RACA")));
         toReturn.setDataNasc(rs.getString("DATA_NASCIMENTO"));
         toReturn.setSexo(rs.getString("SEXO"));
         toReturn.setDono(clienteDAO.getCliente(rs.getInt("ID_DONO")));

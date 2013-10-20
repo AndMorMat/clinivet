@@ -302,7 +302,7 @@ public class frmAddProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarFornecedorActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-         filtrarFornecedorPor filtrarFornecedor = new filtrarFornecedorPor();
+         frmFiltrarPor filtrarFornecedor = new frmFiltrarPor("fornecedor");
     }//GEN-LAST:event_btnFiltrarActionPerformed
     
     public boolean verificaCampos(){

@@ -11,7 +11,10 @@ public class CidadeDAO extends GenericoDAO {
 
     public CidadeDAO() {
     }
-    
+    public List<Cidade> getAllCidadesById_Estado(int id) throws SQLException{
+        List<Cidade> toReturn = new LinkedList<>();
+        return toReturn;
+    }
     public Cidade getCidade(int idCidade) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM cidades WHERE ID = ?", idCidade);
         Cidade cidade = null;
