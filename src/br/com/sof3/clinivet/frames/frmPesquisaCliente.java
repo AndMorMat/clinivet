@@ -248,17 +248,38 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                          cli = cdao.getClientesByName(txtBuscaCliente.getText());
                         
                      }else{
+                         
+                        
                         int validador=0; 
-                        String letras="abcdefghyjklmnopqrstuvwxyz";
+                        String letras="abcdefghyjklmnopqrstuvwxyz.";
                         String    texto = txtBuscaCliente.getText().toLowerCase();
+                        
                         for(int i=0; i<texto.length(); i++){
-                            if (letras.indexOf(texto.charAt(i),0)!=-1){
+                             if (letras.indexOf(texto.charAt(i),0)!=-1){
                                     validador =1;
                             }
                         }
+                        
                         if(validador==0){
+                        
+                         
+                            StringBuilder stringBuilder = new StringBuilder(texto);  
+
+
+                            for(int i=0; i<texto.length(); i++){
+                                if(i==3)
+                                stringBuilder.insert(3, '.');
+                                else if(i==8)
+                                stringBuilder.insert(7, '.');
+                                else if(i==11)
+                                stringBuilder.insert(11, '-');
+                                else if (letras.indexOf(texto.charAt(i),0)!=-1){
+                                        validador =1;
+                                }
+                            }
+                        
                             
-                            cli = cdao.getClientesByCPF(txtBuscaCliente.getText());
+                            cli = cdao.getClientesByCPF(stringBuilder.toString());
                            
                         }else{
                             cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
