@@ -114,7 +114,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -126,6 +126,8 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblBuscaAnimal);
+        tblBuscaAnimal.getColumnModel().getColumn(0).setPreferredWidth(2);
+        tblBuscaAnimal.getColumnModel().getColumn(1).setPreferredWidth(200);
 
         buttonGroup1.add(rbtID);
         rbtID.setText("ID / Código");
@@ -157,7 +159,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                         .addComponent(txtBuscaAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +179,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,6 +216,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             
             listan = anidao.getAnimalByID();
             
+            
             for(int aux=0 ;aux<listan.size();aux++){
                 if(aux<6){                  
                     a.setId(listan.get(aux).getId());
@@ -227,7 +230,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar ");
+            JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaAnimal no botao  Ultimos Cadastros");
         }
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 

@@ -329,7 +329,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuCadastrarClienteActionPerformed
 
     private void jMenuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarProdutoActionPerformed
-        frmAddAnimal addAnimal = new frmAddAnimal(new javax.swing.JFrame(), true, adao,cdao);
+        frmAddAnimal addAnimal = new frmAddAnimal();
         
     }//GEN-LAST:event_jMenuCadastrarProdutoActionPerformed
 

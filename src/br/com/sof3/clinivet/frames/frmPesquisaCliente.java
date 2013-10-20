@@ -231,10 +231,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
             dtm.removeRow(aux);
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> a20f260874c3febd581e8060cf1ec8cd125f1d69
         if(txtBuscaCliente.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
           
@@ -247,7 +244,9 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                     Cliente c = new Cliente();
                     
                      if(rbtNome.isSelected()){
+
                          cli = cdao.getClientesByName(txtBuscaCliente.getText());
+                        
                      }else{
                         int validador=0; 
                         String letras="abcdefghyjklmnopqrstuvwxyz";
@@ -257,8 +256,10 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                                     validador =1;
                             }
                         }
-                        if(validador==0){ 
+                        if(validador==0){
+                            
                             cli = cdao.getClientesByCPF(txtBuscaCliente.getText());
+                           
                         }else{
                             cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                             JOptionPane.showMessageDialog(null, "Informe somente números");
@@ -276,7 +277,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                          JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar ");
+                    JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao ultimos cadastros ");
                 }
             
         }
