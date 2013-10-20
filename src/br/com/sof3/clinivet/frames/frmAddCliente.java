@@ -38,7 +38,9 @@ public class frmAddCliente extends javax.swing.JDialog {
         this.adao = adao;
         initComponents();
         txtNome.requestFocus();
-        loadInitialComboData();
+        carregaEstados();
+        carregaCidades();
+        
         setLocationRelativeTo(null);
         param = parametro;
         if(parametro.equals("editar")){
@@ -157,10 +159,10 @@ public class frmAddCliente extends javax.swing.JDialog {
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(lblEstado)
                         .add(18, 18, 18)
-                        .add(comboEstados, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(comboEstados, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(1, 1, 1)
                         .add(lblCidade)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(6, 6, 6)
                         .add(comboCidades, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -209,7 +211,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                                         .add(lblCPF)
                                         .add(21, 21, 21)
                                         .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 327, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -359,7 +361,7 @@ public class frmAddCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void comboEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadosActionPerformed
-        // TODO add your handling code here:
+        carregaCidades();
     }//GEN-LAST:event_comboEstadosActionPerformed
 
     private void comboCidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadesActionPerformed
@@ -407,17 +409,31 @@ public class frmAddCliente extends javax.swing.JDialog {
     }
     
     
-    private void carregaCidades(String param){
+    private void carregaCidades(){
         EstadoDAO estadoDAO = new EstadoDAO();
         CidadeDAO cidadeDAO = new CidadeDAO();
+        List<Cidade> cidade = new LinkedList<>();
         
-        /*if(){
+        
+        try{
+            int id_estado = estadoDAO.getIdEstado(comboEstados.getSelectedItem().toString());
             
-        }*/
+            cidade = cidadeDAO.getAllCidadesById_Estado(id_estado);
+            
+            String nomes[] = new String[cidade.size()];
+            for(int aux=0;aux<cidade.size();aux++){
+                nomes[aux] = cidade.get(aux).getNome();
+            }
+            DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(nomes);
+            comboCidades.setModel(comboEstado);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidades no comboCidades na classe frmAddCliente");
+        }
+        
     }
-    
-    
-    private void loadInitialComboData() {
+
+   
+    private void carregaEstados() {
 
         // carrega combo de estados
         try {
@@ -433,7 +449,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de estados");
         }
-        
+        /*
         try {
             
             CidadeDAO cidadeDAO = new CidadeDAO();
@@ -450,4 +466,5 @@ public class frmAddCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de cidades");
         }
     }
+*/}
 }
