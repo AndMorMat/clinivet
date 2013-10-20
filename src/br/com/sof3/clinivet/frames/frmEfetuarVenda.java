@@ -32,17 +32,16 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     Venda venda = new Venda();
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     double desconto = 0;
-    private frmEfetuarVenda vendaForm;
     
     public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao) {
         super(parent, modal);
         this.dao = dao;
         this.itens = itens;
-        this.vendaForm = vendaForm;
         initComponents();
         loadInitialData();
         carregarCbx(); 
         atualizaItens();
+        carregaTodosProdutos();
     }
 
     /**
@@ -595,24 +594,17 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             return;
         }
         
-        int opt = JOptionPane.showConfirmDialog(this,"Você tem certeza? ?","Adicionar novo produto",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        
-        if (opt == 0) {
-            try {
-                pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 0)));
-                VendaProduto item = new VendaProduto();
-                dtm2.addRow(pro.get(0).addTable());
-                item.setQtd(qnt);
-                item.setProduto((Produto) pro.get(0));
-                itens.add(item);
-                if (vendaForm != null) {
-                    vendaForm.atualizaItens();
-                }
-                setVisible(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(frmAddProdutoParaVenda.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        try {
+            pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 0)));
+            VendaProduto item = new VendaProduto();
+            dtm2.addRow(pro.get(0).addTable());
+            item.setQtd(qnt);
+            item.setProduto((Produto) pro.get(0));
+            itens.add(item);
+            atualizaItens();
+         } catch (SQLException ex) {
+            Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_btnAdicionarNoCarrinhoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -666,6 +658,30 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     public void carregarCbx(){
         for(EnumTipoProduto ep: EnumTipoProduto.values()){
             cbxTipoProduto.addItem(ep.getNome());
+        }
+    }
+    
+    public void carregaTodosProdutos() {
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel)tableProdutos.getModel();
+
+        try {
+            List<Produto> pro = new LinkedList<Produto>();
+
+            Produto p  = new Produto();
+
+            pro = pdao.getTodosProdutos();
+
+            for(int aux = 0; aux < pro.size();aux++){
+                p.setCodigo(pro.get(aux).getCodigo());
+                p.setNome(pro.get(aux).getNome());
+                p.setPrecoVenda(pro.get(aux).getPrecoVenda());
+                p.setEstoque(pro.get(aux).getEstoque());
+
+                dtm.addRow(p.addTable());
+            }
+        }catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error");
         }
     }
 }
