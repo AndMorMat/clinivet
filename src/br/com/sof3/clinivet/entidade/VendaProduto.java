@@ -1,7 +1,5 @@
 package br.com.sof3.clinivet.entidade;
 
-import br.com.sof3.clinivet.frames.SwingColumn;
-
 public class VendaProduto {
     private Integer id;
     private Venda venda;
