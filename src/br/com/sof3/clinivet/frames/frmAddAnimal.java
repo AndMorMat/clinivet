@@ -54,6 +54,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setVisible(true);
         txtNome.requestFocus();
+        tblClientes.setRowSelectionInterval(0, 0);
         
         
     }
@@ -290,35 +291,57 @@ public class frmAddAnimal extends javax.swing.JDialog {
         if (resp == 2) {
             return;
         }*/
-        AnimalDAO dao = new AnimalDAO();
-        ClienteDAO cdao = new ClienteDAO();
-        DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
-        try {
-            Animal animal = new Animal();
-            RacaDAO racaDAO = new RacaDAO();
-            ClienteDAO clienteDAO = new ClienteDAO();
-            Raca raca = new Raca();
-            raca = racaDAO.getRaca(comboRaca.getSelectedItem().toString());
-            animal.setNome(txtNome.getText());
-            JOptionPane.showMessageDialog(null, "Nome: "+txtNome.getText());
-            animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString());
-            JOptionPane.showMessageDialog(null, "\nTipo Animal: "+comboTipoAnimal.getSelectedItem());
-            JOptionPane.showMessageDialog(null, "Erro antes de adicionar raca");
-            animal.setRaca(raca);
-            JOptionPane.showMessageDialog(null, "\nRaça: "+raca.getNome());
-            animal.setDataNasc((txtNasc.getText()));
-            JOptionPane.showMessageDialog(null, "\nData Nasc: "+txtNasc.getText());
-            animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
-            JOptionPane.showMessageDialog(null, "\nSexo: " + (checkMacho.isSelected() ? "Masculino" : "Feminino"));
-            //animal.setTipoAnimal((EnumTipoAnimal) comboTipoAnimal.getSelectedItem());
-            animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
-           
-            dao.adicionaAnimal(animal);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Não foi possível adicionar o animal, tente novamente!");
-            return;
+        if(param.equals("cadastrar")){
+            AnimalDAO dao = new AnimalDAO();
+            ClienteDAO cdao = new ClienteDAO();
+            DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+            try {
+                Animal animal = new Animal();
+                RacaDAO racaDAO = new RacaDAO();
+                ClienteDAO clienteDAO = new ClienteDAO();
+                Raca raca = new Raca();
+                raca = racaDAO.getRaca(comboRaca.getSelectedItem().toString());
+                animal.setNome(txtNome.getText());
+                JOptionPane.showMessageDialog(null, "Nome: "+txtNome.getText());
+                animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "\nTipo Animal: "+comboTipoAnimal.getSelectedItem());
+                JOptionPane.showMessageDialog(null, "Erro antes de adicionar raca");
+                animal.setRaca(raca);
+                JOptionPane.showMessageDialog(null, "\nRaça: "+raca.getNome());
+                animal.setDataNasc((txtNasc.getText()));
+                JOptionPane.showMessageDialog(null, "\nData Nasc: "+txtNasc.getText());
+                animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
+                JOptionPane.showMessageDialog(null, "\nSexo: " + (checkMacho.isSelected() ? "Masculino" : "Feminino"));
+                //animal.setTipoAnimal((EnumTipoAnimal) comboTipoAnimal.getSelectedItem());
+                animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+
+                dao.adicionaAnimal(animal);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Não foi possível adicionar o animal, tente novamente!");
+                return;
+            }
+        }else if(param.equals("editar")){
+                AnimalDAO aniDAO = new AnimalDAO();
+                RacaDAO racaDAO = new RacaDAO();
+                ClienteDAO clienteDAO = new ClienteDAO();
+                DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+                
+                try{
+                    Animal ani = new Animal(animalAntigo.getId(),
+                                        txtNome.getText(),
+                                        comboTipoAnimal.getSelectedItem().toString(),
+                                        racaDAO.getRaca(comboRaca.getSelectedItem().toString()),
+                                        txtNasc.getText(),
+                                        checkMacho.isSelected() ? "Macho" : "Fêmea",
+                                        clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+                    ani.exibir();
+                    aniDAO.atualizarAnimal(ani);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null,"Erro ao atualizar animal na classe frmAddAnimal: " +ex);
+                }
+                
         }
         setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
