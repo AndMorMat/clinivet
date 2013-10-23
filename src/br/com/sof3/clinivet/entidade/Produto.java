@@ -14,7 +14,6 @@ public class Produto {
     private Fornecedor fornecedor;
     private int estoque;
     private String tipoProduto;
-
     
     public Produto() {
         
@@ -33,19 +32,25 @@ public class Produto {
         this.tipoProduto = tipoProduto;
     }
     
-    public String[] addTable(){
-        String [] dados = { codigo, nome, String.valueOf(precoVenda), String.valueOf(estoque) };
+    public String[] addCarrinhoCompra(int qtd, double desconto){
+        String [] dados = { nome, String.valueOf(qtd), String.valueOf(precoVenda - desconto), String.valueOf(desconto) };
         return dados;  
+    }
+    
+    public String[] addTableBusca() {
+        String [] dados = { codigo, nome, String.valueOf(precoVenda), String.valueOf(estoque) };
+        return dados;
     }
     
     public String[] addTableConsulta(){
         String [] dados = { codigo, nome, tipoProduto, String.valueOf(precoVenda), String.valueOf(estoque)};
         return dados;
-}
+    }
     
     public Produto(int id) {
         this.id = id;
     }
+    
     public String exibir(){
         return  "Id: "+id+
                 "\nNome: " + nome +
@@ -53,10 +58,9 @@ public class Produto {
                 "\nPreco Venda: "+precoVenda+
                 "\nEstoque: "+estoque+
                 "\nValidade: "+validade+
-                "\nFornecedor: "+fornecedor;
-             
-                
+                "\nFornecedor: "+fornecedor;       
     }
+    
     public Produto(int id, String nome, double precoCusto, double margemLucro,
             double precoVenda, String validade, Fornecedor fornecedor) {
         this.id = id;
