@@ -200,7 +200,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-       if(param.equals("cadastrar")){
+       if(param.equals("cadastrar") || param.equals("telaAddProduto")){
             int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
             if (opc != 0) {
                 return;
@@ -225,7 +225,10 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                     limparTabela();
                     DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
                     dtm.addRow(forn.addTable());
+                    JOptionPane.showMessageDialog(null, "Antes de selecionar");
                     frmAddProduto.tblFornecedores.setSelectionMode(1);
+                    JOptionPane.showMessageDialog(null, "Antes de selecionar certo");
+                    frmAddProduto.tblFornecedores.setRowSelectionInterval(0, 0);
                     param = "";
                 }
                 
