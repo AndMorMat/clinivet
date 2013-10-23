@@ -12,20 +12,20 @@ public class ProdutoDAO extends GenericoDAO{
     
     public int adicionaProduto(Produto produto)throws SQLException{
        try{
-        produto.setId(getNextId("produtos"));  
-        String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque,tipo)"
-                + "values(?,?,?,?,?,?,?,?,?,?)";
-        executeCommand(query, 
-                             produto.getId(),
-                             produto.getCodigo(),
-                             produto.getNome(),
-                             produto.getPrecoCusto(),
-                             produto.getMargemLucro(),
-                             produto.getPrecoVenda(),
-                             produto.getValidade(),
-                             produto.getFornecedor().getId(),
-                             produto.getEstoque(),
-                             produto.getTipoProduto());
+            produto.setId(getNextId("produtos"));  
+            String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque,tipo)"
+                    + "values(?,?,?,?,?,?,?,?,?,?)";
+            executeCommand(query, 
+                                 produto.getId(),
+                                 produto.getCodigo(),
+                                 produto.getNome(),
+                                 produto.getPrecoCusto(),
+                                 produto.getMargemLucro(),
+                                 produto.getPrecoVenda(),
+                                 produto.getValidade(),
+                                 produto.getFornecedor().getId(),
+                                 produto.getEstoque(),
+                                 produto.getTipoProduto());
         
       }catch(Exception ex){
           JOptionPane.showMessageDialog(null, "Erro ao cadastrar produtos no banco de dados :: na classe produtoDAO");
@@ -33,7 +33,34 @@ public class ProdutoDAO extends GenericoDAO{
         return produto.getId();
       
     }
+    public int getIdBCod(String cod) throws SQLException{
+        int id=-1;
+        try{
+            String sql = "select * from produtos where codigo = ?";
+            ResultSet rs = executeQuery(sql, cod);
+            
+            Produto pro = new Produto();
+            while(rs.next()){
+                pro = populateProduto(rs);
+                id = pro.getId();
+            }
+            
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao pegar id pelo codigo na classe ProdutoDAO: "+ ex);
+        }
+        return id;
+    }
     
+    public void atualizaProduto(Produto p) throws SQLException{
+        try{
+            JOptionPane.showMessageDialog(null, p.getId());
+            String query = "update produtos set nome =?, preco_custo=?, margem_lucro=?, preco_venda=?, validade=?, id_fornecedor=?, qtdEstoque = ?, codigo=? where id = ?";
+            executeCommand(query, p.getNome(),p.getPrecoCusto(),p.getMargemLucro(),p.getPrecoVenda(),p.getValidade(),p.getFornecedor().getId(),p.getEstoque(),p.getCodigo(), p.getId());
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao atualizarProduto na classe produtoDAO: "+ ex);
+        }
+    }
     public List<Produto> getProdutoByName(String nome) throws SQLException {
         List<Produto> toReturn = new LinkedList<Produto>();
         
@@ -109,12 +136,12 @@ public class ProdutoDAO extends GenericoDAO{
         
         ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo =  ?", Cod);
         
-        Produto cliente = new Produto();
-        if (rs.next()) {
-            cliente = populateProduto(rs);
+        Produto produto = new Produto();
+        while (rs.next()) {
+            produto = populateProduto(rs);
         }
         rs.close();
-        return cliente;
+        return produto;
     }
     
     public List<Produto> getTodosProdutos() throws SQLException {
