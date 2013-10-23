@@ -71,7 +71,7 @@ public class VendedorDAO extends GenericoDAO {
     }
 
     public Vendedor getVendedor(int idVendedor) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM VENDEDORES WHERE ID = ?", idVendedor);
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE id = ?", idVendedor);
         Vendedor vendedor = null;
         while(rs.next()) {
             vendedor = populateVendedorInfo(rs);
