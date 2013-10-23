@@ -5,6 +5,7 @@
 package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.VendedorDAO;
+import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.SQLException;
@@ -16,7 +17,15 @@ import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ *public void carregaCampos(Animal ani){
+        txtNome.setText(ani.getNome());
+        txtNasc.setText(ani.getDataNasc());
+        comboTipoAnimal.setSelectedItem(ani.getTipoAnimal());
+        comboRaca.setSelectedItem(ani.getRaca().getNome());
+        checkMacho.setSelected(ani.getSexo().equals("Macho") ? true : false);
+        checkFemea.setSelected(ani.getSexo().equals("Fêmea")?true:false);
+        
+    }
  * @author andrematos
  */
 public class frmPesquisaVendedor extends javax.swing.JFrame {
@@ -160,14 +169,13 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
                         .addGap(266, 266, 266)
                         .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(515, 515, 515)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
+                            .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBuscar)
+                            .addGap(254, 254, 254)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

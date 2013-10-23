@@ -8,6 +8,7 @@ import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,13 +27,14 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
      */
     public frmPesquisaAnimal(String parametro) {
         initComponents();
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
         setVisible(true);
+        
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(WIDTH);
         rbtID.setSelected(true);
         if (parametro.equals("editar")){
             btnEditar.setVisible(true);
-            
         }else if(parametro.equals("consultar")){
             btnEditar.setVisible(false);
             btnExcluir.setVisible(false);
@@ -76,11 +78,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
 
         buttonGroup1.add(rbtNome);
         rbtNome.setText("Nome");
-        rbtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtNomeActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,11 +140,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
 
         buttonGroup1.add(rbtID);
         rbtID.setText("ID / Código");
-        rbtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtIDActionPerformed(evt);
-            }
-        });
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -212,14 +204,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtIDActionPerformed
-
-    private void rbtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtNomeActionPerformed
 
     private void btnUltimosCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimosCadActionPerformed
         // TODO add your handling code here:
@@ -337,9 +321,11 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaAnimal.getModel();
         if(tblBuscaAnimal.getSelectedRow()>=0 && tblBuscaAnimal.getSelectedRow()<tblBuscaAnimal.getRowCount()){
             try{
-               //ani = adao.getAnimalByID(Integer.parseInt(String.valueOf(dtm.getValueAt(tblBuscaAnimal.getSelectedRow(), 0)));
-
-               //frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+               ani = adao.getAnimalbyIDcod(Integer.parseInt(String.valueOf(dtm.getValueAt(tblBuscaAnimal.getSelectedRow(), 0))));
+               
+               frmAddAnimal frmAddAniamal = new frmAddAnimal("editar",ani.get(0));
+               
+               
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Erro no btnEditar");
             }
