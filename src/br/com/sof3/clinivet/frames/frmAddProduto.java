@@ -298,7 +298,8 @@ public class frmAddProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
     private void btnCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFornecedorActionPerformed
-        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor(0);  
+        Fornecedor forn = new Fornecedor();
+        frmAddFornecedor frmAddFornecedor = new frmAddFornecedor("telaAddProduto",forn);  
     }//GEN-LAST:event_btnCadastrarFornecedorActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
