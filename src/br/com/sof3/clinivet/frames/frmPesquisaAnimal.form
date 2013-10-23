@@ -137,9 +137,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtNomeActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -219,9 +216,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="ID / C&#xf3;digo"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtIDActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEditar">
       <Properties>
