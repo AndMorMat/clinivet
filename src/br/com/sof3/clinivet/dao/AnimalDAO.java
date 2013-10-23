@@ -144,7 +144,7 @@ public class AnimalDAO extends GenericoDAO {
     public List<Animal> getAnimalbyIDcod(int id) throws SQLException {//procurar somente por código
         List<Animal> toReturn = new LinkedList<Animal>();
         
-        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE id like \""+id+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE id = ?",id);
         
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
