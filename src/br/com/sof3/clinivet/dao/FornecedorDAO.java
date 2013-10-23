@@ -34,6 +34,27 @@ public class FornecedorDAO extends GenericoDAO{
                          fornecedor.getCidade().getId());
         return fornecedor.getId();
     }
+    public int getIdFornecedor(String cnpj) throws SQLException{
+        String sql = "select * from fornecedores where cnpj = ?";
+        int id=-1;
+        Fornecedor forne = new Fornecedor();
+        ResultSet rs = executeQuery(sql,cnpj);
+        while(rs.next()){
+            forne=populateFornecedorInfo(rs);
+            id=forne.getId();
+        }
+        return id;
+    }
+    public void atualizaFornecedor(Fornecedor fornecedor) throws SQLException{
+       try{
+           String query = "update fornecedores set nome=?, cnpj=?, telefone=?, email=?, bairro=?, endereco=?, id_cidade=? where id = ?";
+           executeCommand(query,fornecedor.getNome(),fornecedor.getCnpj(),fornecedor.getTelefone(),fornecedor.getEmail(),fornecedor.getBairro(),fornecedor.getEndereco(), fornecedor.getCidade().getId(),fornecedor.getId());
+           JOptionPane.showMessageDialog(null, "Depois de atualizar");
+       }catch(Exception ex){
+           JOptionPane.showMessageDialog(null,"Erro atualizar fornecedor no metodo atualizaFornecedor na classe FornecedorDAO: "+ ex);
+       }
+    }
+    
     public List<Fornecedor> getAllFornecedores() throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM fornecedores");
         List<Fornecedor> toReturn = new LinkedList<Fornecedor>();
