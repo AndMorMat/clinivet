@@ -2,6 +2,7 @@ package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
+import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Venda;
@@ -29,11 +30,13 @@ import javax.swing.table.DefaultTableModel;
 public class frmEfetuarVenda extends javax.swing.JDialog {
     private final VendaDAO dao;
     ProdutoDAO pdao = new ProdutoDAO();
+    VendedorDAO vdao = new VendedorDAO();
     Venda venda = new Venda();
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
-    double desconto = 0;
+    public String vendedorLogado;
+    double desc = 0;
     
-    public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao) {
+    public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao, String vendedor) {
         super(parent, modal);
         this.dao = dao;
         this.itens = itens;
@@ -42,6 +45,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         carregarCbx(); 
         atualizaItens();
         carregaTodosProdutos();
+        vendedorLogado = vendedor;
+        lblVendedor.setText("Vendedor: " + vendedorLogado);//pegando o nome do usuario que esta logado no sistema
     }
 
     /**
@@ -127,6 +132,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forma de Pagamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         groupFormaPagamento.add(radioAvista);
+        radioAvista.setSelected(true);
         radioAvista.setText("À Vista");
         radioAvista.setBorder(null);
         radioAvista.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +183,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome", "Preço", "Estoque"
+                "Produto", "Quantidade", "Preço R$", "Desconto"
             }
         ) {
             Class[] types = new Class [] {
@@ -196,7 +202,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tableCarrinho);
-        tableCarrinho.getColumnModel().getColumn(0).setResizable(false);
+        tableCarrinho.getColumnModel().getColumn(1).setResizable(false);
         tableCarrinho.getColumnModel().getColumn(2).setResizable(false);
         tableCarrinho.getColumnModel().getColumn(3).setResizable(false);
 
@@ -229,6 +235,9 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             }
         });
         jScrollPane2.setViewportView(tableProdutos);
+        tableProdutos.getColumnModel().getColumn(0).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(2).setResizable(false);
+        tableProdutos.getColumnModel().getColumn(3).setResizable(false);
 
         groupPesquisaProduto.add(radioCodigoProduto);
         radioCodigoProduto.setSelected(true);
@@ -287,7 +296,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             }
         });
 
-        btnAdicionarNoCarrinho.setText("Adicona ao Carrinho");
+        btnAdicionarNoCarrinho.setText("Adicionar ao Carrinho");
         btnAdicionarNoCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarNoCarrinhoActionPerformed(evt);
@@ -380,7 +389,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(lblTotal)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 99, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jScrollPane1))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -423,31 +432,32 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "A lista de produtos está vazia!","Erro",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        if(desconto < 0) {
-            JOptionPane.showMessageDialog(null, "Não é permitido valores negativos no desconto" ,"Erro",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         int opt = JOptionPane.showConfirmDialog(this, "Você tem certeza?", "Confirmar", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
         if (opt == 0) { 
-            venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
-            venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)) - desconto);
-            if(radioAvista.isSelected()) {
-                venda.setFormaPagamento("À vista");
-            }
-            venda.setItens(itens);
-            
-            for (VendaProduto vendaItem : itens) {
-                vendaItem.setVenda(venda);
-            }
-            try {
-                dao.addVenda(venda, true);
-                setVisible(false);
+            try { 
+                venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
+                venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)));
+                venda.setVendedor(vdao.getVendedor(vdao.getIdVendedor(vendedorLogado)));
+                if(radioAvista.isSelected()) {
+                    venda.setFormaPagamento("À vista");
+                }
+                venda.setItens(itens);
+                
+                for (VendaProduto vendaItem : itens) {
+                    vendaItem.setVenda(venda);
+                }
+                try {
+                    dao.addVenda(venda, true);
+                    setVisible(false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar a venda "+ex,"Error",JOptionPane.ERROR_MESSAGE);
+
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Erro ao salvar a venda "+ex,"Error",JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -459,7 +469,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             return;
         }
 
-        int opt = JOptionPane.showConfirmDialog(this, "Are you sure ?","Confirm Delete",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        int opt = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Confirme Exclusão",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
         if (opt == 0) {
             DefaultTableModel dtm =(DefaultTableModel)tableCarrinho.getModel();
@@ -499,7 +509,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 p.setPrecoVenda(pro.get(aux).getPrecoVenda());
                 p.setEstoque(pro.get(aux).getEstoque());
 
-                dtm.addRow(p.addTable());
+                dtm.addRow(p.addTableBusca());
                 cont++;
             }
 
@@ -544,8 +554,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                     p.setCodigo(pro.get(aux).getCodigo());
                     p.setNome(pro.get(aux).getNome());
                     p.setPrecoVenda(pro.get(aux).getPrecoVenda());
-
-                    dtm.addRow(p.addTable());
+                    p.setEstoque(pro.get(aux).getEstoque());
+                    dtm.addRow(p.addTableBusca());
                     cont++;
                 }
                 if(cont == 0) {
@@ -579,7 +589,18 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         List<Produto> pro = new ArrayList();
         ProdutoDAO pdao = new ProdutoDAO();
         
-        Integer qnt = Integer.parseInt(txtQuantidade.getText());
+        if (tableProdutos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Você deve selecionar um produto para adicionar no carrinho","Erro",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int qnt = Integer.parseInt(txtQuantidade.getText());
+        
+        
+        if (tableProdutos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Você deve selecionar um produto antes de adicionar ao carrinho","Erro",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         String estoque = String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 3));
         
@@ -594,10 +615,25 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             return;
         }
         
+        
+       
+        try { 
+            desc = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor de desconto", 0));
+            if(desc < 0) {
+                JOptionPane.showMessageDialog(this, "Desconto deve ser um valor válido","Erro",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException ex) {  
+             JOptionPane.showMessageDialog(this, "Desconto deve ser um valor válido","Erro",JOptionPane.ERROR_MESSAGE);
+             return;  
+        }  
+
+
         try {
             pro = pdao.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tableProdutos.getSelectedRow(), 0)));
             VendaProduto item = new VendaProduto();
-            dtm2.addRow(pro.get(0).addTable());
+            dtm2.addRow(pro.get(0).addCarrinhoCompra(qnt, desc));
+            item.setDesconto(desc);
             item.setQtd(qnt);
             item.setProduto((Produto) pro.get(0));
             itens.add(item);
@@ -643,14 +679,14 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
     private void loadInitialData() {
         txtTotal.setText("R$ 0,00");
-        txtDataVenda.setText(new SimpleDateFormat("dd/mm/yyyy").format(new Date()));
+        txtDataVenda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
     }
     
     public void atualizaItens() {
         float value = 0;
         for (VendaProduto sellItem : itens) {
-            value += sellItem.getProduto().getPrecoVenda()*sellItem.getQtd();
-            sellItem.setTotal(sellItem.getProduto().getPrecoVenda()*sellItem.getQtd());
+            value += sellItem.getProduto().getPrecoVenda() * sellItem.getQtd();
+            sellItem.setTotal(sellItem.getProduto().getPrecoVenda() *sellItem.getQtd());
         }   
        txtTotal.setText("R$ "+value);
     }
@@ -678,7 +714,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 p.setPrecoVenda(pro.get(aux).getPrecoVenda());
                 p.setEstoque(pro.get(aux).getEstoque());
 
-                dtm.addRow(p.addTable());
+                dtm.addRow(p.addTableBusca());
             }
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error");
