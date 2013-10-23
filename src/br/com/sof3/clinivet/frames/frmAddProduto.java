@@ -25,15 +25,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmAddProduto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmAddProduto
-     */
-    public frmAddProduto() {
+    Produto produtoAntigo = new Produto();
+    String param;
+    public frmAddProduto(String parametro, Produto prod) {
+        param = parametro;
+        produtoAntigo = prod;
         initComponents();
+        
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
         loadInitialTableData();
+        if(parametro.equals("cadastrar")){
+            btnCadastrar.setText("Cadastrar");
+        }else if(parametro.equals("editar")){
+            carregaCampos(prod);
+            btnCadastrar.setText("Editar");
+        }
+        
         
         
     }
@@ -257,44 +266,68 @@ public class frmAddProduto extends javax.swing.JFrame {
         if(!verificaCampos()){ 
             return;
         }
-        
-        int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Produto",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-        
-        if (opc != 0) {
-            return;
-        }
-        try {
+        if(param.equals("cadastrar")){
+            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Produto",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+            if (opc != 0) {
+                return;
+            }
+            try {
+                Produto prod = new Produto();
+                ProdutoDAO pdao = new ProdutoDAO();
+                FornecedorDAO fdao = new FornecedorDAO();
+                DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
+
+                prod.cadastrar(0, txtCodigo.getText(),
+                                  txtNome.getText(),
+                                  Double.parseDouble(txtPrecoCusto.getText()),
+                                  Double.parseDouble(txtMargemLucro.getText()),
+                                  prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
+                                  txtValidade.getText(),
+                                  fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
+                                  Integer.parseInt(txtEstoque.getText()),String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
+                Fornecedor forn = new Fornecedor();
+                forn = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
+    
+                pdao.adicionaProduto(prod);
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar Produto :: na Classe frmAddProduto no botao cadastrar");
+            }
+        }else if(param.equals("editar")){
+            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar Produto",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+            if (opc != 0) {
+                return;
+            }
             Produto prod = new Produto();
-            ProdutoDAO pdao = new ProdutoDAO();
+            
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            
             FornecedorDAO fdao = new FornecedorDAO();
+            
             DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
             
-            /*int linha = tblFornecedores.getSelectedRow();
-            Object obj = dtm.getValueAt(linha, 2);
-            String valor = String.valueOf(obj);
-            JOptionPane.showMessageDialog(null, valor);
-            */
-            
-            prod.cadastrar(0, txtCodigo.getText(),
-                              txtNome.getText(),
-                              Double.parseDouble(txtPrecoCusto.getText()),
-                              Double.parseDouble(txtMargemLucro.getText()),
-                              prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
-                              txtValidade.getText(),
-                              fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
-                              Integer.parseInt(txtEstoque.getText()),String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
-            Fornecedor forn = new Fornecedor();
-            forn = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
-//            JOptionPane.showMessageDialog(null,"id: "+ forn.getId());
-//            JOptionPane.showMessageDialog(null,"cnpj: "+ String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1)));
-//            JOptionPane.showMessageDialog(null,"nome: "+ prod.getFornecedor().getNome());
-//            JOptionPane.showMessageDialog(null, prod.exibir());
-            pdao.adicionaProduto(prod);
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-            setVisible(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Produto :: na Classe frmAddProduto no botao cadastrar");
+            try{
+                
+                prod.cadastrar(produtoAntigo.getId(),
+                                  txtCodigo.getText(),
+                                  txtNome.getText(),
+                                  Double.parseDouble(txtPrecoCusto.getText()),
+                                  Double.parseDouble(txtMargemLucro.getText()),
+                                  prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
+                                  txtValidade.getText(),
+                                  fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
+                                  Integer.parseInt(txtEstoque.getText()),
+                                  String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
+                JOptionPane.showMessageDialog(null, "Antes de adicionar");
+                produtoDAO.atualizaProduto(prod);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro ao editar produto na classe frmAddProduto");
+            }
         }
+        setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
     private void btnCadastrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFornecedorActionPerformed
@@ -354,6 +387,33 @@ public class frmAddProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecoCusto;
     private javax.swing.JTextField txtValidade;
     // End of variables declaration//GEN-END:variables
+    public void carregaCampos(Produto pro){
+        FornecedorDAO fornecedorDAO = new FornecedorDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblFornecedores.getModel();
+        txtNome.setText(pro.getNome());
+        txtCodigo.setText(pro.getCodigo());
+        txtPrecoCusto.setText(String.valueOf(pro.getPrecoCusto()));
+        txtMargemLucro.setText(String.valueOf(pro.getMargemLucro()));
+        txtEstoque.setText(String.valueOf(pro.getEstoque()));
+        txtValidade.setText(pro.getValidade());
+        cbxTipoProduto.setSelectedItem(pro.getTipoProduto());
+        limparTabela();
+        try{
+            //buscando o fornecedor do medoto filtrarFornecedorCnpj, e adicionando na tabela.
+            dtm.addRow((fornecedorDAO.FiltrarFornecedorCnpj(pro.getFornecedor().getCnpj())).get(0).addTable());
+            tblFornecedores.setRowSelectionInterval(0, 0);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao carregar fornecedor na tabela: "+ ex);
+        }
+        
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                dtm.removeRow(aux);
+            }
+    }
     private void loadInitialTableData() {//função que vai preencher a tabela fornecedores
         try {
             Fornecedor forn = new Fornecedor();
