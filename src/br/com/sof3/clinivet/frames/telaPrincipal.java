@@ -26,11 +26,12 @@ public class telaPrincipal extends javax.swing.JDialog {
     private final VendedorDAO vdao = new VendedorDAO();
     private final AnimalDAO adao = new AnimalDAO();
     private final VendaDAO dao = new VendaDAO();
+    public frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
     /**
      * Creates new form telaPrincipal
      */
     public telaPrincipal() {
-        frmLogin dialogLogin = new frmLogin(new javax.swing.JFrame(), true);
+        
         
         
         
@@ -378,7 +379,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
     private void jMenuEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEfetuarVendaActionPerformed
-        frmEfetuarVenda venda = new frmEfetuarVenda(new Frame(), true, dao);
+        frmEfetuarVenda venda = new frmEfetuarVenda(new Frame(), true, dao, dialogLogin.usuarioLogado());
         venda.setVisible(true);
     }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
 
