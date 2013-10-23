@@ -8,7 +8,10 @@ import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.dao.VendedorDAO;
+import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.Fornecedor;
+import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
@@ -330,7 +333,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuCadastrarClienteActionPerformed
 
     private void jMenuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarProdutoActionPerformed
-        frmAddAnimal addAnimal = new frmAddAnimal();
+        Animal ani = new Animal();
+        frmAddAnimal addAnimal = new frmAddAnimal("cadastrar",ani);
         
     }//GEN-LAST:event_jMenuCadastrarProdutoActionPerformed
 
@@ -348,7 +352,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItemVendedoresActionPerformed
 
     private void jMenuCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadFornecedorActionPerformed
-       frmAddFornecedor addFornecedor = new frmAddFornecedor();
+        Fornecedor fornecedor = new Fornecedor();
+        frmAddFornecedor addFornecedor = new frmAddFornecedor("cadastrar", fornecedor);
     }//GEN-LAST:event_jMenuCadFornecedorActionPerformed
 
     private void submenuAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuAgendarActionPerformed
@@ -396,11 +401,12 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        JOptionPane.showMessageDialog(null, "Em Construção");
+        Produto pro = new Produto();
+        frmPesquisaProduto frmPesquisaProduto = new frmPesquisaProduto();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void JMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem7ActionPerformed
-        JOptionPane.showMessageDialog(null, "Em Construção");
+        frmPesquisaFornecedor frmPesquisaFornecedor = new frmPesquisaFornecedor();
     }//GEN-LAST:event_JMenuItem7ActionPerformed
 
     /**

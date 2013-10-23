@@ -48,8 +48,8 @@ public class ClienteDAO extends GenericoDAO {
 
     public Cliente getCliente(int idCliente) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM clientes WHERE ID = ?", idCliente);
-        Cliente cliente = null;
-        if (rs.next()) {
+        Cliente cliente = new Cliente();
+        while (rs.next()) {
             cliente = populateCliente(rs);
         }
         rs.close();

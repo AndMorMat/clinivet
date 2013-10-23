@@ -28,7 +28,8 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     /**
      * Creates new form frmAddFornecedor
      */
-    private int param=1; //variavel recebendo um valor da classe frmAddProduto para saber se e uma ação de lá que chamou essa tela
+    private String param; //variavel recebendo um valor da classe frmAddProduto para saber se e uma ação de lá que chamou essa tela
+    private Fornecedor fornecedorAntigo = new Fornecedor();
     public frmAddFornecedor(){
         initComponents();
         loadInitialComboData();
@@ -36,13 +37,20 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         setDefaultCloseOperation(WIDTH);
         setLocationRelativeTo(null);
     }
-    public frmAddFornecedor(int parametro) {
+    public frmAddFornecedor(String parametro, Fornecedor fornecedor) {
         param = parametro;
+        fornecedorAntigo = fornecedor;
         initComponents();
         loadInitialComboData();
         setVisible(true);
         setDefaultCloseOperation(WIDTH);
         setLocationRelativeTo(null);
+        if(parametro.equals("editar")){
+            carregaCampos(fornecedor);
+            btnCadastrar.setText("Editar");
+        }else if(parametro.equals("cadastrar")){
+            btnCadastrar.setText("Cadastrar");
+        }
     }
 
     /**
@@ -67,7 +75,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtCnpj = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
@@ -90,10 +98,10 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
         lblCidade.setText("Cidade:");
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -141,7 +149,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                             .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                             .addComponent(cbxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnCadastrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2))
                             .addComponent(txtCnpj)
@@ -183,7 +191,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                     .addComponent(lblCidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnCadastrar)
                     .addComponent(jButton2))
                 .addContainerGap())
         );
@@ -191,40 +199,62 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if (opc != 0) {
-            return;
-        }
-        
-        try {
-            Fornecedor forn = new Fornecedor();
-            FornecedorDAO fdao = new FornecedorDAO();
-            JOptionPane.showMessageDialog(null, txtCnpj.getText());
-            forn.cadastrar(0,
-                           txtNome.getText(),
-                           txtCnpj.getText(),
-                           txtTelefone.getText(),
-                           txtEmail.getText(),
-                           txtEndereco.getText(),
-                           txtBairro.getText(),
-                           ((Cidade) cbxCidade.getSelectedItem()));
-            JOptionPane.showMessageDialog(null, "depois de cadastrar");
-            fdao.adicionaFornecedor(forn);
-            JOptionPane.showMessageDialog(null, "depois de cadastrar");
-            if(param == 0){
-                limparTabela();
-                DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                dtm.addRow(forn.addTable());
-                frmAddProduto.tblFornecedores.setSelectionMode(1);
-                param = 1;
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+       if(param.equals("cadastrar")){
+            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (opc != 0) {
+                return;
             }
-            setVisible(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
+
+            try {
+                Fornecedor forn = new Fornecedor();
+                FornecedorDAO fdao = new FornecedorDAO();
+                JOptionPane.showMessageDialog(null, txtCnpj.getText());
+                forn.cadastrar(0,
+                               txtNome.getText(),
+                               txtCnpj.getText(),
+                               txtTelefone.getText(),
+                               txtEmail.getText(),
+                               txtEndereco.getText(),
+                               txtBairro.getText(),
+                               ((Cidade) cbxCidade.getSelectedItem()));
+                
+                fdao.adicionaFornecedor(forn);
+                
+                if(param.equals("telaAddProduto")){
+                    limparTabela();
+                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                    dtm.addRow(forn.addTable());
+                    frmAddProduto.tblFornecedores.setSelectionMode(1);
+                    param = "";
+                }
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
+            }
+        }else if(param.equals("editar")){
+            JOptionPane.showMessageDialog(null, "Editar");
+               try{ 
+                    Fornecedor forn = new Fornecedor();
+                    FornecedorDAO fdao = new FornecedorDAO();
+                    JOptionPane.showMessageDialog(null, txtCnpj.getText());
+                    forn.cadastrar(fdao.getIdFornecedor(fornecedorAntigo.getCnpj()),
+                                   txtNome.getText(),
+                                   txtCnpj.getText(),
+                                   txtTelefone.getText(),
+                                   txtEmail.getText(),
+                                   txtEndereco.getText(),
+                                   txtBairro.getText(),
+                                   ((Cidade) cbxCidade.getSelectedItem()));
+                    
+                    fdao.atualizaFornecedor(forn);
+                    
+               }catch(Exception ex){
+                   JOptionPane.showMessageDialog(null,"Erro ao Editar Fornecedor :: na classe frmAddFornecedor" +ex);
+               }
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
     public String[] getDados(){
         String[] dados = {txtNome.getText(),txtCnpj.getText(),txtTelefone.getText(),txtEmail.getText()};
         return dados;
@@ -236,13 +266,11 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                 dtm.removeRow(aux);
             }
     }
-    /**
-     * @param args the command line arguments
-     */
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JComboBox cbxCidade;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCadastrarFornecedor;
@@ -259,6 +287,17 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+    
+    private void carregaCampos(Fornecedor fornecedor){
+        txtNome.setText(fornecedor.getNome());
+        txtCnpj.setText(fornecedor.getCnpj());
+        txtTelefone.setText(fornecedor.getTelefone());
+        txtEmail.setText(fornecedor.getEmail());
+        txtBairro.setText(fornecedor.getBairro());
+        txtEndereco.setText(fornecedor.getEndereco());
+    }
+    
+    
     private void loadInitialComboData() {
 
         try {

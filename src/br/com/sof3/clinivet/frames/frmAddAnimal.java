@@ -30,22 +30,31 @@ import javax.swing.table.DefaultTableModel;
 public class frmAddAnimal extends javax.swing.JDialog {
     
     
-    //private final frmAnimais frame;
-    /**
-     * Creates new form frmAddAnimal
-     */
-    
-    public frmAddAnimal(){//, frmAnimais frame) {
+    String param;
+    Animal animalAntigo = new Animal();
+    public frmAddAnimal(String parametro, Animal ani){
         
-        
+        initComponents();
+        animalAntigo = ani;
+        param = parametro;
         addEnumTipo();
-        loadInitialComboData();
+        loadInitialData();
         carregaRacas();
-        //initComponents();
+        
+        
+        //setDefaultCloseOperation(WIDTH);
+        if(parametro.equals("editar")){
+            carregaCampos(ani);
+            btnFiltrarPor.setVisible(false);
+            
+        }else if(parametro.equals("cadastrar")){
+            
+        }
          
         setLocationRelativeTo(null);
         setVisible(true);
         txtNome.requestFocus();
+        tblClientes.setRowSelectionInterval(0, 0);
         
         
     }
@@ -264,7 +273,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
     
     public void addEnumTipo(){
-        initComponents();
+        
         for(EnumTipoAnimal ea: EnumTipoAnimal.values()){
              comboTipoAnimal.addItem(ea.getNome());   
         }
@@ -282,35 +291,57 @@ public class frmAddAnimal extends javax.swing.JDialog {
         if (resp == 2) {
             return;
         }*/
-        AnimalDAO dao = new AnimalDAO();
-        ClienteDAO cdao = new ClienteDAO();
-        DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
-        try {
-            Animal animal = new Animal();
-            RacaDAO racaDAO = new RacaDAO();
-            ClienteDAO clienteDAO = new ClienteDAO();
-            Raca raca = new Raca();
-            raca = racaDAO.getRaca(comboRaca.getSelectedItem().toString());
-            animal.setNome(txtNome.getText());
-            JOptionPane.showMessageDialog(null, "Nome: "+txtNome.getText());
-            animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString());
-            JOptionPane.showMessageDialog(null, "\nTipo Animal: "+comboTipoAnimal.getSelectedItem());
-            JOptionPane.showMessageDialog(null, "Erro antes de adicionar raca");
-            animal.setRaca(raca);
-            JOptionPane.showMessageDialog(null, "\nRaça: "+raca.getNome());
-            animal.setDataNasc((txtNasc.getText()));
-            JOptionPane.showMessageDialog(null, "\nData Nasc: "+txtNasc.getText());
-            animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
-            JOptionPane.showMessageDialog(null, "\nSexo: " + (checkMacho.isSelected() ? "Masculino" : "Feminino"));
-            //animal.setTipoAnimal((EnumTipoAnimal) comboTipoAnimal.getSelectedItem());
-            animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
-            animal.exibir();
-            dao.adicionaAnimal(animal);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Não foi possível adicionar o animal, tente novamente!");
-            return;
+        if(param.equals("cadastrar")){
+            AnimalDAO dao = new AnimalDAO();
+            ClienteDAO cdao = new ClienteDAO();
+            DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+            try {
+                Animal animal = new Animal();
+                RacaDAO racaDAO = new RacaDAO();
+                ClienteDAO clienteDAO = new ClienteDAO();
+                Raca raca = new Raca();
+                raca = racaDAO.getRaca(comboRaca.getSelectedItem().toString());
+                animal.setNome(txtNome.getText());
+                JOptionPane.showMessageDialog(null, "Nome: "+txtNome.getText());
+                animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "\nTipo Animal: "+comboTipoAnimal.getSelectedItem());
+                JOptionPane.showMessageDialog(null, "Erro antes de adicionar raca");
+                animal.setRaca(raca);
+                JOptionPane.showMessageDialog(null, "\nRaça: "+raca.getNome());
+                animal.setDataNasc((txtNasc.getText()));
+                JOptionPane.showMessageDialog(null, "\nData Nasc: "+txtNasc.getText());
+                animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
+                JOptionPane.showMessageDialog(null, "\nSexo: " + (checkMacho.isSelected() ? "Masculino" : "Feminino"));
+                //animal.setTipoAnimal((EnumTipoAnimal) comboTipoAnimal.getSelectedItem());
+                animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+
+                dao.adicionaAnimal(animal);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Não foi possível adicionar o animal, tente novamente!");
+                return;
+            }
+        }else if(param.equals("editar")){
+                AnimalDAO aniDAO = new AnimalDAO();
+                RacaDAO racaDAO = new RacaDAO();
+                ClienteDAO clienteDAO = new ClienteDAO();
+                DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+                
+                try{
+                    Animal ani = new Animal(animalAntigo.getId(),
+                                        txtNome.getText(),
+                                        comboTipoAnimal.getSelectedItem().toString(),
+                                        racaDAO.getRaca(comboRaca.getSelectedItem().toString()),
+                                        txtNasc.getText(),
+                                        checkMacho.isSelected() ? "Macho" : "Fêmea",
+                                        clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+                    ani.exibir();
+                    aniDAO.atualizarAnimal(ani);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null,"Erro ao atualizar animal na classe frmAddAnimal: " +ex);
+                }
+                
         }
         setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
@@ -344,7 +375,15 @@ public class frmAddAnimal extends javax.swing.JDialog {
     private javax.swing.JTextField txtNasc;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-    
+    public void carregaCampos(Animal ani){
+        txtNome.setText(ani.getNome());
+        txtNasc.setText(ani.getDataNasc());
+        comboTipoAnimal.setSelectedItem(ani.getTipoAnimal());
+        comboRaca.setSelectedItem(ani.getRaca().getNome());
+        checkMacho.setSelected(ani.getSexo().equals("Macho") ? true : false);
+        checkFemea.setSelected(ani.getSexo().equals("Fêmea")?true:false);
+        
+    }
     public void carregaRacas(){//Carregar racas de acordo com o tipo do animal
         RacaDAO racaDAO = new RacaDAO();
         List<Raca> racas = new LinkedList<>();   
@@ -370,22 +409,32 @@ public class frmAddAnimal extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Erro ao carregar raças na comboRaca na classe frmAddAnimal");
         }
     }
-    private void loadInitialComboData() {
+    private void loadInitialData() {
        // DefaultComboBoxModel combo = new DefaultComboBoxModel(EnumTipoAnimal.values());
-        //comboTipoAnimal.setModel(combo);
-        try {//carrega combo clientes
-            DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
-            ClienteDAO clienteDAO = new ClienteDAO();
-            
-            Vector<Cliente> clientes = new Vector<Cliente>(clienteDAO.getAllClientes());
-            
-            for(int aux=0;aux<clientes.size();aux++){
-                    dtm.addRow(clientes.get(aux).addTable());
+        if(param.equals("cadastrar")){
+            try {//carrega combo clientes
+                DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+                ClienteDAO clienteDAO = new ClienteDAO();  
+                Vector<Cliente> clientes = new Vector<Cliente>(clienteDAO.getAllClientes());
+                for(int aux=0;aux<clientes.size();aux++){
+                        dtm.addRow(clientes.get(aux).addTable());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de donos");
             }
+        }else if(param.equals("editar")){
+            Cliente cliente = new Cliente();
+            ClienteDAO clienteDAO = new ClienteDAO();
+            try{
+                
+                cliente = clienteDAO.getCliente(animalAntigo.getDono().getId());
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"Erro ao carregar dono na tabela na classe frmAddAnimal"+ ex);
+            }
+            DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+            dtm.addRow(cliente.addTable());
             
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de donos");
         }
 
     }

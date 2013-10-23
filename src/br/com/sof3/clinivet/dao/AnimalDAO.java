@@ -52,8 +52,12 @@ public class AnimalDAO extends GenericoDAO {
     }
 
     public void atualizarAnimal(Animal an) throws SQLException {
-        String query = "UPDATE animais SET ID_DONO = ?,NOME=?,TIPO_ANIMAL=?,RACA=?,DATA_NASCIMENTO?, SEXO=? WHERE ID = ?";
-        executeCommand(query, an.getDono().getId(), an.getNome(), an.getTipoAnimal().toString(), an.getRaca(), an.getDataNasc(), an.getSexo(), an.getId());
+        try{
+            String query = "UPDATE animais SET ID_DONO = ?,NOME=?,TIPO_ANIMAL=?,ID_RACA=?,DATA_NASCIMENTO=?, SEXO=? WHERE ID = ?";
+            executeCommand(query, an.getDono().getId(), an.getNome(), an.getTipoAnimal().toString(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.getId());
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar animal na classe AnimalDAO: "+ex);
+        }
     }
 
     public Animal getAnimal(int idAnimal) throws SQLException {
@@ -99,6 +103,7 @@ public class AnimalDAO extends GenericoDAO {
         rs.close();
         return toReturn;
     }
+
     
     public List<Animal> getTodosAnimaisDoCliente(int idCliente) throws SQLException {
         List<Animal> toReturn = new LinkedList<Animal>();
@@ -144,7 +149,7 @@ public class AnimalDAO extends GenericoDAO {
     public List<Animal> getAnimalbyIDcod(int id) throws SQLException {//procurar somente por código
         List<Animal> toReturn = new LinkedList<Animal>();
         
-        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE id like \""+id+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM animais a WHERE id = ?",id);
         
         while (rs.next()) {
             toReturn.add(populateAnimal(rs));
