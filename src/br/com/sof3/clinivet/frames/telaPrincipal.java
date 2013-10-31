@@ -370,8 +370,10 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_editarUsuarioActionPerformed
 
     private void jMenuEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEfetuarVendaActionPerformed
-        frmEfetuarVenda venda = new frmEfetuarVenda(new Frame(), true, dao, dialogLogin.usuarioLogado());
-        venda.setVisible(true);
+        frmEscolheClienteVenda clienteVenda = new frmEscolheClienteVenda(dialogLogin.usuarioLogado());
+        clienteVenda.setVisible(true);
+//        frmEfetuarVenda venda = new frmEfetuarVenda(new Frame(), true, dao, dialogLogin.usuarioLogado());
+//        venda.setVisible(true);
     }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
