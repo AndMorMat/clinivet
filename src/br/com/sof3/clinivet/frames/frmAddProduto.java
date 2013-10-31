@@ -321,7 +321,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                                   fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
                                   Integer.parseInt(txtEstoque.getText()),
                                   String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
-                JOptionPane.showMessageDialog(null, "Antes de adicionar");
+    
                 produtoDAO.atualizaProduto(prod);
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Erro ao editar produto na classe frmAddProduto");

@@ -22,20 +22,22 @@ import javax.swing.table.DefaultTableModel;
 public class frmPesquisaCliente extends javax.swing.JFrame {
     
     ClienteDAO cdao = new ClienteDAO();
-    /**
-     * Creates new form Pesquisa
-     */
+    String param;
     public frmPesquisaCliente(String parametro) {
-        
+        param = parametro;
         initComponents();
         setLocationRelativeTo(null);
         rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         if (parametro.equals("editar")){
+            btnExcluir.setVisible(true);
             btnEditar.setVisible(true);
             lblNomeVendedor.setText("Editar Cliente");
         }else if(parametro.equals("consultar")){
             btnEditar.setVisible(false);
+            btnExcluir.setVisible(false);
+        }else if(parametro.equals("agendar")){
+            btnEditar.setText("OK");
             btnExcluir.setVisible(false);
         }
         setVisible(true);
@@ -377,18 +379,35 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtCpfActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        List<Cliente> cli = new LinkedList<>();
-        ClienteDAO cdao = new ClienteDAO();
-        DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
-        if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
-            try{
-                cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
+        if(param.equals("editar")){
+            List<Cliente> cli = new LinkedList<>();
+            ClienteDAO cdao = new ClienteDAO();
+            DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+            if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
+                try{
+                    cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
 
-                frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Erro no btnEditar");
-            }
-        }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+                    frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+                }
+            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+        }else if(param.equals("agendar")){
+            List<Cliente> cli = new LinkedList<>();
+            ClienteDAO cdao = new ClienteDAO();
+            DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+            if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
+                try{
+                    cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
+                    
+                    frmAgendamento.setDados(cli.get(0));
+                    setVisible(false);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+                }
+            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente");
+            
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
    

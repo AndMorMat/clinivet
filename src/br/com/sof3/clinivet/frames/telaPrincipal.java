@@ -109,11 +109,6 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
-        jMenuCadastrarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuCadastrarUsuarioMouseClicked(evt);
-            }
-        });
 
         jMenuCadastrarCliente.setText("Usuario");
         jMenuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +203,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuBar1.add(jMenu3);
 
         jMenuConsultas.setMnemonic('o');
-        jMenuConsultas.setText("Consultas");
+        jMenuConsultas.setText("Pesquisar");
         jMenuConsultas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jMenuConsultasItemStateChanged(evt);
@@ -252,7 +247,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         menuAgenda.setMnemonic('a');
         menuAgenda.setText("Agenda");
 
-        submenuAgendar.setText("Agendar Animal");
+        submenuAgendar.setText("Fazer Agendamento");
         submenuAgendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submenuAgendarActionPerformed(evt);
@@ -263,7 +258,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         submenuConsultarAgenda.setText("Consultar Agenda");
         menuAgenda.add(submenuConsultarAgenda);
 
-        jMenuItem1.setText("Cancelar Consulta");
+        jMenuItem1.setText("Cancelar Agendamento");
         menuAgenda.add(jMenuItem1);
 
         jMenuBar1.add(menuAgenda);
@@ -305,7 +300,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(694, Short.MAX_VALUE))
+                .addContainerGap(718, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,10 +311,6 @@ public class telaPrincipal extends javax.swing.JDialog {
         System.exit(0);
     }
     
-    private void jMenuCadastrarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCadastrarUsuarioMouseClicked
-        //não serve pra nada!!!!!!!!!!
-    }//GEN-LAST:event_jMenuCadastrarUsuarioMouseClicked
-
     private void jMenuCadastrarAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarAnimalActionPerformed
         //cadastrar cliente
         Cliente c= new Cliente();
@@ -358,7 +349,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuCadFornecedorActionPerformed
 
     private void submenuAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuAgendarActionPerformed
-        frmAgendar telaAgendar = new frmAgendar();
+        frmAgendamento frmAgendamento = new frmAgendamento();
     }//GEN-LAST:event_submenuAgendarActionPerformed
 
     private void jMenuAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAnimaisActionPerformed
