@@ -31,6 +31,13 @@ public class Venda {
         this.vendedor = vendedor;
         this.cliente = cliente;
     }
+    
+    public String[] addTableVendasEfetuadas(){
+        String [] dados = { String.valueOf(dataVenda), String.valueOf(totalVenda), formaPagamento,
+                            String.valueOf(vendedor.getNome()), String.valueOf(cliente.getNome())
+                          };
+        return dados;
+    }
 
     public Integer getId() {
         return id;

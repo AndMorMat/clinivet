@@ -5,6 +5,7 @@ import br.com.sof3.clinivet.entidade.VendaProduto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,4 +61,43 @@ public class VendaDAO extends GenericoDAO {
         return vp.getId();
     }
     
+    public List<Venda> getVendaByVendedor(int id_vendedor) throws SQLException {
+        List<Venda> toReturn = new LinkedList<Venda>();
+       
+        ResultSet rs = executeQuery("SELECT * FROM vendas WHERE id_vendedor like \""+id_vendedor+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateVenda(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public List<Venda> getAllVenda() throws SQLException {
+        List<Venda> toReturn = new LinkedList<Venda>();
+        
+        
+        ResultSet rs = executeQuery("SELECT * FROM vendas");
+        
+        while (rs.next()) {
+            toReturn.add(populateVenda(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
+    public static Venda populateVenda(ResultSet rs) throws SQLException {
+        final VendedorDAO vendedorDAO = new VendedorDAO();
+        final ClienteDAO clienteDAO = new ClienteDAO();
+        
+        Venda toReturn = new Venda();
+        toReturn.setId(rs.getInt("ID"));
+        toReturn.setDataVenda(rs.getDate("DATA_VENDA"));
+        toReturn.setTotalVenda(rs.getDouble("TOTAL_VENDA"));
+        toReturn.setFormaPagamento(rs.getString("FORMA_PAGAMENTO"));
+        toReturn.setVendedor(vendedorDAO.getVendedor(rs.getInt("ID_VENDEDOR")));
+        toReturn.setCliente(clienteDAO.getCliente(rs.getInt("ID_CLIENTE")));
+        
+        return toReturn;
+    }
 }
