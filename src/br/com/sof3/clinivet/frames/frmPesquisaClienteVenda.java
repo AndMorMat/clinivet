@@ -5,8 +5,10 @@
 package br.com.sof3.clinivet.frames;
     
 import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
+import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -19,25 +21,24 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andrematos
  */
-public class frmPesquisaCliente extends javax.swing.JFrame {
-    
+public class frmPesquisaClienteVenda extends javax.swing.JFrame {
+    private final VendaDAO dao = new VendaDAO();
+    String vendedorLogado;
     ClienteDAO cdao = new ClienteDAO();
-    String param;
-    public frmPesquisaCliente(String parametro) {
-        param = parametro;
+    /**
+     * Creates new form Pesquisa
+     */
+    public frmPesquisaClienteVenda(String parametro, String vendedor) {
+        vendedorLogado = vendedor;
         initComponents();
         setLocationRelativeTo(null);
         rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         if (parametro.equals("editar")){
-            btnExcluir.setVisible(true);
             btnEditar.setVisible(true);
             lblNomeVendedor.setText("Editar Cliente");
         }else if(parametro.equals("consultar")){
             btnEditar.setVisible(false);
-            btnExcluir.setVisible(false);
-        }else if(parametro.equals("agendar")){
-            btnEditar.setText("OK");
             btnExcluir.setVisible(false);
         }
         setVisible(true);
@@ -190,7 +191,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -354,19 +355,19 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {  
            Cliente cli = new Cliente();
            
-           frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
-
+           setVisible(false);
+           
+           
            NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
            
             try {
                 cli = cdao.getDetalhes(NumCpf);
+                frmEfetuarVenda efetuarVenda = new frmEfetuarVenda(new Frame(), true, dao, vendedorLogado, cli);
+                efetuarVenda.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-           frmExibirCliente1.CadastrarDados(cli);
-           
-           
         }
     }//GEN-LAST:event_tblBuscaCliMouseClicked
 
@@ -379,35 +380,18 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtCpfActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if(param.equals("editar")){
-            List<Cliente> cli = new LinkedList<>();
-            ClienteDAO cdao = new ClienteDAO();
-            DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
-            if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
-                try{
-                    cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
+        List<Cliente> cli = new LinkedList<>();
+        ClienteDAO cdao = new ClienteDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
+        if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
+            try{
+                cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
 
-                    frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Erro no btnEditar");
-                }
-            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
-        }else if(param.equals("agendar")){
-            List<Cliente> cli = new LinkedList<>();
-            ClienteDAO cdao = new ClienteDAO();
-            DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
-            if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
-                try{
-                    cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
-                    
-                    frmAgendamento.setDados(cli.get(0));
-                    setVisible(false);
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Erro no btnEditar");
-                }
-            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente");
-            
-        }
+                frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
    

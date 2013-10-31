@@ -92,7 +92,7 @@ public class AnimalDAO extends GenericoDAO {
     }
     
        
-    public List<Animal> getAnimaisDoCliente(int idCliente) throws SQLException {
+    public List<Animal> getAnimaisDoCliente(int idCliente) throws SQLException {//função com defeito
         List<Animal> toReturn = new LinkedList<Animal>();
         
         ResultSet rs = executeQuery("SELECT a.nome FROM clientes c INNER JOIN animais a on c.id = a.id_dono WHERE c.id = ?;", idCliente);
@@ -122,7 +122,7 @@ public class AnimalDAO extends GenericoDAO {
         final ClienteDAO clienteDAO = new ClienteDAO();
         final RacaDAO racaDAO = new RacaDAO();
         Animal toReturn = new Animal();
-        toReturn.setId(rs.getInt("ID"));
+        toReturn.setId(rs.getInt("a.ID"));
         toReturn.setNome(rs.getString("a.NOME"));//ajustado para exibir somente o nome do animal e não do 
         toReturn.setTipoAnimal(rs.getString("TIPO_ANIMAL"));
         toReturn.setRaca(racaDAO.getRacaById(rs.getInt("ID_RACA")));

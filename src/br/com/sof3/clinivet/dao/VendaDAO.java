@@ -15,6 +15,26 @@ public class VendaDAO extends GenericoDAO {
 
     public int addVenda(Venda v, boolean cascade) throws SQLException {
         v.setId(getNextId("vendas"));
+        String query = "INSERT INTO vendas (id, data_venda, total_venda, forma_pagamento, id_vendedor, id_cliente) values (?,?,?,?,?,?)";
+
+        double totalVenda = 0;
+        
+        for (VendaProduto item : v.getItens()) {
+            totalVenda += item.getProduto().getPrecoVenda()* item.getQtd();
+        }
+        
+        executeCommand(query, v.getId(), v.getDataVenda(), v.getTotalVenda(), v.getFormaPagamento(), v.getVendedor().getId(), v.getCliente().getId());
+        if (cascade) {
+            // Persist the Itens
+            for (VendaProduto item : v.getItens()) {
+                addVendaProduto(item);
+            }
+        }
+        return v.getId();
+    }
+    
+    public int addVendaSemCadastro(Venda v, boolean cascade) throws SQLException {
+        v.setId(getNextId("vendas"));
         String query = "INSERT INTO vendas (id, data_venda, total_venda, forma_pagamento, id_vendedor) values (?,?,?,?,?)";
 
         double totalVenda = 0;

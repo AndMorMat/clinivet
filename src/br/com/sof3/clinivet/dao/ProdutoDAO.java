@@ -52,9 +52,17 @@ public class ProdutoDAO extends GenericoDAO{
         return id;
     }
     
+    public void atualizaEstoque(int id_produto, int quantidade) throws SQLException {
+        try {
+            String query = "update produtos set qtdEstoque = ? where id = ?";
+            executeCommand(query, quantidade, id_produto);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao atualizar o estoque: "+ ex);
+        }
+    }
+    
     public void atualizaProduto(Produto p) throws SQLException{
         try{
-            JOptionPane.showMessageDialog(null, p.getId());
             String query = "update produtos set nome =?, preco_custo=?, margem_lucro=?, preco_venda=?, validade=?, id_fornecedor=?, qtdEstoque = ?, codigo=? where id = ?";
             executeCommand(query, p.getNome(),p.getPrecoCusto(),p.getMargemLucro(),p.getPrecoVenda(),p.getValidade(),p.getFornecedor().getId(),p.getEstoque(),p.getCodigo(), p.getId());
         }catch(Exception ex){
