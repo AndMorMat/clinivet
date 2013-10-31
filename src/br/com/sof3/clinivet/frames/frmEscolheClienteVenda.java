@@ -4,6 +4,8 @@
  */
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.dao.AnimalDAO;
+import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import java.awt.Frame;
@@ -15,6 +17,8 @@ import java.awt.Frame;
 public class frmEscolheClienteVenda extends javax.swing.JFrame {
     private final VendaDAO dao = new VendaDAO();
     String vendedorLogado;
+    private final ClienteDAO cdao = new ClienteDAO();
+    private final AnimalDAO adao = new AnimalDAO();
     /**
      * Creates new form frmEscolheClienteVenda
      */
@@ -106,9 +110,8 @@ public class frmEscolheClienteVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-//        Cliente cliente = new Cliente();
-//        frmEfetuarVenda efetuarVenda = new frmEfetuarVenda(new Frame(), true, dao, vendedorLogado, cliente);
-//        efetuarVenda.setVisible(true);
+         Cliente c= new Cliente();
+        frmAddCliente addCliente = new frmAddCliente(new javax.swing.JFrame(), true, cdao, adao,"cadastrar",c);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnClienteVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteVendaActionPerformed
