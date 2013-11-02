@@ -11,7 +11,8 @@ public class Agenda {
     private String observacoes;
     private Cliente cliente;
     private Animal animal;
-
+    private boolean sms_inicio_consulta;
+    private boolean sms_fim_consulta;
     
     public Agenda() {
         
@@ -22,7 +23,7 @@ public class Agenda {
     }
     
   
-    public Agenda(Integer id, String data, String hora_inicio, String hora_termino, String tipo_servico,String observacoes,Cliente cliente, Animal animal){
+    public Agenda(Integer id, String data, String hora_inicio, String hora_termino, String tipo_servico,String observacoes,Cliente cliente, Animal animal,boolean sms_inicio_consulta,boolean sms_fim_consulta){
         this.id = id;
         this.data = data;
         this.hora_inicio = hora_inicio;
@@ -31,6 +32,8 @@ public class Agenda {
         this.observacoes = observacoes;
         this.cliente = cliente;
         this.animal = animal;
+        this.sms_inicio_consulta = sms_inicio_consulta;
+        this.sms_fim_consulta = sms_fim_consulta;
     }
     
     public String exibir(){
@@ -42,6 +45,25 @@ public class Agenda {
                 "\nobservaçoes: "+observacoes+
                 "\ncliente: "+cliente.getNome()+
                 "\nanimal: "+animal.getNome();
+    }
+    public String addTable(){
+        
+        return "Cliente: "+cliente.getNome()+" - Animal: "+animal.getNome()+ " - Observações: "+observacoes;
+    }
+    public boolean isSms_inicio_consulta() {
+        return sms_inicio_consulta;
+    }
+
+    public void setSms_inicio_consulta(boolean sms_inicio_consulta) {
+        this.sms_inicio_consulta = sms_inicio_consulta;
+    }
+
+    public boolean isSms_fim_consulta() {
+        return sms_fim_consulta;
+    }
+
+    public void setSms_fim_consulta(boolean sms_fim_consulta) {
+        this.sms_fim_consulta = sms_fim_consulta;
     }
     
     public Integer getId() {
