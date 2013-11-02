@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Renan
  */
 public class frmAddVendedor extends javax.swing.JFrame {
-    public VendedorDAO dao;
+    public VendedorDAO dao = new VendedorDAO();
      
     String param = "";
     
@@ -168,7 +168,11 @@ public class frmAddVendedor extends javax.swing.JFrame {
              vendedor.setLogin(txtLogin.getText());
              vendedor.setSenha(txtSenha.getText());
             try {
+                
+                        
+                
                 dao.adicionaVendedor(vendedor);
+                
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 

@@ -15,8 +15,8 @@ public class ClienteDAO extends GenericoDAO {
 
     public int adicionaCliente(Cliente cliente) throws SQLException {
         cliente.setId(getNextId("clientes"));
-        String query = "INSERT INTO clientes (ID, NOME, SOBRENOME, CPF, TELEFONE, CELULAR, ENDERECO, BAIRRO, ID_CIDADE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        executeCommand(query, cliente.getId(), cliente.getNome(), cliente.getSobrenome(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail());
+        String query = "INSERT INTO clientes (ID, NOME, SOBRENOME, CPF, TELEFONE, CELULAR, ENDERECO, BAIRRO, ID_CIDADE, EMAIL,sms_inicio_consulta,sms_fim_consulta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        executeCommand(query, cliente.getId(), cliente.getNome(), cliente.getSobrenome(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(),cliente.isSms_inicio_consulta(),cliente.isSms_fim_consulta());
         return cliente.getId();
     }
 
@@ -81,6 +81,8 @@ public class ClienteDAO extends GenericoDAO {
         toReturn.setBairro(rs.getString("BAIRRO"));
         toReturn.setCidade(cidadeDAO.getCidade(rs.getInt("ID_CIDADE")));
         toReturn.setEmail(rs.getString("EMAIL"));
+        toReturn.setSms_inicio_consulta(rs.getBoolean("SMS_INICIO_CONSULTA"));
+        toReturn.setSms_fim_consulta(rs.getBoolean("SMS_FIM_CONSULTA"));
         
         return toReturn;
     }
