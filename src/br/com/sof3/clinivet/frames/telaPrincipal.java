@@ -110,6 +110,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
 
+        jMenuCadastrarCliente.setMnemonic('u');
         jMenuCadastrarCliente.setText("Usuario");
         jMenuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +119,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuCadastrarUsuario.add(jMenuCadastrarCliente);
 
+        jMenuCadastrarAnimal.setMnemonic('c');
         jMenuCadastrarAnimal.setText("Cliente");
         jMenuCadastrarAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +128,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuCadastrarUsuario.add(jMenuCadastrarAnimal);
 
+        jMenuCadastrarProduto.setMnemonic('a');
         jMenuCadastrarProduto.setText("Animal");
         jMenuCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +137,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuCadastrarUsuario.add(jMenuCadastrarProduto);
 
+        jMenuItem3.setMnemonic('p');
         jMenuItem3.setText("Produto");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +146,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuCadastrarUsuario.add(jMenuItem3);
 
+        jMenuCadFornecedor.setMnemonic('f');
         jMenuCadFornecedor.setText("Fornecedor");
         jMenuCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +160,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         Cliente.setMnemonic('e');
         Cliente.setText("Editar/Excluir");
 
+        editarUsuario.setMnemonic('u');
         editarUsuario.setText("Usuário");
         editarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +169,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         Cliente.add(editarUsuario);
 
+        jMenuItem4.setMnemonic('c');
         jMenuItem4.setText("Cliente");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,6 +178,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         Cliente.add(jMenuItem4);
 
+        jMenuItem5.setMnemonic('a');
         jMenuItem5.setText("Animal");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +187,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         Cliente.add(jMenuItem5);
 
+        jMenuItem6.setMnemonic('p');
         jMenuItem6.setText("Produto");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +196,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         Cliente.add(jMenuItem6);
 
+        JMenuItem7.setMnemonic('f');
         JMenuItem7.setText("Fornecedor");
         JMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,14 +212,16 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenu3.setToolTipText("");
         jMenuBar1.add(jMenu3);
 
-        jMenuConsultas.setMnemonic('o');
+        jMenuConsultas.setMnemonic('p');
         jMenuConsultas.setText("Pesquisar");
+        jMenuConsultas.setToolTipText("");
         jMenuConsultas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jMenuConsultasItemStateChanged(evt);
             }
         });
 
+        jMenuItemVendedores.setMnemonic('v');
         jMenuItemVendedores.setText("Vendedores");
         jMenuItemVendedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +230,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuItemVendedores);
 
+        jMenuItemClientes.setMnemonic('c');
         jMenuItemClientes.setText("Clientes");
         jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +239,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuItemClientes);
 
+        jMenuAnimais.setMnemonic('a');
         jMenuAnimais.setText("Animais");
         jMenuAnimais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +248,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuAnimais);
 
+        jMenuItem2.setMnemonic('p');
         jMenuItem2.setText("Produtos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +262,8 @@ public class telaPrincipal extends javax.swing.JDialog {
         menuAgenda.setMnemonic('a');
         menuAgenda.setText("Agenda");
 
-        submenuAgendar.setText("Fazer Agendamento");
+        submenuAgendar.setMnemonic('f');
+        submenuAgendar.setText("Agendamento");
         submenuAgendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submenuAgendarActionPerformed(evt);
@@ -255,10 +271,22 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         menuAgenda.add(submenuAgendar);
 
-        submenuConsultarAgenda.setText("Consultar Agenda");
+        submenuConsultarAgenda.setMnemonic('c');
+        submenuConsultarAgenda.setText("Consultar");
+        submenuConsultarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submenuConsultarAgendaActionPerformed(evt);
+            }
+        });
         menuAgenda.add(submenuConsultarAgenda);
 
-        jMenuItem1.setText("Cancelar Agendamento");
+        jMenuItem1.setMnemonic('a');
+        jMenuItem1.setText("Cancelar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         menuAgenda.add(jMenuItem1);
 
         jMenuBar1.add(menuAgenda);
@@ -266,6 +294,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuVendas.setMnemonic('v');
         jMenuVendas.setText("Vendas");
 
+        jMenuEfetuarVenda.setMnemonic('e');
         jMenuEfetuarVenda.setText("Efetuar Venda");
         jMenuEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,6 +303,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuVendas.add(jMenuEfetuarVenda);
 
+        jMenuVendasEfetuadas.setMnemonic('v');
         jMenuVendasEfetuadas.setText("Vendas Efetuadas");
         jMenuVendasEfetuadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,7 +330,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(718, Short.MAX_VALUE))
+                .addContainerGap(722, Short.MAX_VALUE))
         );
 
         pack();
@@ -402,6 +432,14 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void JMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem7ActionPerformed
         frmPesquisaFornecedor frmPesquisaFornecedor = new frmPesquisaFornecedor();
     }//GEN-LAST:event_JMenuItem7ActionPerformed
+
+    private void submenuConsultarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuConsultarAgendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submenuConsultarAgendaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
