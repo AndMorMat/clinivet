@@ -15,6 +15,9 @@ public class Cliente {
     private String bairro;
     private Cidade cidade;
     private Estado estado;
+    private boolean sms_inicio_consulta;
+    private boolean sms_fim_consulta;
+    
     
     
    /*public String[] addTable(){
@@ -22,7 +25,7 @@ public class Cliente {
         return dados;
     }*/
     public void cadastrar(Integer id,String nome,String sobrenome,String cpf,String telefone,
-            String celular,String email,String endereco,String bairro,Cidade cidade){
+            String celular,String email,String endereco,String bairro,Cidade cidade,boolean sms_inicio_consulta,boolean sms_fim_consulta){
         setId(id);
         setNome(nome);
         setSobrenome(sobrenome);
@@ -33,6 +36,8 @@ public class Cliente {
         setEndereco(endereco);
         setBairro(bairro);
         setCidade(cidade);
+        setSms_inicio_consulta(sms_inicio_consulta);
+        setSms_fim_consulta(sms_fim_consulta);
         
     }
     public String exibir(){
@@ -43,7 +48,9 @@ public class Cliente {
                 "\nCelular: "+celular+
                 "\nEmail: "+email+
                 "\nEndereço: "+endereco+
-                "\nBairro: "+bairro;
+                "\nBairro: "+bairro+
+                "\nAvisar Inicio?: "+sms_inicio_consulta+
+                "\nAvisar Termino?: "+sms_fim_consulta;
         
     }
     public String[] addTable(){
@@ -76,6 +83,22 @@ public class Cliente {
         this.estado = estado;
     }
 
+    public boolean isSms_inicio_consulta() {
+        return sms_inicio_consulta;
+    }
+
+    public void setSms_inicio_consulta(boolean sms_inicio_consulta) {
+        this.sms_inicio_consulta = sms_inicio_consulta;
+    }
+
+    public boolean isSms_fim_consulta() {
+        return sms_fim_consulta;
+    }
+
+    public void setSms_fim_consulta(boolean sms_fim_consulta) {
+        this.sms_fim_consulta = sms_fim_consulta;
+    }
+    
     public Integer getId() {
         return id;
     }
