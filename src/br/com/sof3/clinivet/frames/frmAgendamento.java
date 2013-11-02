@@ -11,6 +11,7 @@ import br.com.sof3.clinivet.entidade.Agenda;
 import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
 import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
+import java.awt.Color;
 
 import java.util.Date;
 import java.sql.SQLException;
@@ -26,6 +27,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
 
 /**
  *
@@ -513,21 +517,26 @@ public class frmAgendamento extends javax.swing.JFrame {
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
         Animal ani = new Animal();
         AgendaDAO agendaDAO = new AgendaDAO();
-        for(int aux = 0 ; aux< animais.size();aux++){
-            if(cbxAnimal.getSelectedItem().equals(animais.get(aux).getNome())){
+        DefaultTableModel dtm = (DefaultTableModel)tblHorarios.getModel();
+        for(int aux = 0 ; aux < animais.size();aux++){
+            if(cbxAnimal.getSelectedItem().equals(animais.get(aux).getNome())){//pegando o animal que esta selecionado da cbx
                 ani = animais.get(aux);
                 ani.exibir();
-                JOptionPane.showMessageDialog(null,"Id animal: "+ani.getId()+"  "+cbxAnimal.getSelectedItem()+ " é igual "+animais.get(aux).getNome());
+                //JOptionPane.showMessageDialog(null,"Id animal: "+ani.getId()+"  "+cbxAnimal.getSelectedItem()+ " é igual "+animais.get(aux).getNome());
             }
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
         String dataFormatada = sdf.format(data.getDate());
-        JOptionPane.showMessageDialog(null, dataFormatada);
+        
         try {
-            JOptionPane.showMessageDialog(null, "Antes de cadastrar");
+            
             Agenda agenda = new Agenda(0, dataFormatada, cbxInicio.getSelectedItem().toString(), cbxTermino.getSelectedItem().toString(), cbxTipoServico.getSelectedItem().toString(), txtAreaObservacoes.getText(), cliente, ani,sms_inicio_consulta.isSelected(),sms_termino_consulta.isSelected());
-            JOptionPane.showMessageDialog(null, "Depois de cadastrar");
-            JOptionPane.showMessageDialog(null, agenda.exibir());
+            for(int aux=0 ; aux < dtm.getRowCount() ; aux++){
+                if((dtm.getValueAt(aux, 0).equals(agenda.getHora_inicio())) && !dtm.getValueAt(aux, 1).toString().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Horário Indisponível");
+                    return;
+                }
+            }
             agendaDAO.fazerAgendamento(agenda);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Erro ao fazer agendamento no botão agendar na classe frmAgendamento: "+ ex);
@@ -545,11 +554,9 @@ public class frmAgendamento extends javax.swing.JFrame {
         List<Agenda> agenda = new LinkedList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
         String dataFormatada="";
+        
         try {
-           
-                
-            
-            
+            limparTabela();
             if(data.getDate()!= null){
                 
                 dataFormatada = sdf.format(data.getDate());
@@ -562,9 +569,9 @@ public class frmAgendamento extends javax.swing.JFrame {
                     for(int aux = 0; aux < tblHorarios.getRowCount(); aux++){
                         for(int aux1 = 0; aux1 < agenda.size(); aux1++)
                             if(dtm.getValueAt(aux, 0).equals(agenda.get(aux1).getHora_inicio())){
-                               // JOptionPane.showMessageDialog(null, "Dentro do if: "+agenda.get(aux1).addTable());
                                 dtm.setValueAt(agenda.get(aux1).addTable(), aux, 1);
-                                //dtm.addRow(agenda.get(aux1).addTable());
+//                                TableView.TableRow row = tblHorarios.getModel().getValueAt(aux, aux);
+                                
                             }
                     }
                 }
@@ -579,7 +586,7 @@ public class frmAgendamento extends javax.swing.JFrame {
         DefaultTableModel dtm =  (DefaultTableModel) tblHorarios.getModel();
         int cont = dtm.getRowCount();
             for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
-                dtm.removeRow(aux);
+                dtm.setValueAt("", aux, 1);
             }
     }
     public static void desabilitandoEdicaoCampos(){//o usuario não podera editar os dados do cliente e do animal)
