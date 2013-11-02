@@ -73,6 +73,18 @@ public class VendaDAO extends GenericoDAO {
         return toReturn;
     }
     
+    public List<Venda> getVendasDoDia() throws SQLException {
+        List<Venda> toReturn = new LinkedList<Venda>();
+        
+        ResultSet rs = executeQuery("SELECT * FROM vendas WHERE data_venda = curdate()");
+        
+        while (rs.next()) {
+            toReturn.add(populateVenda(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
     public List<Venda> getAllVenda() throws SQLException {
         List<Venda> toReturn = new LinkedList<Venda>();
         

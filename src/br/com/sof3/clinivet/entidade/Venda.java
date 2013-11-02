@@ -1,6 +1,7 @@
 package br.com.sof3.clinivet.entidade;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class Venda {
     }
     
     public String[] addTableVendasEfetuadas(){
-        String [] dados = { String.valueOf(dataVenda), String.valueOf(totalVenda), formaPagamento,
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+         
+        String [] dados = { formatador.format(dataVenda), String.valueOf(totalVenda), formaPagamento,
                             String.valueOf(vendedor.getNome()), String.valueOf(cliente.getNome())
                           };
         return dados;
