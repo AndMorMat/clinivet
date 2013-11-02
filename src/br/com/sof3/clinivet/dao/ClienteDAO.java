@@ -154,6 +154,5 @@ public class ClienteDAO extends GenericoDAO {
         return cliente;
     }
     
-   
 }
 
