@@ -536,6 +536,10 @@ public class frmAgendamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Horário Indisponível");
                     return;
                 }
+                if(aux > 0 && (dtm.getValueAt(aux, 0).equals(agenda.getHora_inicio()) && !dtm.getValueAt(aux-1, 1).toString().isEmpty())){
+                    JOptionPane.showMessageDialog(null, "Horário Indisponível2");
+                    return;
+                }
             }
             agendaDAO.fazerAgendamento(agenda);
         } catch (SQLException ex) {
