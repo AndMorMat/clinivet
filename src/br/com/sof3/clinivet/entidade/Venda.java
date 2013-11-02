@@ -10,6 +10,7 @@ public class Venda {
     private double totalVenda;
     private String formaPagamento;
     private Vendedor vendedor;
+    private Cliente cliente;
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     
     public Venda() {
@@ -21,13 +22,21 @@ public class Venda {
     }
     
     public Venda(Integer id, Date dataVenda, double totalVenda, String formaPagamento,
-            Vendedor vendedor) {
+            Vendedor vendedor, Cliente cliente) {
         
         this.id = id;
         this.dataVenda = dataVenda;
         this.totalVenda = totalVenda;
         this.formaPagamento = formaPagamento;
         this.vendedor = vendedor;
+        this.cliente = cliente;
+    }
+    
+    public String[] addTableVendasEfetuadas(){
+        String [] dados = { String.valueOf(dataVenda), String.valueOf(totalVenda), formaPagamento,
+                            String.valueOf(vendedor.getNome()), String.valueOf(cliente.getNome())
+                          };
+        return dados;
     }
 
     public Integer getId() {
@@ -76,5 +85,13 @@ public class Venda {
 
     public void setFormaPagamento(String formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

@@ -52,7 +52,7 @@ public class VendedorDAO extends GenericoDAO {
         Vendedor vendedor = new Vendedor();
         try{
             ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login = ?", login);
-            JOptionPane.showMessageDialog(null, login);
+//            JOptionPane.showMessageDialog(null, login);
             
 
             while(rs.next()) {

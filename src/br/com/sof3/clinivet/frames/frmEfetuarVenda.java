@@ -1,8 +1,10 @@
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.ProdutoDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.dao.VendedorDAO;
+import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.EnumTipoProduto;
 import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Venda;
@@ -31,10 +33,30 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private final VendaDAO dao;
     ProdutoDAO pdao = new ProdutoDAO();
     VendedorDAO vdao = new VendedorDAO();
+    ClienteDAO cdao = new ClienteDAO();
     Venda venda = new Venda();
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     public String vendedorLogado;
     double desc = 0;
+    Cliente cli = new Cliente();
+    int qnt;
+    int idProduto;
+    int estoqueProduto;
+    
+    public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao, String vendedor, Cliente cliente) {
+        super(parent, modal);
+        this.dao = dao;
+        this.itens = itens;
+        initComponents();
+        loadInitialData();
+        carregarCbx(); 
+        atualizaItens();
+        carregaTodosProdutos();
+        vendedorLogado = vendedor;
+        cli = cliente;
+        lblVendedor.setText("Vendedor: " + vendedorLogado);//pegando o nome do usuario que esta logado no sistema
+        lblCliente.setText("Cliente: " + cli.getNome());
+    }
     
     public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao, String vendedor) {
         super(parent, modal);
@@ -47,6 +69,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         carregaTodosProdutos();
         vendedorLogado = vendedor;
         lblVendedor.setText("Vendedor: " + vendedorLogado);//pegando o nome do usuario que esta logado no sistema
+        lblCliente.setText("Cliente: Venda sem cliente cadastrado");
     }
 
     /**
@@ -95,6 +118,11 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
         txtDataVenda.setEditable(false);
         txtDataVenda.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        txtDataVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataVendaActionPerformed(evt);
+            }
+        });
 
         lblTotal.setFont(new java.awt.Font("Lucida Grande", 1, 17)); // NOI18N
         lblTotal.setText("Total:");
@@ -440,6 +468,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
                 venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)));
                 venda.setVendedor(vdao.getVendedor(vdao.getIdVendedor(vendedorLogado)));
+                
                 if(radioAvista.isSelected()) {
                     venda.setFormaPagamento("À vista");
                 }
@@ -449,7 +478,15 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                     vendaItem.setVenda(venda);
                 }
                 try {
-                    dao.addVenda(venda, true);
+                    if(cli.getId() == null) {
+                       dao.addVendaSemCadastro(venda, true); 
+                    }
+                    else {
+                        venda.setCliente(cdao.getCliente(cli.getId()));
+                        dao.addVenda(venda, true);
+                    } 
+                    pdao.atualizaEstoque(idProduto, estoqueProduto - qnt);
+                    
                     setVisible(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
@@ -594,7 +631,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             return;
         }
         
-        int qnt = Integer.parseInt(txtQuantidade.getText());
+        qnt = Integer.parseInt(txtQuantidade.getText());
         
         
         if (tableProdutos.getSelectedRow() == -1) {
@@ -637,11 +674,17 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             item.setQtd(qnt);
             item.setProduto((Produto) pro.get(0));
             itens.add(item);
+            idProduto = item.getProduto().getId();
+            estoqueProduto = item.getProduto().getEstoque();
             atualizaItens();
          } catch (SQLException ex) {
             Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
          }
     }//GEN-LAST:event_btnAdicionarNoCarrinhoActionPerformed
+
+    private void txtDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataVendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAdicionarNoCarrinho;
@@ -685,8 +728,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     public void atualizaItens() {
         float value = 0;
         for (VendaProduto sellItem : itens) {
-            value += sellItem.getProduto().getPrecoVenda() * sellItem.getQtd();
-            sellItem.setTotal(sellItem.getProduto().getPrecoVenda() *sellItem.getQtd());
+            value += sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto() * sellItem.getQtd();
+            sellItem.setTotal(sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto() * sellItem.getQtd());
         }   
        txtTotal.setText("R$ "+value);
     }
