@@ -147,14 +147,14 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(txtBairro)
                             .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                            .addComponent(cbxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCnpj)
+                            .addComponent(txtTelefone)
+                            .addComponent(cbxCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCadastrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
-                            .addComponent(txtCnpj)
-                            .addComponent(txtTelefone))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                                .addComponent(jButton2)))))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,6 +207,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
             }
 
             try {
+                if(!validaCampos())return;
                 Fornecedor forn = new Fornecedor();
                 FornecedorDAO fdao = new FornecedorDAO();
                 JOptionPane.showMessageDialog(null, txtCnpj.getText());
@@ -299,7 +300,25 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         txtBairro.setText(fornecedor.getBairro());
         txtEndereco.setText(fornecedor.getEndereco());
     }
-    
+    private boolean validaCampos(){
+        if(txtNome.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo nome esta vazio!");
+            return false;
+        }else if(txtCnpj.getText().trim().length()!=18){
+            JOptionPane.showMessageDialog(null, "Cnpj inválido!");
+            return false;
+        }else if(txtTelefone.getText().trim().length()!=13){
+            JOptionPane.showMessageDialog(null, "Telefone inválido");
+            return false;
+        }else if(txtBairro.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo bairro esta vazio!");
+            return false;
+        }else if(txtEndereco.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo endereço esta vazio!");
+            return false;
+        }
+        return true;
+    }
     
     private void loadInitialComboData() {
 
