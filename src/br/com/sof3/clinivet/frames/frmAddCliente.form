@@ -172,7 +172,7 @@
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtNome" max="32767" attributes="0"/>
-                              <Component id="jTextField1" alignment="0" pref="206" max="32767" attributes="0"/>
+                              <Component id="txtDataNasc" alignment="0" pref="206" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -209,7 +209,7 @@
                               <Component id="lblCPF" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtDataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -427,14 +427,14 @@
             <Property name="text" type="java.lang.String" value="Data Nasc."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jTextField1">
+        <Component class="javax.swing.JFormattedTextField" name="txtDataNasc">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataNascActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtTelefone">
