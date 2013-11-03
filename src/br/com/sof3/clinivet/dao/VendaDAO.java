@@ -85,6 +85,18 @@ public class VendaDAO extends GenericoDAO {
         return toReturn;
     }
     
+    public List<Venda> getVendaPorData(String data) throws SQLException {
+        List<Venda> toReturn = new LinkedList<Venda>();
+        
+        ResultSet rs = executeQuery("SELECT * FROM vendas WHERE data_venda like \""+data+"%\";");
+        
+        while (rs.next()) {
+            toReturn.add(populateVenda(rs));
+        }
+        rs.close();
+        return toReturn;
+    }
+    
     public List<Venda> getAllVenda() throws SQLException {
         List<Venda> toReturn = new LinkedList<Venda>();
         
@@ -96,6 +108,17 @@ public class VendaDAO extends GenericoDAO {
         }
         rs.close();
         return toReturn;
+    }
+    
+    
+    public Venda getVenda(int idVenda) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM vendas WHERE ID = ?", idVenda);
+        Venda venda = new Venda();
+        while (rs.next()) {
+            venda = populateVenda(rs);
+        }
+        rs.close();
+        return venda;
     }
     
     public static Venda populateVenda(ResultSet rs) throws SQLException {

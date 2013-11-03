@@ -36,7 +36,7 @@ public class Venda {
     public String[] addTableVendasEfetuadas(){
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
          
-        String [] dados = { formatador.format(dataVenda), String.valueOf(totalVenda), formaPagamento,
+        String [] dados = { String.valueOf(id), formatador.format(dataVenda), String.valueOf(totalVenda), formaPagamento,
                             String.valueOf(vendedor.getNome()), String.valueOf(cliente.getNome())
                           };
         return dados;
