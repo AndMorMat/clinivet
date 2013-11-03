@@ -20,6 +20,16 @@ public class AgendaDAO extends GenericoDAO{
         }
         
     }
+    public int getCodigo()throws SQLException{
+        return getNextId("agendamentos");
+    }
+    public void cancelarAgendamento(int id) throws SQLException{
+        try{
+            executeCommand("delete from agendamentos where id = ?",id);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao cancelar agendamento na classe agendaDAO: "+ ex);
+        }
+    }
     public List<Agenda> buscarAgendamentosDia(String data) throws SQLException{
         List <Agenda> toReturn = new LinkedList<>();
         try{
