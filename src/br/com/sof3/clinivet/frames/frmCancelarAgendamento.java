@@ -151,21 +151,24 @@ public class frmCancelarAgendamento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void atualizarTabela(List<Agenda> agendas){
+        DefaultTableModel dtm = (DefaultTableModel)tblAgendamentos.getModel();
+        for(int aux=0;aux<agendas.size();aux++){
+                    dtm.addRow(agendas.get(aux).addTableCancelamento());
+                }
+    }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+        limparTabela();
         if(data.getDate()!= null){
             AgendaDAO agendaDAO = new AgendaDAO();
             List <Agenda> agendas = new LinkedList<>();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
             String dataFormatada="";
             dataFormatada = sdf.format(data.getDate());
-            DefaultTableModel dtm = (DefaultTableModel)tblAgendamentos.getModel();
+            
             try {
                 agendas = agendaDAO.buscarAgendamentosDia(dataFormatada);
-                JOptionPane.showMessageDialog(null, agendas.size());
-                for(int aux=0;aux<agendas.size();aux++){
-                    dtm.addRow(agendas.get(aux).addTableCancelamento());
-                }
+                atualizarTabela(agendas);
                 lblTotalAgendamentos.setText("Total de agendamentos: "+agendas.size());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,"Erro ao buscar agendamentos pelo dia na classe frmCancelarAgendamentos: "+ ex);
@@ -176,9 +179,35 @@ public class frmCancelarAgendamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        
+        DefaultTableModel dtm = (DefaultTableModel)tblAgendamentos.getModel();
+        List <Agenda> agendas = new LinkedList<>();
+        AgendaDAO agendaDAO = new AgendaDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
+        String dataFormatada="";
+        dataFormatada = sdf.format(data.getDate());
+        if(tblAgendamentos.getSelectedRow()>=0 && tblAgendamentos.getSelectedRow()<tblAgendamentos.getRowCount()){
+            int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Cancelar Agendamento",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (result==2) return;
+            try {
+                
+                agendaDAO.cancelarAgendamento(Integer.parseInt(dtm.getValueAt(tblAgendamentos.getSelectedRow(), 0).toString()));
+                agendas = agendaDAO.buscarAgendamentosDia(dataFormatada);
+                limparTabela();
+                atualizarTabela(agendas);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao cancelar agendamento no botão cancelarAgendamento na classe frmCancelarAgendamento: ");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um item");
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblAgendamentos.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;aux>=0;  aux--){//removendo valores da tabela
+                dtm.removeRow(aux);
+            }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
