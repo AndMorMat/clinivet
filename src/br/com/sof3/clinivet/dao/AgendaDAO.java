@@ -33,10 +33,12 @@ public class AgendaDAO extends GenericoDAO{
         }
         return toReturn;
     }
+    
     public Agenda popullateAgenda(ResultSet rs) throws SQLException{
         Agenda agenda = new Agenda();
         ClienteDAO cliDAO = new ClienteDAO();
         AnimalDAO aniDAO = new AnimalDAO();
+        agenda.setId(rs.getInt("id"));
         agenda.setData(rs.getString("data"));
         agenda.setHora_inicio(rs.getString("hora_inicio"));
         agenda.setHora_termino(rs.getString("hora_termino"));

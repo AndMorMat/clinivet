@@ -27,6 +27,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
+        lblTotalDeAgend.setText("Total de agendamentos: 0");
     }
 
     
@@ -39,6 +40,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         tbl_horarios = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        lblTotalDeAgend = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +96,8 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Consultar Agendamentos");
 
+        lblTotalDeAgend.setText("Total de agendamentos: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +110,8 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
                         .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(lblTotalDeAgend))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -114,13 +119,15 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(lblTotalDeAgend)
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -141,19 +148,31 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
                 agenda = agendaDAO.buscarAgendamentosDia(dataFormatada);
                 
                 if(agenda.size() > 0){
-                    
+                    int cont=-1;
                     DefaultTableModel dtm = (DefaultTableModel)tbl_horarios.getModel();
-                    for(int aux = 0; aux < tbl_horarios.getRowCount(); aux++){
-                        for(int aux1 = 0; aux1 < agenda.size(); aux1++)
-                            if(dtm.getValueAt(aux, 0).equals(agenda.get(aux1).getHora_inicio())){
-                                dtm.setValueAt(agenda.get(aux1).addTable(), aux, 1);
-//                                TableView.TableRow row = tblHorarios.getModel().getValueAt(aux, aux);
-                                
+                    for(int aux = 0; aux < agenda.size(); aux++){
+                        for(int aux1 = 0; aux1 < tbl_horarios.getRowCount(); aux1++){
+                            
+                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_inicio())){
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                                cont=1;//significa o horario inicial da consulta
                             }
-                    }
+                            if(cont==1){//se o cont for igual a 1 significa que a consulta iniciou e ainda não terminou então pode ser setado o addTable na tabela
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                            }
+                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_termino())){
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                                cont=0;//significa o horario final da consulta
+                            }
+                               
+                        }
+                   }
+//                    
+                    
                 }
+                
             }
-            
+            lblTotalDeAgend.setText("Total de agendamentos: "+agenda.size());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Erro ao carregar agendamentos na tabela" +ex);
         }
@@ -171,6 +190,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotalDeAgend;
     private static javax.swing.JTable tbl_horarios;
     // End of variables declaration//GEN-END:variables
 }
