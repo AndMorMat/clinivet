@@ -311,11 +311,12 @@ public class frmAddCliente extends javax.swing.JDialog {
                 .add(27, 27, 27)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lblCPF)
-                            .add(jLabel1)
-                            .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCPF)
+                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel1)
+                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(lblTelefone)
@@ -367,80 +368,99 @@ public class frmAddCliente extends javax.swing.JDialog {
                 .add(43, 43, 43)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnOK)
-                    .add(btnCancelar))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnCancelar)
+                    .add(btnOK))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if(param.equals("cadastrar")){
-            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-            if (opc != 0) {
-                return;
-            }
+        
+        ClienteDAO consultaCli = new ClienteDAO();//Consultar banco de clientes
+        int duplicidadeCPF = 0;//Validador de cpf duplicado
+        
+        try {                     
+                if(param.equals("cadastrar")){
+                     if(consultaCli.getCPFDuplicado(txtCPF.getText().toString())){//Consultando no banco o CPf
+                        duplicidadeCPF = JOptionPane.showConfirmDialog (null, "CPF já cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        
+                        if(duplicidadeCPF ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                            setVisible(false);
+                    }else{//Cpf não encontrado no banco
+                
+                    int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adicionar Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    if (opc != 0) {
+                        return;
+                    }
 
-            try {
-                Cliente cliente = new Cliente();
-                CidadeDAO citydao = new CidadeDAO();
-                cliente.setNome(txtNome.getText());
-                cliente.setSobrenome(txtSobrenome.getText());
-                cliente.setCpf(txtCPF.getText());
-                cliente.setTelefone(txtTelefone.getText());
-                cliente.setCelular(txtCelular.getText());
-                cliente.setEmail(txtEmail.getText());
-                cliente.setCidade(citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())));
-                cliente.setBairro(txtBairro.getText());
-                cliente.setEndereco(txtEndereco.getText());
-                cliente.setSms_inicio_consulta(sms_inicio_consulta.isSelected());
-                cliente.setSms_fim_consulta(sms_termino_consulta.isSelected());
 
-                cdao.adicionaCliente(cliente);
+                        Cliente cliente = new Cliente();
+                        CidadeDAO citydao = new CidadeDAO();
+                        cliente.setNome(txtNome.getText());
+                        cliente.setSobrenome(txtSobrenome.getText());
+                        cliente.setCpf(txtCPF.getText());
+                        cliente.setTelefone(txtTelefone.getText());
+                        cliente.setCelular(txtCelular.getText());
+                        cliente.setEmail(txtEmail.getText());
+                        cliente.setCidade(citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())));
+                        cliente.setBairro(txtBairro.getText());
+                        cliente.setEndereco(txtEndereco.getText());
+                        cliente.setSms_inicio_consulta(sms_inicio_consulta.isSelected());
+                        cliente.setSms_fim_consulta(sms_termino_consulta.isSelected());
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this,"Erro ao adicionar o cliente "+ex,"Adicionar Cliente",JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }else if(param.equals("editar")){
-            //JOptionPane.showMessageDialog(null, "Editar em construção");
-            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-            if (opc != 0) {
-                return;
-            }
-            try{
-                Cliente cli = new Cliente();
-                ClienteDAO cliDAO = new ClienteDAO();
-                CidadeDAO cityDAO = new CidadeDAO();
+                        cdao.adicionaCliente(cliente);
+                        setVisible(false);
+                     }
+                }else if(param.equals("editar")){
+                    if(consultaCli.getCPFDuplicado(txtCPF.getText().toString()) &&  !cliAntigo.getCpf().toString().equals(txtCPF.getText().toString())){//Consultando no banco o CPf e verifica se foi alterado antes de iniciar a edição
+                        duplicidadeCPF = JOptionPane.showConfirmDialog (null, "CPF que foi alterado já está cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        
+                        if(duplicidadeCPF ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                            setVisible(false);
+                    }else{//Cpf não encontrado no banco
+                   
+                    
+                    //JOptionPane.showMessageDialog(null, "Editar em construção");
+                    int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                    if (opc != 0) {
+                        return;
+                    }
+
+                        Cliente cli = new Cliente();
+                        ClienteDAO cliDAO = new ClienteDAO();
+                        CidadeDAO cityDAO = new CidadeDAO();
+
+                        Cidade ci = new Cidade();
+
+                        ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
+
+                        cli.cadastrar(cliDAO.getIdByCpf((cliAntigo.getCpf())),
+                                txtNome.getText(),
+                                txtSobrenome.getText(),
+                                txtCPF.getText(),
+                                txtTelefone.getText(),
+                                txtCelular.getText(),
+                                txtEmail.getText(),
+                                txtEndereco.getText(),
+                                txtBairro.getText(),
+                                ci,
+                                sms_inicio_consulta.isSelected(),
+                                sms_termino_consulta.isSelected());
+                        JOptionPane.showMessageDialog(null, "cliente cadastrado:\n\n"+cli.exibir());
+                        cliDAO.atualizarCliente(cli);
+                        setVisible(false);
+                }}
                 
-                Cidade ci = new Cidade();
                 
-                ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
-                
-                cli.cadastrar(cliDAO.getIdByCpf((cliAntigo.getCpf())),
-                        txtNome.getText(),
-                        txtSobrenome.getText(),
-                        txtCPF.getText(),
-                        txtTelefone.getText(),
-                        txtCelular.getText(),
-                        txtEmail.getText(),
-                        txtEndereco.getText(),
-                        txtBairro.getText(),
-                        ci,
-                        sms_inicio_consulta.isSelected(),
-                        sms_termino_consulta.isSelected());
-                JOptionPane.showMessageDialog(null, "cliente cadastrado:\n\n"+cli.exibir());
-                cliDAO.atualizarCliente(cli);
-                
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Erro ao editar cliente na classe frmAddCliente");
-            }
-            
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAddCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com banco de dados cliente da frmAddCliente");
         }
-        setVisible(false);
+        
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

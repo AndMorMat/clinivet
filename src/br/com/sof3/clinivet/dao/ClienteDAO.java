@@ -154,5 +154,17 @@ public class ClienteDAO extends GenericoDAO {
         return cliente;
     }
     
+    public boolean getCPFDuplicado(String cpf) throws SQLException{
+        
+        ResultSet rs = executeQuery("SELECT * FROM clientes WHERE cpf =  ?", cpf);//Pesquisando CPf do cliente a ser cadastrado
+        boolean found = false;  
+        
+        while (rs.next()) {   
+             found = true;  //Caso seja encontrado um cadastro retorna verdadeiro
+        }
+        
+        return found;
+    }
+    
 }
 
