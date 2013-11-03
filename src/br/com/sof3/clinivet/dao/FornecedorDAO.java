@@ -49,7 +49,7 @@ public class FornecedorDAO extends GenericoDAO{
        try{
            String query = "update fornecedores set nome=?, cnpj=?, telefone=?, email=?, bairro=?, endereco=?, id_cidade=? where id = ?";
            executeCommand(query,fornecedor.getNome(),fornecedor.getCnpj(),fornecedor.getTelefone(),fornecedor.getEmail(),fornecedor.getBairro(),fornecedor.getEndereco(), fornecedor.getCidade().getId(),fornecedor.getId());
-           JOptionPane.showMessageDialog(null, "Depois de atualizar");
+           //JOptionPane.showMessageDialog(null, "Depois de atualizar");
        }catch(Exception ex){
            JOptionPane.showMessageDialog(null,"Erro atualizar fornecedor no metodo atualizaFornecedor na classe FornecedorDAO: "+ ex);
        }
@@ -80,7 +80,7 @@ public class FornecedorDAO extends GenericoDAO{
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
         }
-        JOptionPane.showMessageDialog(null,toReturn.exibir());
+       // JOptionPane.showMessageDialog(null,toReturn.exibir());
         return toReturn;
     }
     public ArrayList <Fornecedor> FiltrarFornecedorTelefone(String telefone) throws SQLException{
