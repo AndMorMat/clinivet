@@ -51,18 +51,18 @@
                           <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtBairro" max="32767" attributes="0"/>
                           <Component id="txtEndereco" alignment="0" pref="207" max="32767" attributes="0"/>
-                          <Component id="cbxCidade" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                          <Component id="txtCnpj" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxCidade" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtCnpj" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <EmptySpace pref="227" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
