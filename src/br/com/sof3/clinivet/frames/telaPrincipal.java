@@ -438,7 +438,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_submenuConsultarAgendaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        frmCancelarAgendamento frmCancelar = new frmCancelarAgendamento();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
