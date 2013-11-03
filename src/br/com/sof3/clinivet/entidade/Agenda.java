@@ -47,8 +47,11 @@ public class Agenda {
                 "\nanimal: "+animal.getNome();
     }
     public String addTable(){
-        
         return "Cliente: "+cliente.getNome()+" - Animal: "+animal.getNome()+ " - Observações: "+observacoes;
+    }
+    public String[] addTableCancelamento(){
+        String[] dados = {id.toString(),tipo_servico,hora_inicio,hora_termino,observacoes,cliente.getNome(),animal.getNome()}; 
+        return dados;
     }
     public boolean isSms_inicio_consulta() {
         return sms_inicio_consulta;
