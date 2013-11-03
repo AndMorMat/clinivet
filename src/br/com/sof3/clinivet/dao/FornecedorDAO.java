@@ -80,7 +80,6 @@ public class FornecedorDAO extends GenericoDAO{
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedor :: classe FornecedorDAO metodo getFornecedorByCnpj");
         }
-        JOptionPane.showMessageDialog(null,toReturn.exibir());
         return toReturn;
     }
     public ArrayList <Fornecedor> FiltrarFornecedorTelefone(String telefone) throws SQLException{
