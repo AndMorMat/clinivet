@@ -126,7 +126,7 @@ public class AnimalDAO extends GenericoDAO {
         toReturn.setNome(rs.getString("a.NOME"));//ajustado para exibir somente o nome do animal e não do 
         toReturn.setTipoAnimal(rs.getString("TIPO_ANIMAL"));
         toReturn.setRaca(racaDAO.getRacaById(rs.getInt("ID_RACA")));
-        toReturn.setDataNasc(rs.getString("DATA_NASCIMENTO"));
+        toReturn.setDataNasc(rs.getString("ANO_NASCIMENTO"));
         toReturn.setSexo(rs.getString("SEXO"));
         toReturn.setDono(clienteDAO.getCliente(rs.getInt("ID_DONO")));
      

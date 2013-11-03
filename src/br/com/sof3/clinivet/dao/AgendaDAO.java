@@ -35,9 +35,11 @@ public class AgendaDAO extends GenericoDAO{
         try{
             String sql = "select * from agendamentos where data = ?";
             ResultSet rs = executeQuery(sql, data);
+            JOptionPane.showMessageDialog(null, "Erro1");
             while(rs.next()){
                 toReturn.add(popullateAgenda(rs));
             }
+            JOptionPane.showMessageDialog(null, "Erro1");
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao buscar agendamento pela data na classe AgendaDAO: "+ ex);
         }
