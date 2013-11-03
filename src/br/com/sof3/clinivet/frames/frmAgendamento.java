@@ -275,7 +275,7 @@ public class frmAgendamento extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -434,7 +434,7 @@ public class frmAgendamento extends javax.swing.JFrame {
                             .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(14, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(data, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,7 +454,7 @@ public class frmAgendamento extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -517,6 +517,7 @@ public class frmAgendamento extends javax.swing.JFrame {
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
         Animal ani = new Animal();
         AgendaDAO agendaDAO = new AgendaDAO();
+        List<Agenda> agendas = new LinkedList<>();
         DefaultTableModel dtm = (DefaultTableModel)tblHorarios.getModel();
         for(int aux = 0 ; aux < animais.size();aux++){
             if(cbxAnimal.getSelectedItem().equals(animais.get(aux).getNome())){//pegando o animal que esta selecionado da cbx
@@ -536,12 +537,11 @@ public class frmAgendamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Horário Indisponível");
                     return;
                 }
-//                if(aux > 0 && (dtm.getValueAt(aux, 0).equals(agenda.getHora_inicio()) && !dtm.getValueAt(aux-1, 1).toString().isEmpty())){
-//                    JOptionPane.showMessageDialog(null, "Horário Indisponível");
-//                    return;
-//                }
             }
             agendaDAO.fazerAgendamento(agenda);
+            agendas = agendaDAO.buscarAgendamentosDia(dataFormatada);
+            limparTabela();
+            atualizarTabela(agendas);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Erro ao fazer agendamento no botão agendar na classe frmAgendamento: "+ ex);
         }
@@ -550,7 +550,27 @@ public class frmAgendamento extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    public void atualizarTabela(List<Agenda> agenda){
+        DefaultTableModel dtm = (DefaultTableModel)tblHorarios.getModel();
+        int cont=-1;
+        for(int aux = 0; aux < agenda.size(); aux++){
+                        for(int aux1 = 0; aux1 < tblHorarios.getRowCount(); aux1++){
+                            
+                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_inicio())){
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                                cont=1;//significa o horario inicial da consulta
+                            }
+                            if(cont==1){//se o cont for igual a 1 significa que a consulta iniciou e ainda não terminou então pode ser setado o addTable na tabela
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                            }
+                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_termino())){
+                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
+                                cont=0;//significa o horario final da consulta
+                            }
+                               
+                        }
+                   }
+    }
     private void dataPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dataPropertyChange
         
         //arrumar função que ira carregar as datas na tabela
@@ -568,27 +588,9 @@ public class frmAgendamento extends javax.swing.JFrame {
                 agenda = agendaDAO.buscarAgendamentosDia(dataFormatada);
                 
                 if(agenda.size() > 0){
-                    int cont=-1;
-                    DefaultTableModel dtm = (DefaultTableModel)tblHorarios.getModel();
-                    for(int aux = 0; aux < agenda.size(); aux++){
-                        for(int aux1 = 0; aux1 < tblHorarios.getRowCount(); aux1++){
-                            
-                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_inicio())){
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                                cont=1;//significa o horario inicial da consulta
-                            }
-                            if(cont==1){//se o cont for igual a 1 significa que a consulta iniciou e ainda não terminou então pode ser setado o addTable na tabela
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                            }
-                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_termino())){
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                                cont=0;//significa o horario final da consulta
-                            }
-                               
-                        }
-                   }
-//                    
-                    
+                    limparTabela();
+                    atualizarTabela(agenda);
+
                 }
                 
             }
@@ -601,7 +603,7 @@ public class frmAgendamento extends javax.swing.JFrame {
     public void limparTabela(){
         DefaultTableModel dtm =  (DefaultTableModel) tblHorarios.getModel();
         int cont = dtm.getRowCount();
-            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+            for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
                 dtm.setValueAt("", aux, 1);
             }
     }
@@ -626,6 +628,8 @@ public class frmAgendamento extends javax.swing.JFrame {
         txtCpf.setEnabled(false);
         txtEndereco.setEnabled(false);
         txtTelefone.setEnabled(false);
+        sms_inicio_consulta.setEnabled(false);
+        sms_termino_consulta.setEnabled(false);
     }
     public static void desabilitarCamposServico(){
         cbxTipoServico.setEnabled(false);
@@ -647,6 +651,8 @@ public class frmAgendamento extends javax.swing.JFrame {
         txtCpf.setEnabled(true);
         txtEndereco.setEnabled(true);
         txtTelefone.setEnabled(true);
+        sms_inicio_consulta.setEnabled(true);
+        sms_termino_consulta.setEnabled(true);
     }
     
     public static void habilitarCamposServico(){
@@ -660,6 +666,7 @@ public class frmAgendamento extends javax.swing.JFrame {
     }
     
     public static void setDados(Cliente cli){//função usada na classe frmPesquisaCliente para adicionar os dados nas txt's
+        AgendaDAO ageDAO = new AgendaDAO();
         txtNomeCliente.setText(cli.getNome());
         txtCpf.setText(cli.getCpf());
         txtEndereco.setText(cli.getEndereco());
@@ -668,6 +675,11 @@ public class frmAgendamento extends javax.swing.JFrame {
         sms_termino_consulta.setSelected(cli.isSms_fim_consulta());
         carregaAnimais(cli);
         desabilitandoEdicaoCampos();
+        try {
+            lblCodigoServico.setText("Codigo: " + ageDAO.getCodigo());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao buscar codigo do agendamento na classe frmAgendamento: "+ ex);
+        }
     }
     
     public static void carregaAnimais(Cliente cli){ //função que carregara os dados dos animais do cliente
@@ -757,7 +769,7 @@ public class frmAgendamento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblCodigoServico;
+    private static javax.swing.JLabel lblCodigoServico;
     private static javax.swing.JCheckBox sms_inicio_consulta;
     private static javax.swing.JCheckBox sms_termino_consulta;
     private static javax.swing.JTable tblHorarios;
