@@ -122,6 +122,16 @@ public class ProdutoDAO extends GenericoDAO{
         return toReturn;
     }
     
+      public Produto getProduto(int idProduto) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE ID = ?", idProduto);
+        Produto produto = new Produto();
+        while (rs.next()) {
+            produto = populateProduto(rs);
+        }
+        rs.close();
+        return produto;
+    }
+    
     public static Produto populateProduto(ResultSet rs) throws SQLException {
         final FornecedorDAO fornecedorDAO = new FornecedorDAO();
         

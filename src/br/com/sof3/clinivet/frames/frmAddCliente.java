@@ -150,6 +150,11 @@ public class frmAddCliente extends javax.swing.JDialog {
                 txtEmailActionPerformed(evt);
             }
         });
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         lblNome.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblNome.setText("Nome:");
@@ -381,7 +386,12 @@ public class frmAddCliente extends javax.swing.JDialog {
         
         ClienteDAO consultaCli = new ClienteDAO();//Consultar banco de clientes
         int duplicidadeCPF = 0;//Validador de cpf duplicado
-        
+               
+        if(txtNome.getText().trim().equals("") || txtSobrenome.getText().trim().equals("") ||
+                txtCPF.getText().trim().equals("") || txtEndereco.getText().trim().equals("") ||
+                txtBairro.getText().trim().equals("") || txtCPF.getText().substring(0).equals("   .   .   -  ")){//substring verifica cPf nulo
+                JOptionPane.showMessageDialog(null, "Campos Obrigatórios: Nome, Sobrenome, CPF, Endereço, Bairro");
+        }else{      
         try {                     
                 if(param.equals("cadastrar")){
                      if(consultaCli.getCPFDuplicado(txtCPF.getText().toString())){//Consultando no banco o CPf
@@ -399,15 +409,15 @@ public class frmAddCliente extends javax.swing.JDialog {
 
                         Cliente cliente = new Cliente();
                         CidadeDAO citydao = new CidadeDAO();
-                        cliente.setNome(txtNome.getText());
-                        cliente.setSobrenome(txtSobrenome.getText());
-                        cliente.setCpf(txtCPF.getText());
+                        cliente.setNome(txtNome.getText().toUpperCase());
+                        cliente.setSobrenome(txtSobrenome.getText().toUpperCase());
+                        cliente.setCpf(txtCPF.getText().toUpperCase());
                         cliente.setTelefone(txtTelefone.getText());
                         cliente.setCelular(txtCelular.getText());
-                        cliente.setEmail(txtEmail.getText());
+                        cliente.setEmail(txtEmail.getText().toUpperCase());
                         cliente.setCidade(citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())));
-                        cliente.setBairro(txtBairro.getText());
-                        cliente.setEndereco(txtEndereco.getText());
+                        cliente.setBairro(txtBairro.getText().toUpperCase());
+                        cliente.setEndereco(txtEndereco.getText().toUpperCase());
                         cliente.setSms_inicio_consulta(sms_inicio_consulta.isSelected());
                         cliente.setSms_fim_consulta(sms_termino_consulta.isSelected());
 
@@ -438,14 +448,14 @@ public class frmAddCliente extends javax.swing.JDialog {
                         ci = cityDAO.getCidadeByName(comboCidades.getSelectedItem().toString());
 
                         cli.cadastrar(cliDAO.getIdByCpf((cliAntigo.getCpf())),
-                                txtNome.getText(),
-                                txtSobrenome.getText(),
+                                txtNome.getText().toUpperCase(),
+                                txtSobrenome.getText().toUpperCase(),
                                 txtCPF.getText(),
                                 txtTelefone.getText(),
                                 txtCelular.getText(),
-                                txtEmail.getText(),
-                                txtEndereco.getText(),
-                                txtBairro.getText(),
+                                txtEmail.getText().toUpperCase(),
+                                txtEndereco.getText().toUpperCase(),
+                                txtBairro.getText().toUpperCase(),
                                 ci,
                                 sms_inicio_consulta.isSelected(),
                                 sms_termino_consulta.isSelected());
@@ -459,7 +469,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(frmAddCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao conectar com banco de dados cliente da frmAddCliente");
-        }
+        }}
         
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -486,6 +496,19 @@ public class frmAddCliente extends javax.swing.JDialog {
     private void comboCidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboCidadesActionPerformed
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        if ((txtEmail.getText().contains("@")) && (txtEmail.getText().contains("."))
+                && (!txtEmail.getText().contains(" "))) { String usuario = new String(txtEmail.getText().substring(0, txtEmail.getText().lastIndexOf('@')));
+                                                          String dominio = new String(txtEmail.getText().substring(txtEmail.getText().lastIndexOf ('@') + 1, 
+                                                                  txtEmail.getText().length()));
+                                                          if ((usuario.length() >=1) && (!usuario.contains("@")) && (dominio.contains(".")) && (!dominio.contains("@"))
+                                                                  && (dominio.indexOf(".") >= 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) { 
+                                                                  
+                                                          } else { txtEmail.setText("E-MAIL INVÁLIDO");
+                                                          } 
+        }else { txtEmail.setText("E-MAIL INVÁLIDO");  }
+    }//GEN-LAST:event_txtEmailFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

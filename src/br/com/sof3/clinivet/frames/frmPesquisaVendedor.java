@@ -300,8 +300,14 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
                 String login = String.valueOf(dtm.getValueAt(tblBuscaVendedor.getSelectedRow(), 1));
 
                 vend=vdao.getVendedorByLogin(login);
-
-                frmAddVendedor frmEditarVendedor = new frmAddVendedor("editar", vend.get(0));
+                
+                String senhaInformada = JOptionPane.showInputDialog(null, "Por favor informe a senha");
+                    if (senhaInformada.equals(vend.get(0).getSenha())) {
+                         frmAddVendedor frmEditarVendedor = new frmAddVendedor("editar", vend.get(0));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Impossivel Editar, Senhas não correspondem!!");
+                    }
+                  
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Erro no botão editar na classe frmPesquisaVendedor");
             }

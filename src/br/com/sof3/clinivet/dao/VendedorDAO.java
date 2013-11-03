@@ -49,7 +49,7 @@ public class VendedorDAO extends GenericoDAO {
         executeCommand("DELETE FROM VENDEDORES WHERE ID = ?", idVendedor);
     }
     public int getIdVendedor(String login) throws SQLException{
-        Vendedor vendedor = new Vendedor();
+        Vendedor vendedor = new Vendedor();        
         try{
             ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login = ?", login);
 //            JOptionPane.showMessageDialog(null, login);
@@ -141,5 +141,17 @@ public class VendedorDAO extends GenericoDAO {
         }
         rs.close();
         return toReturn;
+    }
+    
+    public boolean getLoginDuplicado(String login) throws SQLException{
+        
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login =  ?", login);//Pesquisando CPf do cliente a ser cadastrado
+        boolean found = false;  
+        
+        while (rs.next()) {   
+             found = true;  //Caso seja encontrado um cadastro retorna verdadeiro
+        }
+        
+        return found;
     }
 }

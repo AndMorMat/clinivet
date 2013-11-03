@@ -5,8 +5,10 @@
 package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.VendaDAO;
+import br.com.sof3.clinivet.dao.VendasProdutosDAO;
 import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Venda;
+import br.com.sof3.clinivet.entidade.VendaProduto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -28,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmVendasEfetuadas extends javax.swing.JFrame {
     VendaDAO vdao = new VendaDAO();
     VendedorDAO vendDao = new VendedorDAO();
+    VendasProdutosDAO vpdao = new VendasProdutosDAO();
     /**
      * Creates new form frmVendasEfetuadas
      */
@@ -49,7 +52,6 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
         lblBuscarVendas = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         radioVendedor = new javax.swing.JRadioButton();
-        radioDataVenda = new javax.swing.JRadioButton();
         radioVendasDoDia = new javax.swing.JRadioButton();
         radioTodasVendas = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -57,6 +59,9 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         lblTotalVendido = new javax.swing.JLabel();
         lblTotalBusca = new javax.swing.JLabel();
+        data = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,9 +69,6 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
 
         groupBuscarVendas.add(radioVendedor);
         radioVendedor.setText("Vendedor");
-
-        groupBuscarVendas.add(radioDataVenda);
-        radioDataVenda.setText("Data Venda");
 
         groupBuscarVendas.add(radioVendasDoDia);
         radioVendasDoDia.setText("Vendas do Dia");
@@ -80,14 +82,14 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data da Venda", "Total da Venda", "Forma de Pagamento", "Vendedor", "Cliente"
+                "Código Venda", "Data da Venda", "Total da Venda", "Forma de Pagamento", "Vendedor", "Cliente"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -99,11 +101,14 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableVendas);
-        tableVendas.getColumnModel().getColumn(0).setResizable(false);
-        tableVendas.getColumnModel().getColumn(1).setResizable(false);
-        tableVendas.getColumnModel().getColumn(2).setResizable(false);
-        tableVendas.getColumnModel().getColumn(3).setResizable(false);
-        tableVendas.getColumnModel().getColumn(4).setResizable(false);
+        if (tableVendas.getColumnModel().getColumnCount() > 0) {
+            tableVendas.getColumnModel().getColumn(0).setResizable(false);
+            tableVendas.getColumnModel().getColumn(1).setResizable(false);
+            tableVendas.getColumnModel().getColumn(2).setResizable(false);
+            tableVendas.getColumnModel().getColumn(3).setResizable(false);
+            tableVendas.getColumnModel().getColumn(4).setResizable(false);
+            tableVendas.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +120,21 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
         lblTotalVendido.setText("Total Vendido: R$ 0,00");
 
         lblTotalBusca.setText("Total da Busca: 0 Resultado(s)");
+
+        data.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dataPropertyChange(evt);
+            }
+        });
+
+        jLabel1.setText("Data:");
+
+        jButton1.setText("Buscar por Data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,15 +148,13 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
                             .add(layout.createSequentialGroup()
                                 .add(radioVendedor)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(radioDataVenda)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(radioVendasDoDia)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(radioTodasVendas))
                             .add(layout.createSequentialGroup()
                                 .add(11, 11, 11)
                                 .add(lblBuscarVendas)))
-                        .add(0, 0, Short.MAX_VALUE))
+                        .add(0, 495, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(4, 4, 4)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -146,36 +164,46 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
                                 .add(lblTotalVendido)
                                 .add(150, 150, 150))
                             .add(layout.createSequentialGroup()
-                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 796, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(0, 39, Short.MAX_VALUE))
-                            .add(layout.createSequentialGroup()
-                                .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(layout.createSequentialGroup()
+                                        .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(377, 377, 377)
+                                        .add(jButton1))
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel1)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 796, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(0, 39, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(21, 21, 21)
                 .add(lblBuscarVendas)
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(radioVendedor)
-                    .add(radioDataVenda)
-                    .add(radioVendasDoDia)
-                    .add(radioTodasVendas))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblTotalVendido)
-                    .add(lblTotalBusca))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .add(24, 24, 24)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(radioVendedor)
+                            .add(radioVendasDoDia)
+                            .add(radioTodasVendas)
+                            .add(jLabel1))
+                        .add(13, 13, 13)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jButton1))
+                        .add(18, 18, 18)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(lblTotalVendido)
+                            .add(lblTotalBusca)))
+                    .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,6 +223,8 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             Venda v  = new Venda();
             List<Venda> ven = new LinkedList<Venda>();
             
+          
+                        
             if(radioTodasVendas.isSelected()) {
                 try {
                     ven = vdao.getAllVenda();
@@ -221,6 +251,59 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             }
             
             for(int aux =0;aux<ven.size();aux++){
+                v.setId(ven.get(aux).getId());
+                v.setDataVenda(ven.get(aux).getDataVenda());
+                v.setTotalVenda(ven.get(aux).getTotalVenda());
+                v.setFormaPagamento(ven.get(aux).getFormaPagamento());
+                v.setVendedor(ven.get(aux).getVendedor());
+                v.setCliente(ven.get(aux).getCliente());  
+                        
+                totalVendido += v.getTotalVenda();
+                dtm.addRow(v.addTableVendasEfetuadas());
+                cont++;
+                quantResul++; 
+            }
+            
+            if(ven.size()==0){
+              lblTotalVendido.setText("Total Vendido: R$ 0,00");
+              lblTotalBusca.setText("Total da Busca: 0 Resultado(s)");
+            }
+                    
+            lblTotalVendido.setText("Total Vendido: R$ "+String.format("%.2f", totalVendido));
+            lblTotalBusca.setText("Total da Busca: "+quantResul+" Resultado(s)");
+            
+            if(cont==0)//para exibir caso procura não exiba nada
+                        JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void dataPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dataPropertyChange
+
+    }//GEN-LAST:event_dataPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+            String dataFormatada = sdf.format(data.getDate());
+
+            DefaultTableModel dtm = (DefaultTableModel)tableVendas.getModel();
+            int cont = 0, quantResul = 0;
+            double totalVendido = 0;
+            
+            int cont2 = dtm.getRowCount();
+            for(int aux=cont2-1 ;   aux>=0;  aux--){//removendo valores da tabela
+                dtm.removeRow(aux);
+            }
+            
+            Venda v  = new Venda();
+            List<Venda> ven = new LinkedList<Venda>();
+            
+            try {            
+                ven = vdao.getVendaPorData(dataFormatada);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmVendasEfetuadas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for(int aux =0;aux<ven.size();aux++){
+                v.setId(ven.get(aux).getId());
                 v.setDataVenda(ven.get(aux).getDataVenda());
                 v.setTotalVenda(ven.get(aux).getTotalVenda());
                 v.setFormaPagamento(ven.get(aux).getFormaPagamento());
@@ -243,16 +326,40 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             
             if(cont==0)//para exibir caso procura não exiba nada
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tableVendasCliMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        String codigoVenda;
+        int idVenda;
+        if (evt.getClickCount() == 2) {  
+           VendaProduto vp = new VendaProduto();
+           List<VendaProduto> listvp = new LinkedList<VendaProduto>();
+           
+           setVisible(false);
+           
+           
+           codigoVenda = String.valueOf(tableVendas.getValueAt(tableVendas.getSelectedRow(), 0));
+           
+           idVenda = Integer.parseInt(codigoVenda);
+            try {
+                listvp = vpdao.getProdutosVendidos(idVenda);
+                JOptionPane.showMessageDialog(null, listvp);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmVendasEfetuadas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+               
+        }
+    }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private com.toedter.calendar.JDateChooser data;
     private javax.swing.ButtonGroup groupBuscarVendas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscarVendas;
     private javax.swing.JLabel lblTotalBusca;
     private javax.swing.JLabel lblTotalVendido;
-    private javax.swing.JRadioButton radioDataVenda;
     private javax.swing.JRadioButton radioTodasVendas;
     private javax.swing.JRadioButton radioVendasDoDia;
     private javax.swing.JRadioButton radioVendedor;

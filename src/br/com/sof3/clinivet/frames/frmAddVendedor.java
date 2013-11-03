@@ -17,7 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class frmAddVendedor extends javax.swing.JFrame {
     public VendedorDAO dao = new VendedorDAO();
-     
+    public String LoginAntigo;
+    
     String param = "";
     
     public frmAddVendedor(String parametro, Vendedor vendedor) {
@@ -28,6 +29,7 @@ public class frmAddVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         param = parametro;
         if(parametro.equals("editar")){
+            LoginAntigo = vendedor.getLogin();
             carregarCampos(vendedor);
             btnOk.setText("Editar");
             lblTitulo.setText("Editar Vendedor");
@@ -154,47 +156,80 @@ public class frmAddVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if(param.equals("cadastrar")){
-            if (!txtSenha.getText().equals(txtRepitaSenha.getText())) {
-                 JOptionPane.showMessageDialog(this, "As senhas não são iguais","Erro",JOptionPane.ERROR_MESSAGE);
-                 return;
-             }
-
-             int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adicionar novo vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-             if (result==2) return;
-
-             Vendedor vendedor = new Vendedor();
-             vendedor.setNome(txtNome.getText());
-             vendedor.setLogin(txtLogin.getText());
-             vendedor.setSenha(txtSenha.getText());
+        
+        VendedorDAO validalogin = new VendedorDAO();
+        
+        int validaLogin = 0;
+        
+        if(txtNome.getText().trim().equals("") || txtLogin.getText().trim().equals("")
+                || txtRepitaSenha.getText().trim().equals("") || txtSenha.getText().trim().equals("") || txtSenha.getText().length()<5){
+            JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios e senha deve possuir mais que 4 caracteres");
+            
+        }else{
             try {
+                if(param.equals("cadastrar")){
+                    if (validalogin.getLoginDuplicado(txtLogin.getText())) {
+                        validaLogin = JOptionPane.showConfirmDialog (null, "Login já Cadastrado, deseja alterar Login desse cadastro?","login já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        
+                        if(validaLogin ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                            setVisible(false);
+                    } else{//Login não duplicado
+                        if (!txtSenha.getText().equals(txtRepitaSenha.getText())) {
+                             JOptionPane.showMessageDialog(this, "Senhas não correspondem","Erro",JOptionPane.ERROR_MESSAGE);
+                             return;
+                         }
+
+                         int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adicionar novo vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                         if (result==2) return;
+
+                         Vendedor vendedor = new Vendedor();
+                         vendedor.setNome(txtNome.getText().toUpperCase());
+                         vendedor.setLogin(txtLogin.getText().toUpperCase());
+                         vendedor.setSenha(txtSenha.getText());
+
+                         try {
                 
+                        dao.adicionaVendedor(vendedor);
+                
+                         } catch (SQLException ex) {
+                            ex.printStackTrace();
+                
+                            JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
+                         }
+                    }
                         
                 
-                dao.adicionaVendedor(vendedor);
+                }else if(param.equals("editar")){
+                    
+                    if (validalogin.getLoginDuplicado(txtLogin.getText()) && !LoginAntigo.toString().equals(txtLogin.getText())) {
+                        validaLogin = JOptionPane.showConfirmDialog (null, "Login já Cadastrado, deseja alterar Login desse cadastro?","login já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        
+                        if(validaLogin ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                            setVisible(false);
+                    } else{//Login não duplicado
+                        
+                        int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar esse vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                         if (result==2) return;
+                         Vendedor vendedor = new Vendedor();
+                       
+                         //Integer id, String nome, String login, String senha
+                         
+                         try{
+                 
+                             vendedor.cadastrar(dao.getIdVendedor(LoginAntigo),txtNome.getText(), txtLogin.getText(), txtSenha.getText());
+                 
+                             dao.atualizaVendedor(vendedor);
+
+                         }catch(Exception ex){
+                              JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor na classe frmAddVendedor");
+                        }
+                             setVisible(false);
+                        }}
                 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                
-                JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
             }
-        }else if(param.equals("editar")){
-            int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar esse vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-             if (result==2) return;
-             Vendedor vendedor = new Vendedor();
-             //Integer id, String nome, String login, String senha
              
-             try{
-                 
-                 vendedor.cadastrar(dao.getIdVendedor(txtLogin.getText()),txtNome.getText(), txtLogin.getText(), txtSenha.getText());
-                 
-                 dao.atualizaVendedor(vendedor);
-                 
-             }catch(Exception ex){
-                 JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor na classe frmAddVendedor");
-             }
         }
-        setVisible(false);
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
