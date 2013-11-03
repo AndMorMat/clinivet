@@ -7,6 +7,7 @@ public class Cliente {
     private Integer id;
     private String nome;
     private String sobrenome;
+    private String dataNasc;
     private String cpf;
     private String telefone;
     private String celular;
@@ -24,11 +25,12 @@ public class Cliente {
         String [] dados = {nome, String.valueOf(idade), String.valueOf(sexo), String.valueOf(idiomas),dataNasc};
         return dados;
     }*/
-    public void cadastrar(Integer id,String nome,String sobrenome,String cpf,String telefone,
+    public void cadastrar(Integer id,String nome,String sobrenome,String dataNasc, String cpf,String telefone,
             String celular,String email,String endereco,String bairro,Cidade cidade,boolean sms_inicio_consulta,boolean sms_fim_consulta){
         setId(id);
         setNome(nome);
         setSobrenome(sobrenome);
+        setDataNasc(dataNasc);
         setCpf(cpf);
         setTelefone(telefone);
         setCelular(celular);
@@ -83,6 +85,14 @@ public class Cliente {
         this.estado = estado;
     }
 
+    public String getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+    
     public boolean isSms_inicio_consulta() {
         return sms_inicio_consulta;
     }

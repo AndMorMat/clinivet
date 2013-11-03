@@ -39,7 +39,7 @@ public class AnimalDAO extends GenericoDAO {
     public int adicionaAnimal(Animal an) throws SQLException {
         try{
             an.setId(getNextId("animais"));
-            String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, ID_RACA, DATA_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
+            String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, ID_RACA, ANO_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
             executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.getDono().getId());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar animal no metodo adicionaAnimal na classe AnimalDAO"+ex);

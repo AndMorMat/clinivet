@@ -91,7 +91,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         sms_inicio_consulta = new javax.swing.JCheckBox();
         sms_termino_consulta = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JFormattedTextField();
+        txtDataNasc = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtCelular = new javax.swing.JFormattedTextField();
 
@@ -214,13 +214,13 @@ public class frmAddCliente extends javax.swing.JDialog {
         jLabel1.setText("Data Nasc.");
 
         try {
-            jTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtDataNasc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtDataNascActionPerformed(evt);
             }
         });
 
@@ -291,7 +291,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         .add(1, 1, 1)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(txtNome)
-                            .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                            .add(txtDataNasc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblSobrenome)
@@ -320,7 +320,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCPF)
                             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                 .add(jLabel1)
-                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(txtDataNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -411,6 +411,8 @@ public class frmAddCliente extends javax.swing.JDialog {
                         CidadeDAO citydao = new CidadeDAO();
                         cliente.setNome(txtNome.getText().toUpperCase());
                         cliente.setSobrenome(txtSobrenome.getText().toUpperCase());
+                        JOptionPane.showMessageDialog(null, txtDataNasc.getText());
+                        cliente.setDataNasc(txtDataNasc.getText());
                         cliente.setCpf(txtCPF.getText().toUpperCase());
                         cliente.setTelefone(txtTelefone.getText());
                         cliente.setCelular(txtCelular.getText());
@@ -420,8 +422,11 @@ public class frmAddCliente extends javax.swing.JDialog {
                         cliente.setEndereco(txtEndereco.getText().toUpperCase());
                         cliente.setSms_inicio_consulta(sms_inicio_consulta.isSelected());
                         cliente.setSms_fim_consulta(sms_termino_consulta.isSelected());
-
-                        cdao.adicionaCliente(cliente);
+                        try{
+                            cdao.adicionaCliente(cliente);
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null,"Erro ao adicionar cliente no banco na classe frmAddCliente: "+ ex);
+                        }
                         setVisible(false);
                      }
                 }else if(param.equals("editar")){
@@ -450,6 +455,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         cli.cadastrar(cliDAO.getIdByCpf((cliAntigo.getCpf())),
                                 txtNome.getText().toUpperCase(),
                                 txtSobrenome.getText().toUpperCase(),
+                                txtDataNasc.getText(),
                                 txtCPF.getText(),
                                 txtTelefone.getText(),
                                 txtCelular.getText(),
@@ -481,9 +487,9 @@ public class frmAddCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCelularActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtDataNascActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
@@ -518,7 +524,6 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JFormattedTextField jTextField1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCelular;
@@ -535,6 +540,7 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtCelular;
+    private javax.swing.JFormattedTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
@@ -546,6 +552,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         txtNome.setText(c.getNome());
         txtSobrenome.setText(c.getSobrenome());
         txtCPF.setText(c.getCpf());
+        txtDataNasc.setText(c.getDataNasc());
         txtTelefone.setText(c.getTelefone());
         txtCelular.setText(c.getCelular());
         txtEmail.setText(c.getEmail());
