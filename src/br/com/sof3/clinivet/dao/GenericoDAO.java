@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public abstract class GenericoDAO {
 
+   
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");

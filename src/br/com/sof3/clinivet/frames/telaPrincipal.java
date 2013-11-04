@@ -85,6 +85,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuItem6 = new javax.swing.JMenuItem();
         JMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -210,6 +211,15 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenu3.setMnemonic('r');
         jMenu3.setText("Relatórios");
         jMenu3.setToolTipText("");
+
+        jMenuItem7.setText("Clientes");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
         jMenuBar1.add(jMenu3);
 
         jMenuConsultas.setMnemonic('p');
@@ -330,7 +340,7 @@ public class telaPrincipal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsuarioLogado)
-                .addContainerGap(722, Short.MAX_VALUE))
+                .addContainerGap(734, Short.MAX_VALUE))
         );
 
         pack();
@@ -441,6 +451,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmCancelarAgendamento frmCancelar = new frmCancelarAgendamento();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        relatorioClientes relClientes = new relatorioClientes();
+        relClientes.visualizar();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -495,6 +510,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;

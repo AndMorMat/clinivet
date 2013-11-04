@@ -310,6 +310,9 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         }else if(txtTelefone.getText().trim().length()!=13){
             JOptionPane.showMessageDialog(null, "Telefone inválido");
             return false;
+        }else if(txtEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo email esta vazio");
+            return false;
         }else if(txtBairro.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "O campo bairro esta vazio!");
             return false;

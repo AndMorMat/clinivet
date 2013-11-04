@@ -116,6 +116,16 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuConsultas">
           <Properties>
@@ -267,7 +277,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblUsuarioLogado" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="730" max="32767" attributes="0"/>
+              <EmptySpace pref="734" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
