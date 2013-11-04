@@ -39,8 +39,8 @@ public class ClienteDAO extends GenericoDAO {
     }
     public void atualizarCliente(Cliente cliente) throws SQLException {
         try{
-            String query = "UPDATE clientes SET NOME = ?, SOBRENOME=?, DATA_NASC = ?,CPF=?, TELEFONE=?, CELULAR=?, ENDERECO=?, BAIRRO=?, ID_CIDADE=?, EMAIL=? WHERE ID = ?";
-            executeCommand(query, cliente.getNome(), cliente.getSobrenome(), cliente.getDataNasc(),cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(), cliente.getId());
+            String query = "UPDATE clientes SET NOME = ?, SOBRENOME=?, DATA_NASC = ?,CPF=?, TELEFONE=?, CELULAR=?, ENDERECO=?, BAIRRO=?, ID_CIDADE=?, EMAIL=?,sms_inicio_consulta = ?,sms_fim_consulta = ? WHERE ID = ?";
+            executeCommand(query, cliente.getNome(), cliente.getSobrenome(), cliente.getDataNasc(),cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(),cliente.isSms_inicio_consulta(),cliente.isSms_fim_consulta(), cliente.getId());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "erro dentro do atualizar cliente na classe clienteDAO");
         }

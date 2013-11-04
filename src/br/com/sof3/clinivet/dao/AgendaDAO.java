@@ -11,9 +11,10 @@ import javax.swing.JOptionPane;
 public class AgendaDAO extends GenericoDAO{
     
     public void fazerAgendamento(Agenda agenda) throws SQLException{
+        
         String query = "insert into agendamentos(data,hora_inicio,hora_termino,tipo_servico,observacoes,id_dono,id_animal,sms_inicio_consulta,sms_fim_consulta) values (?,?,?,?,?,?,?,?,?)";
         try{
-            JOptionPane.showMessageDialog(null, agenda.getData());
+            
             executeCommand(query, agenda.getData(),agenda.getHora_inicio(),agenda.getHora_termino(), agenda.getTipo_servico(),agenda.getObservacoes(),agenda.getCliente().getId(),agenda.getAnimal().getId(),agenda.isSms_inicio_consulta(),agenda.isSms_fim_consulta());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao fazer agendamento na classe AgendaDAO: "+ex);
@@ -32,14 +33,15 @@ public class AgendaDAO extends GenericoDAO{
     }
     public List<Agenda> buscarAgendamentosDia(String data) throws SQLException{
         List <Agenda> toReturn = new LinkedList<>();
+        JOptionPane.showMessageDialog(null, data);
         try{
             String sql = "select * from agendamentos where data = ?";
             ResultSet rs = executeQuery(sql, data);
-            JOptionPane.showMessageDialog(null, "Erro1");
+            
             while(rs.next()){
                 toReturn.add(popullateAgenda(rs));
             }
-            JOptionPane.showMessageDialog(null, "Erro1");
+            
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao buscar agendamento pela data na classe AgendaDAO: "+ ex);
         }

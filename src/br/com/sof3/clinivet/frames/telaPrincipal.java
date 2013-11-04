@@ -70,7 +70,10 @@ public class telaPrincipal extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lblUsuarioLogado = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastrarUsuario = new javax.swing.JMenu();
         jMenuCadastrarCliente = new javax.swing.JMenuItem();
@@ -99,6 +102,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
         jMenuVendasEfetuadas = new javax.swing.JMenuItem();
 
+        setTitle("Clinivet");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -106,7 +110,43 @@ public class telaPrincipal extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(172, 250, 197));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         lblUsuarioLogado.setText("Usuario:");
+
+        jLabel1.setForeground(new java.awt.Color(254, 73, 34));
+        jLabel1.setText("Sair");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/icone-usuario.png"))); // NOI18N
+        jLabel2.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuarioLogado)
+                    .addComponent(jLabel1))
+                .addGap(60, 60, 60))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuarioLogado))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap())
+        );
 
         jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
@@ -331,16 +371,16 @@ public class telaPrincipal extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(1082, Short.MAX_VALUE)
-                .addComponent(lblUsuarioLogado)
-                .addGap(96, 96, 96))
+                .addContainerGap(1022, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblUsuarioLogado)
-                .addContainerGap(734, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(557, Short.MAX_VALUE))
         );
 
         pack();
@@ -494,6 +534,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu Cliente;
     private javax.swing.JMenuItem JMenuItem7;
     private javax.swing.JMenuItem editarUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
     private javax.swing.JMenuBar jMenuBar1;
@@ -515,6 +557,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;
     private javax.swing.JMenuItem jMenuVendasEfetuadas;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
     private javax.swing.JMenuItem submenuAgendar;

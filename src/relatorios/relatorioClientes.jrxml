@@ -4,14 +4,14 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[select id, nome,data_nasc as "Data Nasc.", cpf as "CPF", telefone, celular,email from clientes;]]>
+		<![CDATA[select id, nome as "Nome",data_nasc as "Data Nasc.", cpf as "CPF", telefone as "Telefone", celular as "Celular" ,email as "Email" from clientes;]]>
 	</queryString>
-	<field name="nome" class="java.lang.String"/>
+	<field name="Nome" class="java.lang.String"/>
 	<field name="Data Nasc." class="java.lang.String"/>
 	<field name="CPF" class="java.lang.String"/>
-	<field name="telefone" class="java.lang.String"/>
-	<field name="celular" class="java.lang.String"/>
-	<field name="email" class="java.lang.String"/>
+	<field name="Telefone" class="java.lang.String"/>
+	<field name="Celular" class="java.lang.String"/>
+	<field name="Email" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -25,13 +25,6 @@
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Clientes]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Clientes cadastrados]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -49,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nome]]></text>
+				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
@@ -70,21 +63,21 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[telefone]]></text>
+				<text><![CDATA[Telefone]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[celular]]></text>
+				<text><![CDATA[Celular]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[email]]></text>
+				<text><![CDATA[Email]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -98,7 +91,7 @@
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Nome}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="92" y="0" width="92" height="20"/>
@@ -119,21 +112,21 @@
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Telefone}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="368" y="0" width="92" height="20"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Celular}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="460" y="0" width="92" height="20"/>
 				<textElement>
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
