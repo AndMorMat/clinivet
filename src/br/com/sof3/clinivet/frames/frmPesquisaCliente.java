@@ -386,7 +386,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
                 try{
                     cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
-                    frmAddCliente frmEditarCliente = new frmAddCliente(this, rootPaneCheckingEnabled, cdao, null,"editar",cli.get(0));
+                    frmAddCliente frmEditarCliente = new frmAddCliente("editar",cli.get(0));
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Erro no btnEditar");
                 }

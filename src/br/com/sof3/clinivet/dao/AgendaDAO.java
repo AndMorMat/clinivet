@@ -33,7 +33,7 @@ public class AgendaDAO extends GenericoDAO{
     }
     public List<Agenda> buscarAgendamentosDia(String data) throws SQLException{
         List <Agenda> toReturn = new LinkedList<>();
-        JOptionPane.showMessageDialog(null, data);
+        
         try{
             String sql = "select * from agendamentos where data = ?";
             ResultSet rs = executeQuery(sql, data);
