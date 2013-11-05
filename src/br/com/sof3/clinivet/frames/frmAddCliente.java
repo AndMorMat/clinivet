@@ -28,16 +28,15 @@ import javax.swing.JOptionPane;
  * @author Renan
  */
 public class frmAddCliente extends javax.swing.JDialog {
-    private final ClienteDAO cdao;
-    private final AnimalDAO adao;
+    
     private Cliente cliAntigo = new Cliente();
     /** Creates new form frmAddCustomer */
     String param;
-    public frmAddCliente(java.awt.Frame parent, boolean modal,ClienteDAO cdao, AnimalDAO adao, String parametro, Cliente cli) {
-        super(parent, modal);
-        this.cdao = cdao;
-        this.adao = adao;
+    public frmAddCliente(String parametro, Cliente cli) {
+        
+        
         initComponents();
+        
         txtNome.requestFocus();
         carregaEstados();
         carregaCidades();
@@ -99,12 +98,11 @@ public class frmAddCliente extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(254, 254, 254));
         setFont(new java.awt.Font("Abyssinica SIL", 1, 10)); // NOI18N
-        setPreferredSize(new java.awt.Dimension(730, 606));
         setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(213, 239, 190));
+        jPanel3.setBackground(new java.awt.Color(214, 255, 213));
 
-        jPanel1.setBackground(new java.awt.Color(212, 240, 169));
+        jPanel1.setBackground(new java.awt.Color(195, 239, 198));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados pessoais"));
         jPanel1.setForeground(new java.awt.Color(80, 80, 80));
 
@@ -168,7 +166,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jPanel2.setBackground(new java.awt.Color(212, 240, 169));
+        jPanel2.setBackground(new java.awt.Color(195, 239, 198));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Deseja receber sms para"));
 
         sms_inicio_consulta.setText("Avisar que esta se aproximando da data de um agendamento");
@@ -330,7 +328,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(lblBairro)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -368,14 +366,14 @@ public class frmAddCliente extends javax.swing.JDialog {
                     .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(tituloCadastroCliente)))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -400,9 +398,9 @@ public class frmAddCliente extends javax.swing.JDialog {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         
-        ClienteDAO consultaCli = new ClienteDAO();//Consultar banco de clientes
+        ClienteDAO cdao = new ClienteDAO();//Consultar banco de clientes
         int duplicidadeCPF = 0;//Validador de cpf duplicado
-               
+        
         if(txtNome.getText().trim().equals("") || txtSobrenome.getText().trim().equals("") ||
                 txtCPF.getText().trim().equals("") || txtEndereco.getText().trim().equals("") ||
                 txtBairro.getText().trim().equals("") || txtCPF.getText().substring(0).equals("   .   .   -  ")){//substring verifica cPf nulo
@@ -410,7 +408,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         }else{      
         try {                     
                 if(param.equals("cadastrar")){
-                     if(consultaCli.getCPFDuplicado(txtCPF.getText().toString())){//Consultando no banco o CPf
+                     if(cdao.getCPFDuplicado(txtCPF.getText().toString())){//Consultando no banco o CPf
                         duplicidadeCPF = JOptionPane.showConfirmDialog (null, "CPF já cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                         
                         if(duplicidadeCPF ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
@@ -446,7 +444,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         setVisible(false);
                      }
                 }else if(param.equals("editar")){
-                    if(consultaCli.getCPFDuplicado(txtCPF.getText().toString()) &&  !cliAntigo.getCpf().toString().equals(txtCPF.getText().toString())){//Consultando no banco o CPf e verifica se foi alterado antes de iniciar a edição
+                    if(cdao.getCPFDuplicado(txtCPF.getText().toString()) &&  !cliAntigo.getCpf().toString().equals(txtCPF.getText().toString())){//Consultando no banco o CPf e verifica se foi alterado antes de iniciar a edição
                         duplicidadeCPF = JOptionPane.showConfirmDialog (null, "CPF que foi alterado já está cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                         
                         if(duplicidadeCPF ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
