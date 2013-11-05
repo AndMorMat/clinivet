@@ -49,7 +49,6 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         super(parent, modal);
         this.dao = dao;
         this.itens = itens;
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
         initComponents();
         loadInitialData();
         carregarCbx(); 
@@ -59,6 +58,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         cli = cliente;
         lblVendedor.setText("Vendedor: " + vendedorLogado);//pegando o nome do usuario que esta logado no sistema
         lblCliente.setText("Cliente: " + cli.getNome());
+        setDefaultCloseOperation(WIDTH);
+        setLocationRelativeTo(null);
     }
     
     public frmEfetuarVenda(java.awt.Frame parent, boolean modal, VendaDAO dao, String vendedor) {
