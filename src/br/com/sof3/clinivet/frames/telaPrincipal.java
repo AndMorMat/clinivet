@@ -15,6 +15,7 @@ import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
@@ -30,6 +31,9 @@ public class telaPrincipal extends javax.swing.JDialog {
     /**
      * Creates new form telaPrincipal
      */
+    
+    
+    //button.setHorizontalTextPosition(SwingConstants.CENTER); 
     public telaPrincipal() {
         
         
@@ -40,7 +44,9 @@ public class telaPrincipal extends javax.swing.JDialog {
         
         try{//caso o usuario só feche a tela login sem validar os dados os menus são definidos como setEnabled(false);
             if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
+                
                 initComponents();
+                alinharTextBotao(); 
                 setLocationRelativeTo(null);
                 setVisible(true);
                 setTitle("CliniVet");
@@ -75,6 +81,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         lblUsuarioLogado = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnAddCliente = new javax.swing.JButton();
+        btnAgendamentos = new javax.swing.JButton();
+        btnVendas = new javax.swing.JButton();
+        btnAddAnimal = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastrarUsuario = new javax.swing.JMenu();
         jMenuCadastrarCliente = new javax.swing.JMenuItem();
@@ -90,6 +101,9 @@ public class telaPrincipal extends javax.swing.JDialog {
         JMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        Vendas = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -113,7 +127,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(214, 255, 213));
 
-        jPanel1.setBackground(new java.awt.Color(172, 250, 197));
+        jPanel1.setBackground(new java.awt.Color(168, 252, 173));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblUsuarioLogado.setText("Usuario:");
@@ -151,21 +165,94 @@ public class telaPrincipal extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        btnAddCliente.setBackground(new java.awt.Color(168, 252, 173));
+        btnAddCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/adicionar_usuario.png"))); // NOI18N
+        btnAddCliente.setText("Cadastrar Cliente");
+        btnAddCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddClienteActionPerformed(evt);
+            }
+        });
+
+        btnAgendamentos.setBackground(new java.awt.Color(168, 252, 173));
+        btnAgendamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/fazer_agendamento.png"))); // NOI18N
+        btnAgendamentos.setText("Fazer agendamento");
+        btnAgendamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendamentosActionPerformed(evt);
+            }
+        });
+
+        btnVendas.setBackground(new java.awt.Color(168, 252, 173));
+        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/fazer_venda.png"))); // NOI18N
+        btnVendas.setText("Efetuar venda");
+        btnVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendasActionPerformed(evt);
+            }
+        });
+
+        btnAddAnimal.setBackground(new java.awt.Color(168, 252, 173));
+        btnAddAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/adicionar_animais.png"))); // NOI18N
+        btnAddAnimal.setText("Cadastrar Animal");
+        btnAddAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAnimalActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setForeground(new java.awt.Color(179, 179, 179));
+        jLabel3.setText("Ctrl+c = Cadastrar Cliente");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(1021, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(356, 356, 356)
+                                .addComponent(btnAddCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAddAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 348, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(541, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(375, 375, 375)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAddCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(btnAddAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         jMenuCadastrarUsuario.setMnemonic('c');
@@ -279,6 +366,21 @@ public class telaPrincipal extends javax.swing.JDialog {
             }
         });
         jMenu3.add(jMenuItem7);
+
+        Vendas.setText("Vendas");
+        jMenu3.add(Vendas);
+
+        jMenu1.setText("Produtos");
+
+        jMenuItem10.setText("Todos");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem10);
+
+        jMenu3.add(jMenu1);
 
         jMenuBar1.add(jMenu3);
 
@@ -408,9 +510,18 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void jMenuCadastrarAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarAnimalActionPerformed
         //cadastrar cliente
         Cliente c= new Cliente();
-        frmAddCliente addCliente = new frmAddCliente(new javax.swing.JFrame(), true, cdao, adao,"cadastrar",c);
+        frmAddCliente addCliente = new frmAddCliente("cadastrar",c);
     }//GEN-LAST:event_jMenuCadastrarAnimalActionPerformed
-
+    private void alinharTextBotao(){
+        btnAddCliente.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAddCliente.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnAddAnimal.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAddAnimal.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnVendas.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnVendas.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnAgendamentos.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAgendamentos.setHorizontalTextPosition(SwingConstants.CENTER);
+    }
     private void jMenuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarClienteActionPerformed
         //cadastrar usuario
         Vendedor v = new  Vendedor();
@@ -510,6 +621,33 @@ public class telaPrincipal extends javax.swing.JDialog {
         relClientes.visualizar();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        relatorioProduto relProdutos = new relatorioProduto();
+        relProdutos.visualizar();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
+        Cliente cli = new Cliente();
+        frmAddCliente frmAddCli = new frmAddCliente("cadastrar",cli);
+    }//GEN-LAST:event_btnAddClienteActionPerformed
+
+    private void btnAddAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAnimalActionPerformed
+        Animal ani = new Animal();
+        frmAddAnimal frmAddAni = new frmAddAnimal("cadastrar", ani);
+        
+    }//GEN-LAST:event_btnAddAnimalActionPerformed
+
+    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
+        frmEscolheClienteVenda frmEscolha = new frmEscolheClienteVenda(dialogLogin.usuarioLogado());
+        frmEscolha.setVisible(true);
+        frmEscolha.setLocationRelativeTo(null);
+        
+    }//GEN-LAST:event_btnVendasActionPerformed
+
+    private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
+        frmAgendamento frmAgendamento = new frmAgendamento();
+    }//GEN-LAST:event_btnAgendamentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -547,9 +685,16 @@ public class telaPrincipal extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Cliente;
     private javax.swing.JMenuItem JMenuItem7;
+    private javax.swing.JMenu Vendas;
+    private javax.swing.JButton btnAddAnimal;
+    private javax.swing.JButton btnAddCliente;
+    private javax.swing.JButton btnAgendamentos;
+    private javax.swing.JButton btnVendas;
     private javax.swing.JMenuItem editarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
     private javax.swing.JMenuBar jMenuBar1;
@@ -561,6 +706,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuEfetuarVenda;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
