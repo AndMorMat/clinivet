@@ -111,7 +111,7 @@ public class frmEscolheClienteVenda extends javax.swing.JFrame {
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
          Cliente c= new Cliente();
-        frmAddCliente addCliente = new frmAddCliente(new javax.swing.JFrame(), true, cdao, adao,"cadastrar",c);
+        frmAddCliente addCliente = new frmAddCliente("cadastrar",c);
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnClienteVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteVendaActionPerformed
