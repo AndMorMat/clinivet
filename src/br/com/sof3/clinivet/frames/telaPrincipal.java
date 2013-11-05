@@ -116,6 +116,8 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuVendas = new javax.swing.JMenu();
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
         jMenuVendasEfetuadas = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         setTitle("Clinivet");
         setResizable(false);
@@ -486,6 +488,18 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jMenuBar1.add(jMenuVendas);
 
+        jMenu2.setText("Estoque");
+
+        jMenuItem8.setText("Repor Estoque");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -648,6 +662,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmAgendamento frmAgendamento = new frmAgendamento();
     }//GEN-LAST:event_btnAgendamentosActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        frmReporEstoque reporEstoque = new frmReporEstoque();
+        reporEstoque.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -695,6 +714,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
     private javax.swing.JMenuBar jMenuBar1;
@@ -713,6 +733,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;
