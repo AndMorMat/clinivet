@@ -35,8 +35,9 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
      * Creates new form frmVendasEfetuadas
      */
     public frmVendasEfetuadas() {
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
         initComponents();
+        setDefaultCloseOperation(WIDTH);
+        setLocationRelativeTo(null);
     }
 
     /**
