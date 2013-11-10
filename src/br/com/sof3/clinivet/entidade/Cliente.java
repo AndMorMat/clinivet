@@ -60,6 +60,13 @@ public class Cliente {
         return dados;
        
     }
+    
+     public String[] addTableSMS(){
+        String [] dados={nome,cpf,celular};
+        return dados;
+       
+    }
+     
     public Cliente() {
     
     }
