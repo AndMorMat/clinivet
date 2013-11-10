@@ -4,6 +4,7 @@
  */
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.entidade.Message;
 import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
@@ -13,7 +14,10 @@ import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Vendedor;
+import com.twilio.sdk.TwilioRestException;
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -33,12 +37,16 @@ public class telaPrincipal extends javax.swing.JDialog {
      */
     
     
-    //button.setHorizontalTextPosition(SwingConstants.CENTER); 
-    public telaPrincipal() {
+    //button.setHorizontalTextPosition(SwingConstants.CENTER);
+
         
         
         
-        
+      /**
+     * Creates new form telaPrincipal
+     */
+        public telaPrincipal() {
+      
         dialogLogin.setVisible(true);
         
         
@@ -113,6 +121,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         submenuAgendar = new javax.swing.JMenuItem();
         submenuConsultarAgenda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menuEnviarSMS = new javax.swing.JMenuItem();
         jMenuVendas = new javax.swing.JMenu();
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
         jMenuVendasEfetuadas = new javax.swing.JMenuItem();
@@ -229,11 +238,11 @@ public class telaPrincipal extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(356, 356, 356)
+                                .addGap(370, 370, 370)
                                 .addComponent(btnAddCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAddAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 348, Short.MAX_VALUE)))
+                        .addGap(0, 334, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -463,6 +472,14 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         menuAgenda.add(jMenuItem1);
 
+        menuEnviarSMS.setText("Enviar SMS");
+        menuEnviarSMS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEnviarSMSActionPerformed(evt);
+            }
+        });
+        menuAgenda.add(menuEnviarSMS);
+
         jMenuBar1.add(menuAgenda);
 
         jMenuVendas.setMnemonic('v');
@@ -667,6 +684,11 @@ public class telaPrincipal extends javax.swing.JDialog {
         reporEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void menuEnviarSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEnviarSMSActionPerformed
+        frmPesquisaParaEnviarSMS pesquisaEnvioSMS = new frmPesquisaParaEnviarSMS();
+        pesquisaEnvioSMS.setVisible(true);
+    }//GEN-LAST:event_menuEnviarSMSActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -742,6 +764,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
+    private javax.swing.JMenuItem menuEnviarSMS;
     private javax.swing.JMenuItem submenuAgendar;
     private javax.swing.JMenuItem submenuConsultarAgenda;
     // End of variables declaration//GEN-END:variables
