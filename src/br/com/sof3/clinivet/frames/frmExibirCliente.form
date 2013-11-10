@@ -30,51 +30,47 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtcpf" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtCliente" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtCid1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
+                              <Component id="lblEndereco" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblCpf" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="lblCpf" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtcpf" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblNome" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtCliente" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="lblTitulojanela" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblCidade" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtCid1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblTituloTabela" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtTotal" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lblBairro" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtBairro" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="lblCelular" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtCelu" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -83,7 +79,7 @@
                               <Component id="txtTelefone" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="171" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="167" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -146,42 +142,42 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome"/>
+        <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCpf">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CPF"/>
+        <Property name="text" type="java.lang.String" value="CPF:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelefone">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefone"/>
+        <Property name="text" type="java.lang.String" value="Telefone:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCelular">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Celular"/>
+        <Property name="text" type="java.lang.String" value="Celular:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEndereco">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEmail">
       <Properties>
-        <Property name="text" type="java.lang.String" value="E-mail"/>
+        <Property name="text" type="java.lang.String" value="E-mail:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBairro">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bairro"/>
+        <Property name="text" type="java.lang.String" value="Bairro:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCidade">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cidade"/>
+        <Property name="text" type="java.lang.String" value="Cidade:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTituloTabela">

@@ -9,6 +9,7 @@ import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import java.awt.Frame;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -24,7 +25,12 @@ public class frmEscolheClienteVenda extends javax.swing.JFrame {
      */
     public frmEscolheClienteVenda(String vendedor) {
         vendedorLogado = vendedor;
+        
         initComponents();
+        alinharTextBotao();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setDefaultCloseOperation(WIDTH);
     }
 
     /**
@@ -36,100 +42,132 @@ public class frmEscolheClienteVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnSemCad = new javax.swing.JButton();
+        btnComCad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnClienteVenda = new javax.swing.JButton();
-        btnCadastrarCliente = new javax.swing.JButton();
-        btnRealizarVenda1 = new javax.swing.JButton();
+        btnAddCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(214, 255, 213));
+
+        btnSemCad.setBackground(new java.awt.Color(168, 252, 173));
+        btnSemCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/user_sem_cadastro.png"))); // NOI18N
+        btnSemCad.setText("Sem Cadastro");
+        btnSemCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSemCadActionPerformed(evt);
+            }
+        });
+
+        btnComCad.setBackground(new java.awt.Color(168, 252, 173));
+        btnComCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/user_com_cadastro.png"))); // NOI18N
+        btnComCad.setText("Com Cadastro");
+        btnComCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComCadActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Antes de iniciar a venda escolha uma das opções abaixo");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(22, 82, 14));
         jLabel2.setText("Vendas");
 
-        btnClienteVenda.setText("Com Cadastro");
-        btnClienteVenda.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCliente.setBackground(new java.awt.Color(168, 252, 173));
+        btnAddCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/adicionar_usuario.png"))); // NOI18N
+        btnAddCliente.setText("Cadastrar Cliente");
+        btnAddCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClienteVendaActionPerformed(evt);
+                btnAddClienteActionPerformed(evt);
             }
         });
 
-        btnCadastrarCliente.setText("Cadastrar Cliente");
-        btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarClienteActionPerformed(evt);
-            }
-        });
-
-        btnRealizarVenda1.setText("Sem Cadastro");
-        btnRealizarVenda1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRealizarVenda1ActionPerformed(evt);
-            }
-        });
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(32, 32, 32)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel1)
+                            .add(jLabel2)))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(82, 82, 82)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(btnAddCliente, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(btnComCad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(btnSemCad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel2)
+                .add(22, 22, 22)
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnComCad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnSemCad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnAddCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(26, 26, 26)
-                        .add(jLabel1))
-                    .add(layout.createSequentialGroup()
-                        .add(165, 165, 165)
-                        .add(jLabel2))
-                    .add(layout.createSequentialGroup()
-                        .add(96, 96, 96)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(btnCadastrarCliente, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(btnClienteVenda, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(btnRealizarVenda1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(28, 28, 28)
-                .add(jLabel2)
-                .add(18, 18, 18)
-                .add(jLabel1)
-                .add(30, 30, 30)
-                .add(btnClienteVenda)
-                .add(18, 18, 18)
-                .add(btnRealizarVenda1)
-                .add(13, 13, 13)
-                .add(btnCadastrarCliente)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-         Cliente c= new Cliente();
-        frmAddCliente addCliente = new frmAddCliente("cadastrar",c);
-    }//GEN-LAST:event_btnCadastrarClienteActionPerformed
-
-    private void btnClienteVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteVendaActionPerformed
+    private void btnComCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComCadActionPerformed
         frmPesquisaClienteVenda pesquisaCliente = new frmPesquisaClienteVenda("consultar", vendedorLogado);
         setVisible(false);
         pesquisaCliente.setVisible(true);
-    }//GEN-LAST:event_btnClienteVendaActionPerformed
+    }//GEN-LAST:event_btnComCadActionPerformed
 
-    private void btnRealizarVenda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarVenda1ActionPerformed
+    private void btnSemCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSemCadActionPerformed
         frmEfetuarVenda efetuarVenda = new frmEfetuarVenda(new Frame(), true, dao, vendedorLogado);
         efetuarVenda.setVisible(true);
-    }//GEN-LAST:event_btnRealizarVenda1ActionPerformed
+    }//GEN-LAST:event_btnSemCadActionPerformed
 
+    private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
+        Cliente cli = new Cliente();
+        frmAddCliente frmAddCli = new frmAddCliente("cadastrar",cli);
+    }//GEN-LAST:event_btnAddClienteActionPerformed
+    public void alinharTextBotao(){
+        btnAddCliente.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAddCliente.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnComCad.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnComCad.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnSemCad.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnSemCad.setHorizontalTextPosition(SwingConstants.CENTER);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrarCliente;
-    private javax.swing.JButton btnClienteVenda;
-    private javax.swing.JButton btnRealizarVenda1;
+    private javax.swing.JButton btnAddCliente;
+    private javax.swing.JButton btnComCad;
+    private javax.swing.JButton btnSemCad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

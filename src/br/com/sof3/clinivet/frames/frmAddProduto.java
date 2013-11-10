@@ -36,6 +36,7 @@ public class frmAddProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
         loadInitialTableData();
+        
         if(parametro.equals("cadastrar")){
             btnCadastrar.setText("Cadastrar");
         }else if(parametro.equals("editar")){
@@ -273,7 +274,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();

@@ -12,6 +12,7 @@ public class Venda {
     private String formaPagamento;
     private Vendedor vendedor;
     private Cliente cliente;
+    private double desconto;
     private List<VendaProduto> itens = new LinkedList<VendaProduto>();
     
     public Venda() {
@@ -40,6 +41,14 @@ public class Venda {
                             String.valueOf(vendedor.getNome()), String.valueOf(cliente.getNome())
                           };
         return dados;
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
     }
 
     public Integer getId() {

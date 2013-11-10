@@ -33,7 +33,7 @@ public class Produto {
     }
     
     public String[] addCarrinhoCompra(int qtd, double desconto){
-        String [] dados = { nome, String.valueOf(qtd), String.valueOf(precoVenda - desconto), String.valueOf(desconto) };
+        String [] dados = { nome, String.valueOf(qtd), String.valueOf(precoVenda - desconto)};
         return dados;  
     }
     

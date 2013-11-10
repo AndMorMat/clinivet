@@ -21,7 +21,13 @@ public class ClienteDAO extends GenericoDAO {
     }
 
     public void removeCliente(int idCliente) throws SQLException {
-        executeCommand("DELETE FROM clientes WHERE ID = ?", idCliente);
+        try{
+            JOptionPane.showMessageDialog(null, "Id: "+idCliente);
+            executeCommand("DELETE FROM clientes WHERE ID = ?", idCliente);
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao excluir cliente na classe ClienteDAO: "+ ex);
+        }
     }
     public int getIdByCpf(String cpf) throws SQLException{
         int id=-1;

@@ -64,21 +64,21 @@ public class frmExibirCliente extends javax.swing.JFrame {
 
         lblTitulojanela.setText("Detalhes do cliente selecionado");
 
-        lblNome.setText("Nome");
+        lblNome.setText("Nome:");
 
-        lblCpf.setText("CPF");
+        lblCpf.setText("CPF:");
 
-        lblTelefone.setText("Telefone");
+        lblTelefone.setText("Telefone:");
 
-        lblCelular.setText("Celular");
+        lblCelular.setText("Celular:");
 
-        lblEndereco.setText("Endereço");
+        lblEndereco.setText("Endereço:");
 
-        lblEmail.setText("E-mail");
+        lblEmail.setText("E-mail:");
 
-        lblBairro.setText("Bairro");
+        lblBairro.setText("Bairro:");
 
-        lblCidade.setText("Cidade");
+        lblCidade.setText("Cidade:");
 
         lblTituloTabela.setText("Animais Cadastrados:");
 
@@ -149,46 +149,45 @@ public class frmExibirCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEndereco)
-                                    .addComponent(lblEmail))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addComponent(txtEndereco))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtcpf)
-                                            .addComponent(txtCliente)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtCid1)
-                                            .addComponent(txtEmail)))))
-                            .addComponent(lblCpf)
-                            .addComponent(lblNome)
+                                .addComponent(lblEndereco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEndereco))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCpf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcpf))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCliente))
                             .addComponent(lblTitulojanela)
-                            .addComponent(lblCidade)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCidade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCid1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTituloTabela)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotal)))
+                                .addComponent(txtTotal))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblEmail)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEmail)))
                         .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblBairro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBairro))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblCelular)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCelu))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTelefone)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTelefone)))
-                        .addGap(0, 171, Short.MAX_VALUE)))
+                        .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

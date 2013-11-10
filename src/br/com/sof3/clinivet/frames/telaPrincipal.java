@@ -254,7 +254,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         jMenuCadastrarUsuario.setMnemonic('c');
@@ -653,8 +653,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
         frmEscolheClienteVenda frmEscolha = new frmEscolheClienteVenda(dialogLogin.usuarioLogado());
-        frmEscolha.setVisible(true);
-        frmEscolha.setLocationRelativeTo(null);
+        
         
     }//GEN-LAST:event_btnVendasActionPerformed
 

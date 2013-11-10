@@ -45,6 +45,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         param = parametro;
         if(parametro.equals("editar")){
             carregarCampos(cli);
+            tituloCadastroCliente.setText("Editar Cliente");
             cliAntigo = cli;
             btnOK.setText("Editar");
         }else if(parametro.equals("cadastrar")){
@@ -373,7 +374,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)

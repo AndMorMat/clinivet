@@ -106,6 +106,11 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -201,13 +206,14 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
        if(param.equals("cadastrar") || param.equals("telaAddProduto")){
-            int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-            if (opc != 0) {
-                return;
-            }
+            
 
             try {
                 if(!validaCampos())return;
+                int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                if (opc != 0) {
+                    return;
+                }
                 Fornecedor forn = new Fornecedor();
                 FornecedorDAO fdao = new FornecedorDAO();
                 JOptionPane.showMessageDialog(null, txtCnpj.getText());
@@ -259,6 +265,10 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         }
         setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
     public String[] getDados(){
         String[] dados = {txtNome.getText(),txtCnpj.getText(),txtTelefone.getText(),txtEmail.getText()};
         return dados;
