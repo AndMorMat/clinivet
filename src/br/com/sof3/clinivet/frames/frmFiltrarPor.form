@@ -108,7 +108,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnFiltrar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Filtrar por Nome"/>
+            <Property name="text" type="java.lang.String" value="Filtrar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFiltrarActionPerformed"/>
@@ -119,7 +119,6 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGrupFiltro"/>
             </Property>
-            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
           <Events>
@@ -131,6 +130,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGrupFiltro"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Cnpj"/>
           </Properties>
           <Events>

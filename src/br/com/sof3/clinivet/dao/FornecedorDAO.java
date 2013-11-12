@@ -114,7 +114,7 @@ public class FornecedorDAO extends GenericoDAO{
     }
     public ArrayList <Fornecedor> FiltrarFornecedorCnpj(String cnpj) throws SQLException{
         ArrayList<Fornecedor> toReturn = new ArrayList<>();
-        
+     
         ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj like \""+cnpj+"%\";");//testando funcao
         try{
             while(rs.next()) {
