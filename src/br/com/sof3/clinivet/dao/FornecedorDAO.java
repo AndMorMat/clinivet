@@ -21,7 +21,7 @@ public class FornecedorDAO extends GenericoDAO{
                                             + "email, "
                                             + "bairro, "
                                             + "endereco, "
-                                            + "id_cidade) VALUES (?,?,?,?,?,?,?,?)";
+                                            + "id_cidade,inativo) VALUES (?,?,?,?,?,?,?,?,?)";
         executeCommand(query,
                          fornecedor.getId(),
                          fornecedor.getNome(),
@@ -30,7 +30,8 @@ public class FornecedorDAO extends GenericoDAO{
                          fornecedor.getEmail(),
                          fornecedor.getBairro(),
                          fornecedor.getEndereco(),
-                         fornecedor.getCidade().getId());
+                         fornecedor.getCidade().getId(),
+                         fornecedor.isInativo());
         return fornecedor.getId();
     }
     public int getIdFornecedor(String cnpj) throws SQLException{
@@ -46,8 +47,8 @@ public class FornecedorDAO extends GenericoDAO{
     }
     public void atualizaFornecedor(Fornecedor fornecedor) throws SQLException{
        try{
-           String query = "update fornecedores set nome=?, cnpj=?, telefone=?, email=?, bairro=?, endereco=?, id_cidade=? where id = ?";
-           executeCommand(query,fornecedor.getNome(),fornecedor.getCnpj(),fornecedor.getTelefone(),fornecedor.getEmail(),fornecedor.getBairro(),fornecedor.getEndereco(), fornecedor.getCidade().getId(),fornecedor.getId());
+           String query = "update fornecedores set nome=?, cnpj=?, telefone=?, email=?, bairro=?, endereco=?, id_cidade=?, inativo = ? where id = ?";
+           executeCommand(query,fornecedor.getNome(),fornecedor.getCnpj(),fornecedor.getTelefone(),fornecedor.getEmail(),fornecedor.getBairro(),fornecedor.getEndereco(), fornecedor.getCidade().getId(),fornecedor.isInativo(),fornecedor.getId());
            //JOptionPane.showMessageDialog(null, "Depois de atualizar");
        }catch(Exception ex){
            JOptionPane.showMessageDialog(null,"Erro atualizar fornecedor no metodo atualizaFornecedor na classe FornecedorDAO: "+ ex);
@@ -149,7 +150,15 @@ public class FornecedorDAO extends GenericoDAO{
         toReturn.setBairro(rs.getString("bairro"));
         toReturn.setEndereco(rs.getString("endereco"));
         toReturn.setCidade(cdao.getCidade(rs.getInt("id_cidade")));
+        toReturn.setInativo(rs.getBoolean("inativo"));
         return toReturn;
+    }
+    public void inativarFornecedor(int idFornecedor){
+        try{
+            executeCommand("update fornecedores set inativo = ? where id = ?", true,idFornecedor);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Erro ao inutilizar fornecedor na classe fornecedorDAO: "+ ex);
+        }
     }
 //    public static Cidade getCidadeById(int id) throws SQLException{
 //        Cidade cidade = new Cidade();

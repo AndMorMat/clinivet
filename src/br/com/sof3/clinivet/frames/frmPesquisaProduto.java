@@ -358,9 +358,10 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                     quantResul++;
                     quantEst+=pro.get(aux).getEstoque();
                     preco+=pro.get(aux).getPrecoVenda();
-
-                    dtm.addRow(p.addTableConsulta());
-                    cont++;
+                    if(!pro.get(aux).isInativo()){
+                        dtm.addRow(p.addTableConsulta());
+                        cont++;
+                    }
                 }
                 
                 
@@ -424,14 +425,14 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
                 Produto p  = new Produto();
                 int cont=0;
-                               
+                
                 if(!"Todos".equals(cbxTipoProduto.getSelectedItem())){//comparando combo caso usuario queira ver todos os tipos
                    pro = pdao.getProdutosByTipo(String.valueOf(cbxTipoProduto.getSelectedItem()));
                 }else{ 
                    pro = pdao.getProdutoByName("");
                 }
                    
-
+                    
                     for(int aux =0;aux<pro.size();aux++){
                                 p.setCodigo(pro.get(aux).getCodigo());
                                 p.setNome(pro.get(aux).getNome());
@@ -442,9 +443,10 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                                 quantResul++;
                                 quantEst+=pro.get(aux).getEstoque();
                                 preco+=pro.get(aux).getPrecoVenda()*pro.get(aux).getEstoque();
-                    
-                                dtm.addRow(p.addTableConsulta());
-                                cont++;
+                                if(!pro.get(aux).isInativo()){
+                                    dtm.addRow(p.addTableConsulta());
+                                    cont++;
+                                }
                     }
                     
                     if(pro.size()==0){
@@ -460,7 +462,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                     if(cont==0)//para exibir caso procura não exiba nada
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
         }catch(SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar");
+                JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaProduto no botao buscar");
             }
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
@@ -498,7 +500,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
             try{
                  prod = produtoDAO.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tblBuscaPro.getSelectedRow(), 0)));
-                 produtoDAO.inativarProduto(prod.get(0).getCodigo());
+                 produtoDAO.inativarProduto(prod.get(0).getId());
                  prod = produtoDAO.getTodosProdutos();
                  limparTabela();
                  atualizarTabela(prod);
@@ -540,7 +542,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
         for(int aux=0;aux<produtos.size();aux++){
             if(!produtos.get(aux).isInativo())
-                        dtm.addRow(produtos.get(aux).addTableConsulta());
+                  dtm.addRow(produtos.get(aux).addTableBusca());
         }
     }
     public void limparTabela(){

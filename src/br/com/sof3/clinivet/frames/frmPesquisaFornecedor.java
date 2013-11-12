@@ -7,6 +7,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.FornecedorDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
 import br.com.sof3.clinivet.entidade.Fornecedor;
+import br.com.sof3.clinivet.entidade.Produto;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -123,6 +124,11 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,9 +261,10 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
                     f.setNome(fornecedor.get(aux).getNome());
                     f.setCnpj(fornecedor.get(aux).getCnpj());
                     f.setTelefone(fornecedor.get(aux).getTelefone());
-
-                    dtm.addRow(f.addTable());
-                    cont++;
+                    if(!fornecedor.get(aux).isInativo()){
+                        dtm.addRow(f.addTable());
+                        cont++;
+                    }
                 }
                 if(cont==0)//para exibir caso procura não exiba nada
                 JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
@@ -316,8 +323,8 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
                     forn.setNome(fornecedor.get(aux).getNome());
                     forn.setCnpj(fornecedor.get(aux).getCnpj());
                     forn.setTelefone(fornecedor.get(aux).getTelefone());
-
-                    dtm.addRow(forn.addTable());
+                    if(!fornecedor.get(aux).isInativo())
+                        dtm.addRow(forn.addTable());
                 }
 
             }
@@ -343,6 +350,40 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        FornecedorDAO fdao = new FornecedorDAO();
+        Fornecedor fornecedor = new Fornecedor();
+        List<Fornecedor> fornecedores = new LinkedList<>();
+        if(tblFornecedor.getSelectedRow()>=0 && tblFornecedor.getSelectedRow()<tblFornecedor.getRowCount()){
+            
+            DefaultTableModel dtm = (DefaultTableModel)tblFornecedor.getModel();
+            try{
+                 fornecedor = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedor.getSelectedRow(), 1)));
+                 fdao.inativarFornecedor(fornecedor.getId());
+                 fornecedores = fdao.getAllFornecedores();
+                 limparTabela();
+                 atualizarTabela(fornecedores);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"Erro ao excluir cliente na classe frmPesquisaCliente"+ ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um registro");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    public void atualizarTabela(List<Fornecedor> fornecedor){
+        DefaultTableModel dtm = (DefaultTableModel)tblFornecedor.getModel();
+        for(int aux=0;aux<fornecedor.size();aux++){
+            if(!fornecedor.get(aux).isInativo())
+                  dtm.addRow(fornecedor.get(aux).addTable());
+        }
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblFornecedor.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
+               dtm.removeRow(aux);
+            }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;

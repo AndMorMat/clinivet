@@ -281,9 +281,10 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
                 for(int aux =0;aux<listv.size();aux++){
                     v.setLogin(listv.get(aux).getLogin());
                     v.setNome(listv.get(aux).getNome());
-
-                    dtm.addRow(v.addTable());
-                    cont++;
+                    if(!listv.get(aux).isInativo()){
+                        dtm.addRow(v.addTable());
+                        cont++;
+                    }
                 }
                 
                 if(cont==0)//para exibir caso procura não exiba nada

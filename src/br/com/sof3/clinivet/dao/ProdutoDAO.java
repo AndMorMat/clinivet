@@ -174,9 +174,9 @@ public class ProdutoDAO extends GenericoDAO{
         return toReturn;
     }
 
-     public void inativarProduto(String codProduto){
+     public void inativarProduto(int codProduto){
         try {
-            executeCommand("update produtos set inativo = ? where id = ?", true,codProduto);
+            executeCommand("update produtos set inativo = ? where id = ?", true, codProduto);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao definir produto como inativo na classe ProdutoDAO: "+ex);
         }
