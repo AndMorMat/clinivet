@@ -13,8 +13,8 @@ public class ProdutoDAO extends GenericoDAO{
     public int adicionaProduto(Produto produto)throws SQLException{
        try{
             produto.setId(getNextId("produtos"));  
-            String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque,tipo)"
-                    + "values(?,?,?,?,?,?,?,?,?,?)";
+            String query = "insert into produtos (id,codigo,nome,preco_custo,margem_lucro,preco_venda,validade,id_fornecedor,qtdEstoque,tipo, inativo)"
+                    + "values(?,?,?,?,?,?,?,?,?,?,?)";
             executeCommand(query, 
                                  produto.getId(),
                                  produto.getCodigo(),
@@ -25,7 +25,8 @@ public class ProdutoDAO extends GenericoDAO{
                                  produto.getValidade(),
                                  produto.getFornecedor().getId(),
                                  produto.getEstoque(),
-                                 produto.getTipoProduto());
+                                 produto.getTipoProduto(),
+                                 produto.isInativo());
         
       }catch(Exception ex){
           JOptionPane.showMessageDialog(null, "Erro ao cadastrar produtos no banco de dados :: na classe produtoDAO");
@@ -63,12 +64,13 @@ public class ProdutoDAO extends GenericoDAO{
     
     public void atualizaProduto(Produto p) throws SQLException{
         try{
-            String query = "update produtos set nome =?, preco_custo=?, margem_lucro=?, preco_venda=?, validade=?, id_fornecedor=?, qtdEstoque = ?, codigo=? where id = ?";
-            executeCommand(query, p.getNome(),p.getPrecoCusto(),p.getMargemLucro(),p.getPrecoVenda(),p.getValidade(),p.getFornecedor().getId(),p.getEstoque(),p.getCodigo(), p.getId());
+            String query = "update produtos set nome =?, preco_custo=?, margem_lucro=?, preco_venda=?, validade=?, id_fornecedor=?, qtdEstoque = ?, codigo=?, tipo=?, inativo=?  where id = ?";
+            executeCommand(query, p.getNome(),p.getPrecoCusto(),p.getMargemLucro(),p.getPrecoVenda(),p.getValidade(),p.getFornecedor().getId(),p.getEstoque(),p.getCodigo(), p.getTipoProduto(), p.isInativo(), p.getId());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao atualizarProduto na classe produtoDAO: "+ ex);
         }
     }
+    
     public List<Produto> getProdutoByName(String nome) throws SQLException {
         List<Produto> toReturn = new LinkedList<Produto>();
         
@@ -146,6 +148,7 @@ public class ProdutoDAO extends GenericoDAO{
         toReturn.setEstoque(rs.getInt("QTDESTOQUE"));
         toReturn.setCodigo(rs.getString("CODIGO"));
         toReturn.setTipoProduto(rs.getString("TIPO"));
+        toReturn.setInativo(rs.getBoolean("INATIVO"));
         
         return toReturn;
     }
@@ -169,5 +172,13 @@ public class ProdutoDAO extends GenericoDAO{
             toReturn.add(populateProduto(rs));
         }
         return toReturn;
+    }
+
+     public void inativarProduto(String codProduto){
+        try {
+            executeCommand("update produtos set inativo = ? where id = ?", true,codProduto);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir produto como inativo na classe ProdutoDAO: "+ex);
+        }
     }
 }

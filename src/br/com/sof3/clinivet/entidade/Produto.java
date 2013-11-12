@@ -14,6 +14,7 @@ public class Produto {
     private Fornecedor fornecedor;
     private int estoque;
     private String tipoProduto;
+    private boolean inativo;
     
     public Produto() {
         
@@ -162,5 +163,13 @@ public class Produto {
 
     public void setMargemLucro(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
     }
 }

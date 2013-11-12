@@ -213,14 +213,16 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblBuscaPro);
-        tblBuscaPro.getColumnModel().getColumn(0).setResizable(false);
-        tblBuscaPro.getColumnModel().getColumn(0).setPreferredWidth(60);
-        tblBuscaPro.getColumnModel().getColumn(1).setResizable(false);
-        tblBuscaPro.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblBuscaPro.getColumnModel().getColumn(2).setResizable(false);
-        tblBuscaPro.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tblBuscaPro.getColumnModel().getColumn(3).setResizable(false);
-        tblBuscaPro.getColumnModel().getColumn(4).setResizable(false);
+        if (tblBuscaPro.getColumnModel().getColumnCount() > 0) {
+            tblBuscaPro.getColumnModel().getColumn(0).setResizable(false);
+            tblBuscaPro.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tblBuscaPro.getColumnModel().getColumn(1).setResizable(false);
+            tblBuscaPro.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tblBuscaPro.getColumnModel().getColumn(2).setResizable(false);
+            tblBuscaPro.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tblBuscaPro.getColumnModel().getColumn(3).setResizable(false);
+            tblBuscaPro.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         lblValor.setText("Valor total: R$ 0,00");
 
@@ -236,6 +238,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -483,6 +490,25 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+       ProdutoDAO produtoDAO = new ProdutoDAO();
+        if(tblBuscaPro.getSelectedRow() >= 0 && tblBuscaPro.getSelectedRow() < tblBuscaPro.getRowCount()){
+            List<Produto> prod = new LinkedList<>();
+            DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
+            try{
+                 prod = produtoDAO.getProdutoByCodigo(String.valueOf(dtm.getValueAt(tblBuscaPro.getSelectedRow(), 0)));
+                 produtoDAO.inativarProduto(prod.get(0).getCodigo());
+                 prod = produtoDAO.getTodosProdutos();
+                 limparTabela();
+                 atualizarTabela(prod);
+            }catch(Exception ex){
+                 JOptionPane.showMessageDialog(null,"Erro ao excluir vendedor na classe frmPesquisaVendedor: "+ ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um registro");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
     public void carregarCbx(){
         for(EnumTipoProduto ep: EnumTipoProduto.values()){
                cbxTipoProduto.addItem(ep.getNome());
@@ -509,4 +535,19 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JTable tblBuscaPro;
     private javax.swing.JTextField txtBuscaPro;
     // End of variables declaration//GEN-END:variables
+
+     public void atualizarTabela(List<Produto> produtos){
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
+        for(int aux=0;aux<produtos.size();aux++){
+            if(!produtos.get(aux).isInativo())
+                        dtm.addRow(produtos.get(aux).addTableConsulta());
+        }
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblBuscaPro.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
+               dtm.removeRow(aux);
+            }
+    }
 }
