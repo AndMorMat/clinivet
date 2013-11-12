@@ -42,7 +42,11 @@ public class VendedorDAO extends GenericoDAO {
             vendedor.setId(getNextId("vendedores"));
             
             String query = "INSERT INTO vendedores (ID, NOME, LOGIN, SENHA,INATIVO) values (?,?,?,?,?)";
+<<<<<<< HEAD
             executeCommand(query, vendedor.getId(), vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(),vendedor.isInativo());
+=======
+            executeCommand(query, vendedor.getId(), vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha());
+>>>>>>> fc9502a65fca91d8f2146c2a3fd0f3e5fae971fa
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao adicionar vendedor na classe vendedorDAO: "+ex);
         }

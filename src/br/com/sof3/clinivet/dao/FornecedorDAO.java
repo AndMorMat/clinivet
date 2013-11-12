@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 public class FornecedorDAO extends GenericoDAO{
     
     public int adicionaFornecedor(Fornecedor fornecedor) throws SQLException {
-        fornecedor.setId(getNextId("fornecedores"));
         String query = "INSERT INTO fornecedores (id,"
                                            + " nome,"
                                             + "cnpj,"
@@ -115,7 +114,7 @@ public class FornecedorDAO extends GenericoDAO{
     }
     public ArrayList <Fornecedor> FiltrarFornecedorCnpj(String cnpj) throws SQLException{
         ArrayList<Fornecedor> toReturn = new ArrayList<>();
-        
+     
         ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj like \""+cnpj+"%\";");//testando funcao
         try{
             while(rs.next()) {
@@ -167,4 +166,14 @@ public class FornecedorDAO extends GenericoDAO{
 //        }
 //        return cidade;
 //    }
+    public boolean getCNPJDuplicado(String cnpj) throws SQLException{
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj =  ?", cnpj);//Pesquisando CNPJ do fornecedor a ser cadastrado
+        boolean found = false;  
+        
+        while (rs.next()) {   
+             found = true;  //Caso seja encontrado um cadastro retorna verdadeiro
+        }
+        
+        return found;
+    }
 }
