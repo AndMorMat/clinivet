@@ -378,13 +378,11 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-<<<<<<< HEAD
+
             frmExibirCliente frmExibir = new frmExibirCliente();
             frmExibir.CadastrarDados(cli);
             
-=======
-           frmAddCliente frmAddCli = new frmAddCliente("editar",cli); 
->>>>>>> fc9502a65fca91d8f2146c2a3fd0f3e5fae971fa
+
            
            
            
