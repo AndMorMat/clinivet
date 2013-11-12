@@ -18,6 +18,7 @@ public class Cliente {
     private Estado estado;
     private boolean sms_inicio_consulta;
     private boolean sms_fim_consulta;
+    private boolean inativo;
     
     
     
@@ -26,7 +27,8 @@ public class Cliente {
         return dados;
     }*/
     public void cadastrar(Integer id,String nome,String sobrenome,String dataNasc, String cpf,String telefone,
-            String celular,String email,String endereco,String bairro,Cidade cidade,boolean sms_inicio_consulta,boolean sms_fim_consulta){
+            String celular,String email,String endereco,String bairro,Cidade cidade,boolean sms_inicio_consulta,
+            boolean sms_fim_consulta, boolean inativo){
         setId(id);
         setNome(nome);
         setSobrenome(sobrenome);
@@ -40,6 +42,7 @@ public class Cliente {
         setCidade(cidade);
         setSms_inicio_consulta(sms_inicio_consulta);
         setSms_fim_consulta(sms_fim_consulta);
+        setInativo(inativo);
         
     }
     public String exibir(){
@@ -92,6 +95,14 @@ public class Cliente {
         this.estado = estado;
     }
 
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+    
     public String getDataNasc() {
         return dataNasc;
     }

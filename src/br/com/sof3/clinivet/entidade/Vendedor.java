@@ -5,6 +5,8 @@ public class Vendedor {
     private String nome;
     private String login;
     private String senha;
+    private boolean inativo;
+    
     public String exibir(){
         return "\nNome: " +nome+
                "\nLogin: " +login+
@@ -13,11 +15,12 @@ public class Vendedor {
     public Vendedor() {
         
     }
-    public void cadastrar(Integer id, String nome, String login, String senha){
+    public void cadastrar(Integer id, String nome, String login, String senha,boolean inativo){
         setId(id);
         setNome(nome);
         setLogin(login);
         setSenha(senha);
+        setInativo(inativo);
     }
     public Vendedor(Integer id) {
         this.id = id;
@@ -34,6 +37,15 @@ public class Vendedor {
         return dados;
        
     }
+
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+    
     public Integer getId() {
         return id;
     }

@@ -117,6 +117,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         txtQuantidade = new javax.swing.JTextField();
         lblDesconto = new javax.swing.JLabel();
         txtDesconto = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtTotalaPagar = new javax.swing.JTextField();
 
         lblDataVenda.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         lblDataVenda.setText("Data da Venda:");
@@ -222,6 +224,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tableProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tableProdutos);
         tableProdutos.getColumnModel().getColumn(0).setResizable(false);
         tableProdutos.getColumnModel().getColumn(2).setResizable(false);
@@ -274,7 +277,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 .add(cbxTipoProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(btnBuscar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+                .add(btnBuscar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
         );
 
         txtBuscar.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
@@ -352,13 +355,18 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         lblDesconto.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblDesconto.setText("Desconto:");
 
+        txtDesconto.setEditable(false);
         txtDesconto.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         txtDesconto.setText("0");
-        txtDesconto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDescontoKeyPressed(evt);
+        txtDesconto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDescontoMouseClicked(evt);
             }
         });
+
+        jLabel2.setText("Total à pagar:");
+
+        txtTotalaPagar.setEditable(false);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -366,35 +374,39 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(39, 39, 39)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(lblCliente)
-                            .add(layout.createSequentialGroup()
-                                .add(lblDataVenda)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(lblVendedor)
-                            .add(jLabel1))
-                        .add(26, 26, 26)
-                        .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(btnConcluirVenda)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(lblDesconto)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(lblTotal)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(50, 50, 50))
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 953, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .add(219, 219, 219)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(lblTotal)
+                            .add(lblDesconto)
+                            .add(jLabel2))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 37, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(txtTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .add(txtDesconto)
+                            .add(txtTotalaPagar))
+                        .addContainerGap(49, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(lblCliente)
+                                    .add(layout.createSequentialGroup()
+                                        .add(lblDataVenda)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(lblVendedor)
+                                    .add(jLabel1))
+                                .add(26, 26, 26)
+                                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 977, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -414,17 +426,28 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                     .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(lblTotal)
-                        .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(lblDesconto)
-                        .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(btnConcluirVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(lblTotal)
+                            .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblDesconto))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtTotalaPagar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel2)))
+                    .add(layout.createSequentialGroup()
+                        .add(21, 21, 21)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(btnConcluirVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -441,7 +464,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         if (opt == 0) { 
             try { 
                 venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
-                venda.setTotalVenda(Float.parseFloat(txtTotal.getText().substring(2)));
+                venda.setTotalVenda(Float.parseFloat(txtTotalaPagar.getText()));
                 venda.setVendedor(vdao.getVendedor(vdao.getIdVendedor(vendedorLogado)));     
                 venda.setFormaPagamento("À vista");
                 venda.setDesconto(Double.parseDouble(txtDesconto.getText()));
@@ -487,6 +510,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             itens.remove(tableCarrinho.getSelectedRow());
             dtm.removeRow(tableCarrinho.getSelectedRow());
             atualizaItens();
+            txtDesconto.setText("0.00");
+            txtTotalaPagar.setText("0.00");
         }
     }//GEN-LAST:event_btnRemoverProdutoListaActionPerformed
 
@@ -658,7 +683,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataVendaActionPerformed
     private boolean descontoValue(){
-        double precoCusto=0, precoVendaDesejado=0,margemLucro=0,quantidade=0,precoVendido=0;
+        double precoCusto=0, precoVendaDesejado=0,margemLucro=0,quantidade=0;
         for(int aux = 0 ; aux < vendaProduto.size();aux ++){
             precoCusto+=(vendaProduto.get(aux).getProduto().getPrecoCusto()*vendaProduto.get(aux).getQtd());
             precoVendaDesejado+=(vendaProduto.get(aux).getProduto().getPrecoVenda()*vendaProduto.get(aux).getQtd());
@@ -667,29 +692,36 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         }
         margemLucro=margemLucro/quantidade;
         
-//        JOptionPane.showMessageDialog(null,"total: "+quantidade+ "\nPreco de custo: "+precoCusto+"\nPreco venda: "+precoVendaDesejado+"\nMargem Lucro: "+margemLucro);
-//        JOptionPane.showMessageDialog(null, "margem lucro: "+margemLucro+"  Preco venda: "+precoVendaDesejado +" custo - desconto: "+((precoCusto+(precoCusto*(margemLucro/100)))-Integer.parseInt(txtDesconto.getText())));
-        JOptionPane.showMessageDialog(null,"Precovendadesejado: "+precoVendaDesejado+"  Total: "+txtTotal.getText() +"  Desconto: "+txtDesconto.getText() +"  total-desconto: "+(Float.parseFloat(txtTotal.getText()) - Float.parseFloat(txtDesconto.getText())));
-        if(precoVendaDesejado  >  (Float.parseFloat(txtTotal.getText()) - Float.parseFloat(txtDesconto.getText()))){
+        txtTotalaPagar.setText(String.valueOf(Double.parseDouble(txtTotal.getText())-Double.parseDouble(txtDesconto.getText())));
+//        JOptionPane.showMessageDialog(null,"Precovendadesejado: "+precoVendaDesejado+"  Total: "+txtTotal.getText() +"  Desconto: "+txtDesconto.getText() +"  total-desconto: "+(Float.parseFloat(txtTotal.getText()) - Float.parseFloat(txtDesconto.getText())));
+        if((Double.parseDouble(txtTotal.getText())-Double.parseDouble(txtDesconto.getText())) < (precoCusto*(margemLucro/100))){
             //JOptionPane.showMessageDialog(null, "Dentro"+precoVenda+" "+((precoCusto+(precoCusto*(margemLucro/100)))-Integer.parseInt(txtDesconto.getText())));
             return false;
         }
+        
         return true;
     }
     
-    private void txtDescontoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescontoKeyPressed
-        if(!descontoValue()){
-            txtDesconto.setBackground(Color.red);
-        }else{
-            JOptionPane.showMessageDialog(null, "Setando branco");
-            txtDesconto.setBackground(Color.white);
-            
-        }
-    }//GEN-LAST:event_txtDescontoKeyPressed
-
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void txtDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescontoMouseClicked
+        String desconto = JOptionPane.showInputDialog("Desconto");
+        if(desconto.isEmpty()){
+            txtDesconto.setText("0.00");
+        }else{
+            if(Double.parseDouble(txtTotal.getText())>0)
+                txtDesconto.setText(desconto);
+        }
+        
+        
+        if(!descontoValue()){
+            txtDesconto.setBackground(Color.red);
+        }else
+            txtDesconto.setBackground(Color.white);
+       
+    }//GEN-LAST:event_txtDescontoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAdicionarNoCarrinho;
@@ -702,6 +734,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private javax.swing.ButtonGroup groupFormaPagamento;
     private javax.swing.ButtonGroup groupPesquisaProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -721,20 +754,24 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private javax.swing.JTextField txtDesconto;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotalaPagar;
     // End of variables declaration//GEN-END:variables
 
     private void loadInitialData() {
         txtTotal.setText("0,00");
+        txtTotalaPagar.setText("0,00");
         txtDataVenda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
     }
     
     public void atualizaItens() {
         float value = 0;
         for (VendaProduto sellItem : itens) {
-            value += sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto() * sellItem.getQtd();
+        
+            value += (sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto()) * sellItem.getQtd();
             sellItem.setTotal(sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto() * sellItem.getQtd());
         }   
        txtTotal.setText(String.valueOf(value));
+       txtTotalaPagar.setText(String.valueOf(Double.parseDouble(txtTotal.getText())- Double.parseDouble(txtDesconto.getText())));
     }
 
     public void carregarCbx(){

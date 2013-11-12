@@ -342,11 +342,11 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 List<Cliente> cli = new LinkedList<Cliente>();
 
                 Cliente c = new Cliente(); 
-                
-                int cont = dtm.getRowCount();
-                for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
-                  dtm.removeRow(aux);
-                }
+                limparTabela();
+//                int cont = dtm.getRowCount();
+//                for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+//                    dtm.removeRow(aux);
+//                }
                 
                 cli = cdao.getClientesByID();
                 
@@ -355,10 +355,9 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                         c.setNome(cli.get(aux).getNome());
                         c.setCpf(cli.get(aux).getCpf());
                         c.setTelefone(cli.get(aux).getTelefone());
-
-                        dtm.addRow(c.addTable());
-                    }
-                        
+                        if(!cli.get(aux).isInativo())//so será exibido cliente se ele estiver ativo
+                            dtm.addRow(c.addTable());
+                    } 
                 }
                 
                 
@@ -375,8 +374,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {  
            Cliente cli = new Cliente();
            
-           frmExibirCliente frmExibirCliente1 = new frmExibirCliente();
-
+           
+           
            NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
            
             try {
@@ -384,8 +383,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-           frmExibirCliente1.CadastrarDados(cli);
+           frmAddCliente frmAddCli = new frmAddCliente("editar",cli); 
+           
            
            
         }
@@ -436,7 +435,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
             try{
                  cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
-                 cdao.removeCliente(cli.get(0).getId());
+                 cdao.inativarCliente(cli.get(0).getId());
+                 cli = cdao.getAllClientes();
                  limparTabela();
                  atualizarTabela(cli);
             }catch(Exception ex){
@@ -449,14 +449,15 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     public void atualizarTabela(List<Cliente> clientes){
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
         for(int aux=0;aux<clientes.size();aux++){
-                    dtm.addRow(clientes.get(aux).addTable());
+                    if(!clientes.get(aux).isInativo())
+                        dtm.addRow(clientes.get(aux).addTable());
                 }
     }
     public void limparTabela(){
         DefaultTableModel dtm =  (DefaultTableModel) tblBuscaCli.getModel();
         int cont = dtm.getRowCount();
             for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
-                dtm.setValueAt("", aux, 1);
+               dtm.removeRow(aux);
             }
     }
     public void alinharTextBotao(){

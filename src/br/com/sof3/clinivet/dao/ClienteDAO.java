@@ -1,12 +1,16 @@
 package br.com.sof3.clinivet.dao;
 
+import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cidade;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.Venda;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ClienteDAO extends GenericoDAO {
@@ -15,20 +19,31 @@ public class ClienteDAO extends GenericoDAO {
 
     public int adicionaCliente(Cliente cliente) throws SQLException {
         cliente.setId(getNextId("clientes"));
-        String query = "INSERT INTO clientes (ID, NOME, SOBRENOME,DATA_NASC, CPF, TELEFONE, CELULAR, ENDERECO, BAIRRO, ID_CIDADE, EMAIL,sms_inicio_consulta,sms_fim_consulta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        executeCommand(query, cliente.getId(), cliente.getNome(), cliente.getSobrenome(),cliente.getDataNasc(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(),cliente.isSms_inicio_consulta(),cliente.isSms_fim_consulta());
+        String query = "INSERT INTO clientes (ID, NOME, SOBRENOME,DATA_NASC, CPF, TELEFONE, CELULAR, ENDERECO, BAIRRO, ID_CIDADE, EMAIL,sms_inicio_consulta,sms_fim_consulta,inativo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        executeCommand(query, cliente.getId(), cliente.getNome(), cliente.getSobrenome(),cliente.getDataNasc(), cliente.getCpf(), cliente.getTelefone(), cliente.getCelular(), cliente.getEndereco(), cliente.getBairro(), cliente.getCidade().getId(), cliente.getEmail(),cliente.isSms_inicio_consulta(),cliente.isSms_fim_consulta(),cliente.isInativo());
         return cliente.getId();
     }
 
-    public void removeCliente(int idCliente) throws SQLException {
+    public void inativarCliente(int idCliente){
+        try {
+            executeCommand("update clientes set inativo = ? where id = ?", true,idCliente);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao definir cliente como inativo na classe ClienteDAO: "+ex);
+        }
+    }
+    /*public void removeCliente(int idCliente) throws SQLException {
+        VendaDAO vendaDAO = new VendaDAO();
+       
+        ArrayList <Venda> vendas = new ArrayList<>();
+       
         try{
-            JOptionPane.showMessageDialog(null, "Id: "+idCliente);
+           
             executeCommand("DELETE FROM clientes WHERE ID = ?", idCliente);
             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Erro ao excluir cliente na classe ClienteDAO: "+ ex);
         }
-    }
+    }*/
     public int getIdByCpf(String cpf) throws SQLException{
         int id=-1;
         Cliente cli = new Cliente();
@@ -90,6 +105,7 @@ public class ClienteDAO extends GenericoDAO {
         toReturn.setEmail(rs.getString("EMAIL"));
         toReturn.setSms_inicio_consulta(rs.getBoolean("SMS_INICIO_CONSULTA"));
         toReturn.setSms_fim_consulta(rs.getBoolean("SMS_FIM_CONSULTA"));
+        toReturn.setInativo(rs.getBoolean("INATIVO"));
         
         return toReturn;
     }
