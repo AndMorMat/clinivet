@@ -374,7 +374,11 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(tituloCadastroCliente)
+<<<<<<< HEAD
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+=======
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+>>>>>>> dd06432e9c2c8df2d09c721e96115bf20bd8b924
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -528,9 +532,10 @@ public class frmAddCliente extends javax.swing.JDialog {
                                                           if ((usuario.length() >=1) && (!usuario.contains("@")) && (dominio.contains(".")) && (!dominio.contains("@"))
                                                                   && (dominio.indexOf(".") >= 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) { 
                                                                   
-                                                          } else { txtEmail.setText("E-MAIL INVÁLIDO");
+                                                          } else {
+                                                              txtEmail.setText(txtEmail.getText()+ "  --> E-MAIL INVÁLIDO");
                                                           } 
-        }else { txtEmail.setText("E-MAIL INVÁLIDO");  }
+        }else { txtEmail.setText(txtEmail.getText()+ "  --> E-MAIL INVÁLIDO");  }
     }//GEN-LAST:event_txtEmailFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

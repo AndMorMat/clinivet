@@ -274,7 +274,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -346,11 +346,11 @@ public class frmAddProduto extends javax.swing.JFrame {
             try{
                 
                 if(produtoDAO.getIdBCod(txtCodigo.getText().toString())>0 &&  !produtoAntigo.getCodigo().toString().equals(txtCodigo.getText().toString())){//Consultando no banco o CPf e verifica se foi alterado antes de iniciar a edição
-                        int duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "CPF que foi alterado já está cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        int duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "Codigo já cadastrado, deseja alterar Código desse cadastro?","Código já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                         
                         if(duplicidadeCodigo ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
                             setVisible(false);
-                    }else{//Cpf não encontrado no banco
+                    }else{//Codigo não encontrado no banco
                 
                 prod.cadastrar(produtoAntigo.getId(),
                                   txtCodigo.getText(),

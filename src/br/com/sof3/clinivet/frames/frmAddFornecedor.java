@@ -13,8 +13,11 @@ import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
 import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -98,6 +101,12 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
         lblCidade.setText("Cidade:");
 
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +166,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                             .addComponent(cbxCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCadastrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton2)))))
                 .addContainerGap(227, Short.MAX_VALUE))
         );
@@ -205,74 +214,115 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-       if(param.equals("cadastrar") || param.equals("telaAddProduto")){
-            
+      
+         FornecedorDAO validaCNPJ = new FornecedorDAO();
+        
+        int validaLogin = 0;
+        
+        if(param.equals("cadastrar") || param.equals("telaAddProduto")){
+             try {
+                 if (validaCNPJ.getCNPJDuplicado(txtCnpj.getText())) {
+                             validaLogin = JOptionPane.showConfirmDialog (null, "Fornecedor já Cadastrado, deseja alterar o cadastro atual?","CNPJ já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                             
+                             if(validaLogin ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                                 setVisible(false);
+                         } else{//Login não duplicado
 
-            try {
-                if(!validaCampos())return;
-                int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-                if (opc != 0) {
-                    return;
-                }
-                Fornecedor forn = new Fornecedor();
-                FornecedorDAO fdao = new FornecedorDAO();
-                JOptionPane.showMessageDialog(null, txtCnpj.getText());
-                forn.cadastrar(0,
-                               txtNome.getText(),
-                               txtCnpj.getText(),
-                               txtTelefone.getText(),
-                               txtEmail.getText(),
-                               txtEndereco.getText(),
-                               txtBairro.getText(),
-                               ((Cidade) cbxCidade.getSelectedItem()));
-                
-                fdao.adicionaFornecedor(forn);
-                
-                if(param.equals("telaAddProduto")){
-                    limparTabela();
-                    DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
-                    dtm.addRow(forn.addTable());
-                    JOptionPane.showMessageDialog(null, "Antes de selecionar");
-                    frmAddProduto.tblFornecedores.setSelectionMode(1);
-                    JOptionPane.showMessageDialog(null, "Antes de selecionar certo");
-                    frmAddProduto.tblFornecedores.setRowSelectionInterval(0, 0);
-                    param = "";
-                }
-                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
-            }
+                 try {
+                     if(!validaCampos())return;
+                     int opc = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Adiciona Fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                     if (opc != 0) {
+                         return;
+                     }
+                     Fornecedor forn = new Fornecedor();
+                     FornecedorDAO fdao = new FornecedorDAO();
+                     JOptionPane.showMessageDialog(null, txtCnpj.getText());
+                     forn.cadastrar(0,
+                                    txtNome.getText(),
+                                    txtCnpj.getText(),
+                                    txtTelefone.getText(),
+                                    txtEmail.getText(),
+                                    txtEndereco.getText(),
+                                    txtBairro.getText(),
+                                    ((Cidade) cbxCidade.getSelectedItem()));
+                     
+                     fdao.adicionaFornecedor(forn);
+                     
+                     if(param.equals("telaAddProduto")){
+                         limparTabela();
+                         DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
+                         dtm.addRow(forn.addTable());
+                         frmAddProduto.tblFornecedores.setSelectionMode(1);
+                         frmAddProduto.tblFornecedores.setRowSelectionInterval(0, 0);
+                         param = "";
+                     }
+                     
+                 } catch (Exception e) {
+                     JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
+                 } setVisible(false);
+                 }
+             } catch (SQLException ex) {
+                 Logger.getLogger(frmAddFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             
         }else if(param.equals("editar")){
-            JOptionPane.showMessageDialog(null, "Editar");
-               try{ 
-                    Fornecedor forn = new Fornecedor();
-                    FornecedorDAO fdao = new FornecedorDAO();
-                    JOptionPane.showMessageDialog(null, txtCnpj.getText());
-                    forn.cadastrar(fdao.getIdFornecedor(fornecedorAntigo.getCnpj()),
-                                   txtNome.getText(),
-                                   txtCnpj.getText(),
-                                   txtTelefone.getText(),
-                                   txtEmail.getText(),
-                                   txtEndereco.getText(),
-                                   txtBairro.getText(),
-                                   ((Cidade) cbxCidade.getSelectedItem()));
-                    
-                    fdao.atualizaFornecedor(forn);
-                    
-               }catch(Exception ex){
-                   JOptionPane.showMessageDialog(null,"Erro ao Editar Fornecedor :: na classe frmAddFornecedor" +ex);
+            FornecedorDAO fornec = new FornecedorDAO();
+             try {
+                 if(
+                         fornec.getCNPJDuplicado(txtCnpj.getText())
+                         &&  !fornecedorAntigo.getCnpj().toString().equals(txtCnpj.getText().toString())){//Consultando no banco o CNPJ e verifica se foi alterado antes de iniciar a edição
+                               int duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "Codigo já cadastrado, deseja alterar Código desse cadastro?","Código já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                               
+                               if(duplicidadeCodigo ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                                   setVisible(false);
+                           }else{//CNPJ não encontrado no banco
+                   
+                   try{ 
+                       
+                           Fornecedor forn = new Fornecedor();
+                           FornecedorDAO fdao = new FornecedorDAO();
+                           forn.cadastrar(fdao.getIdFornecedor(fornecedorAntigo.getCnpj()),
+                                          txtNome.getText(),
+                                          txtCnpj.getText(),
+                                          txtTelefone.getText(),
+                                          txtEmail.getText(),
+                                          txtEndereco.getText(),
+                                          txtBairro.getText(),
+                                          ((Cidade) cbxCidade.getSelectedItem()));
+                           
+                           fdao.atualizaFornecedor(forn);
+                            setVisible(false);
+                      }catch(Exception ex){
+                          JOptionPane.showMessageDialog(null,"Erro ao Editar Fornecedor :: na classe frmAddFornecedor" +ex);
+                      }
                }
+             } catch (SQLException ex) {
+                 Logger.getLogger(frmAddFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+             }
         }
-        setVisible(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        if ((txtEmail.getText().contains("@")) && (txtEmail.getText().contains("."))
+                && (!txtEmail.getText().contains(" "))) { String usuario = new String(txtEmail.getText().substring(0, txtEmail.getText().lastIndexOf('@')));
+                                                          String dominio = new String(txtEmail.getText().substring(txtEmail.getText().lastIndexOf ('@') + 1, 
+                                                                  txtEmail.getText().length()));
+                                                          if ((usuario.length() >=1) && (!usuario.contains("@")) && (dominio.contains(".")) && (!dominio.contains("@"))
+                                                                  && (dominio.indexOf(".") >= 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) { 
+                                                                  
+                                                          } else { txtEmail.setText(txtEmail.getText()+ "  --> E-MAIL INVÁLIDO");
+                                                          } 
+        }else {  txtEmail.setText(txtEmail.getText()+ "  --> E-MAIL INVÁLIDO");  }
+    }//GEN-LAST:event_txtEmailFocusLost
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       setVisible(false);
+        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
     public String[] getDados(){
         String[] dados = {txtNome.getText(),txtCnpj.getText(),txtTelefone.getText(),txtEmail.getText()};
         return dados;
     }
+    
     public void limparTabela(){
         DefaultTableModel dtm =  (DefaultTableModel) tblFornecedores.getModel();
         int cont = dtm.getRowCount();
