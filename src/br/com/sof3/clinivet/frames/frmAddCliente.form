@@ -72,11 +72,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tituloCadastroCliente" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
                   <EmptySpace pref="8" max="32767" attributes="0"/>
-=======
-                  <EmptySpace max="32767" attributes="0"/>
->>>>>>> dd06432e9c2c8df2d09c721e96115bf20bd8b924
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

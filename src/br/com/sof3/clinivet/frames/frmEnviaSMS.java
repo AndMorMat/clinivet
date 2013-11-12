@@ -24,8 +24,8 @@ public class frmEnviaSMS extends javax.swing.JFrame {
      */
     public frmEnviaSMS(Cliente cliente) {
         initComponents();
-        txtCliente.setText(String.valueOf(cliente.getNome()));
-        txtCelular.setText(String.valueOf(cliente.getCelular()));
+        lblCliente.setText("Cliente: " + String.valueOf(cliente.getNome()));
+        lblCelular.setText("Celular: " + String.valueOf(cliente.getCelular()));
         setDefaultCloseOperation(WIDTH);
         setLocationRelativeTo(null);
         cli = cliente;
@@ -46,8 +46,6 @@ public class frmEnviaSMS extends javax.swing.JFrame {
         txtMessage = new javax.swing.JTextArea();
         lblCliente = new javax.swing.JLabel();
         btnEnviarSMS = new javax.swing.JButton();
-        txtCliente = new javax.swing.JTextField();
-        txtCelular = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,10 +67,6 @@ public class frmEnviaSMS extends javax.swing.JFrame {
             }
         });
 
-        txtCliente.setEnabled(false);
-
-        txtCelular.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,55 +75,46 @@ public class frmEnviaSMS extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEnviarSMS)
+                    .addComponent(lblCliente)
                     .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lblCelular)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCelular))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCliente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblCelular)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(lblCliente)
+                .addGap(29, 29, 29)
+                .addComponent(lblCelular)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCliente)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCelular)
-                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEnviarSMS)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarSMSActionPerformed
-        String celular = cli.getCelular();
-        celular = celular.replaceAll("[()-]", "");
-        
-        Message sms = new Message();
-        try {
-                sms.sendSMS(celular, txtMessage.getText());
+        if(cli.isSms_fim_consulta() == true) {
+           Message sms = new Message();
+            try {
+                sms.sendSMS(cli.getCelular(), txtMessage.getText());
                 JOptionPane.showMessageDialog(rootPane, "Mensagem enviada com sucesso!");
                 setVisible(false);
-        } catch (TwilioRestException ex) {
+            } catch (TwilioRestException ex) {
                 Logger.getLogger(frmEnviaSMS.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Esse cliente não deseja receber SMS", "Erro", JOptionPane.ERROR_MESSAGE);
+            setVisible(false);
+        }
     }//GEN-LAST:event_btnEnviarSMSActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -138,8 +123,6 @@ public class frmEnviaSMS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCliente;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextArea txtMessage;
     // End of variables declaration//GEN-END:variables
 }

@@ -190,12 +190,16 @@ public class frmAddVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        
         VendedorDAO validalogin = new VendedorDAO();
         
         int validaLogin = 0;
         
-        if(validaCampos()){
+        if(txtNome.getText().trim().equals("") || txtLogin.getText().trim().equals("")
+                || txtRepitaSenha.getText().trim().equals("") || txtSenha.getText().trim().equals("") || txtSenha.getText().length()<5){
+            JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios e senha deve possuir mais que 4 caracteres");
             
+        }else{
             try {
                 if(param.equals("cadastrar")){
                     if (validalogin.getLoginDuplicado(txtLogin.getText())) {
@@ -226,7 +230,6 @@ public class frmAddVendedor extends javax.swing.JFrame {
                 
                             JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
                          }
-                    setVisible(false);
                     }
                         
                 
@@ -258,8 +261,8 @@ public class frmAddVendedor extends javax.swing.JFrame {
                         }}
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com banco de vendedores");
             }
+             
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -287,28 +290,4 @@ public class frmAddVendedor extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtRepitaSenha;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
-
- private boolean validaCampos(){
-        if(txtNome.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo nome esta vazio!");
-            return false;
-        }else if(txtLogin.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Login está vazio!");
-            return false;
-        }else if(txtSenha.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Senha está vazio!");
-            return false;
-        }else if(txtSenha.getText().trim().length()<5){
-            JOptionPane.showMessageDialog(null, "A senha deve possuir mais que 4 caracteres!");
-            return false;
-        }
-        else if(txtRepitaSenha.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo repita a senha esta vazio!");
-            return false;
-        }else if(!txtSenha.getText().equals(txtRepitaSenha.getText())){
-            JOptionPane.showMessageDialog(null, "As senhas não correspondem!");
-            return false;
-        }
-        return true;
-    }
 }
