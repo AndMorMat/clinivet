@@ -1,11 +1,15 @@
 package br.com.sof3.clinivet.dao;
 
 
+import br.com.sof3.clinivet.entidade.Venda;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;//So,mente para teste
 
 public class VendedorDAO extends GenericoDAO {
@@ -37,17 +41,29 @@ public class VendedorDAO extends GenericoDAO {
         try{
             vendedor.setId(getNextId("vendedores"));
             
-            String query = "INSERT INTO vendedores (ID, NOME, LOGIN, SENHA) values (?,?,?,?)";
-            executeCommand(query, vendedor.getId(), vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha());
+            String query = "INSERT INTO vendedores (ID, NOME, LOGIN, SENHA,INATIVO) values (?,?,?,?,?)";
+            executeCommand(query, vendedor.getId(), vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(),vendedor.isInativo());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao adicionar vendedor na classe vendedorDAO: "+ex);
         }
         return vendedor.getId();
     }
-
-    public void removeVendedor(int idVendedor) throws SQLException {
-        executeCommand("DELETE FROM VENDEDORES WHERE ID = ?", idVendedor);
+    public void inativarVendedor(int idVendedor){
+       try {
+           executeCommand("update vendedores set inativo = ? where id = ?",true,idVendedor);
+       } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"Erro ao inativar vendedor na classe VendedorDAO: "+ ex);
+       }
     }
+    /*public void removeVendedor(int idVendedor) throws SQLException {
+        VendaDAO vendaDAO = new VendaDAO();
+        List <Venda> vendas = new ArrayList<>();
+        try{
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir vendedor na classe vendedorDAO: "+ex);
+        }
+    }*/
     public int getIdVendedor(String login) throws SQLException{
         Vendedor vendedor = new Vendedor();        
         try{
@@ -66,10 +82,9 @@ public class VendedorDAO extends GenericoDAO {
     }
     public void atualizaVendedor(Vendedor vendedor) throws SQLException {
         try{
-            String query = "UPDATE vendedores SET nome = ?, login = ?, senha = ? WHERE id = ?";
-//            update vendedores set nome = "Andre Matos", login = "AndMat", senha = "34x88=2992" where id = 2;
+            String query = "UPDATE vendedores SET nome = ?, login = ?, senha = ?, inativo=? WHERE id = ?";
 
-            executeCommand(query, vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(), vendedor.getId());
+            executeCommand(query, vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(), vendedor.isInativo(),vendedor.getId());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedores na classe VendedorDAO");
         }
@@ -86,7 +101,7 @@ public class VendedorDAO extends GenericoDAO {
     }
 
     public List<Vendedor> getAllVendedores() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM VENDEDORES");
+        ResultSet rs = executeQuery("SELECT * FROM vendedores");
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));
@@ -101,6 +116,7 @@ public class VendedorDAO extends GenericoDAO {
         toReturn.setLogin(rs.getString("LOGIN"));
         toReturn.setNome(rs.getString("NOME"));
         toReturn.setSenha(rs.getString("SENHA"));
+        toReturn.setInativo(rs.getBoolean("INATIVO"));
         return toReturn;
     }
     public List<Vendedor> getVendedorByName(String nome) throws SQLException {

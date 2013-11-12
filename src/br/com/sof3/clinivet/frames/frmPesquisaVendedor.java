@@ -44,6 +44,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             lblBuscarVendedor.setText("Editar Usuário");
         }else if(parametro.equals("pesquisar")){
             btnEditar.setVisible(false);
+            btnExluir.setVisible(false);
             lblBuscarVendedor.setText("Buscar Usuário");
         }
     }
@@ -68,6 +69,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         txtBuscaVendedor = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
+        btnExluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,6 +157,13 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             }
         });
 
+        btnExluir.setText("Excluir");
+        btnExluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,41 +171,44 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBuscarVendedor)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(266, 266, 266)
-                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnBuscar)
-                            .addGap(254, 254, 254)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnBuscar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBuscarVendedor)
+                        .addGap(379, 379, 379)
+                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(266, 266, 266)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscarVendedor)
+                    .addComponent(btnUltimosCad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBuscarVendedor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnUltimosCad, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEditar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtBuscaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscar)))
+                        .addComponent(btnBuscar))
+                    .addComponent(btnExluir))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,11 +227,11 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             List<Vendedor>  listv = new LinkedList<Vendedor>();
 
             Vendedor v = new Vendedor();
-
-            int cont = dtm.getRowCount();
-            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
-                dtm.removeRow(aux);
-            }
+            limparTabela();
+//            int cont = dtm.getRowCount();
+//            for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
+//                dtm.removeRow(aux);
+//            }
 
             listv = vdao.getVendedorByID();
 
@@ -227,8 +239,10 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
                 if(aux<6){
                     v.setNome(listv.get(aux).getNome());
                     v.setLogin(listv.get(aux).getLogin());
-                   
-                    dtm.addRow(v.addTable());
+                    if(!listv.get(aux).isInativo()){
+                         dtm.addRow(v.addTable());
+                         JOptionPane.showMessageDialog(null, listv.get(aux).isInativo());
+                    }
                 }
 
             }
@@ -314,10 +328,44 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         }else JOptionPane.showMessageDialog(null, "Selecione um Vendedor para editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
-   
+    private void btnExluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExluirActionPerformed
+        VendedorDAO vendedorDAO = new VendedorDAO();
+        if(tblBuscaVendedor.getSelectedRow()>=0 && tblBuscaVendedor.getSelectedRow()<tblBuscaVendedor.getRowCount()){
+            List<Vendedor> vend = new LinkedList<>();
+            DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
+            try{
+                 vend = vendedorDAO.getVendedorByLogin(String.valueOf(dtm.getValueAt(tblBuscaVendedor.getSelectedRow(), 1)));
+                 vendedorDAO.inativarVendedor(vend.get(0).getId());
+                 vend = vendedorDAO.getAllVendedores();
+                 limparTabela();
+                 atualizarTabela(vend);
+            }catch(Exception ex){
+                 JOptionPane.showMessageDialog(null,"Erro ao excluir vendedor na classe frmPesquisaVendedor: "+ ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um registro");
+        }
+                
+    }//GEN-LAST:event_btnExluirActionPerformed
+    public void atualizarTabela(List<Vendedor> vendedores){
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaVendedor.getModel();
+        for(int aux=0;aux<vendedores.size();aux++){
+                    if(!vendedores.get(aux).isInativo())
+                        dtm.addRow(vendedores.get(aux).addTable());
+                }
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblBuscaVendedor.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
+               dtm.removeRow(aux);
+            }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExluir;
     private javax.swing.JButton btnUltimosCad;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;

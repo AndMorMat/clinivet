@@ -57,7 +57,7 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblNomeVendedor.setText("Buscar Clientes:");
+        lblNomeVendedor.setText("Obs: Aqui será listado apenas os clientes que desejam receber SMS");
 
         buttonGroup1.add(rbtNome);
         rbtNome.setSelected(true);
@@ -136,27 +136,23 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNomeVendedor)
-                                .addGap(354, 354, 354)
-                                .addComponent(btnUltimosCad, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
-                        .addGap(23, 23, 23))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbtNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbtCpf))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(rbtNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtCpf))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblNomeVendedor)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,12 +249,15 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
                     }
                 }
                 for(int aux =0;aux<cli.size();aux++){
-                    c.setNome(cli.get(aux).getNome());
-                    c.setCpf(cli.get(aux).getCpf());
-                    c.setCelular(cli.get(aux).getCelular());
+                    if(cli.get(aux).isSms_fim_consulta() == true && cli.get(aux).getCelular().trim().length() == 14) {
+                        
+                        c.setNome(cli.get(aux).getNome());
+                        c.setCpf(cli.get(aux).getCpf());
+                        c.setCelular(cli.get(aux).getCelular());
 
-                    dtm.addRow(c.addTable());
-                    cont++;
+                        dtm.addRow(c.addTableSMS());
+                        cont++;
+                    }
                 }
                 if(cont==0)//para exibir caso procura não exiba nada
                 JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
@@ -292,12 +291,12 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
             cli = cdao.getClientesByID();
 
             for(int aux=0 ;aux<cli.size();aux++){
-                if(aux<6){
+                if(aux<6 && cli.get(aux).isSms_fim_consulta() == true && cli.get(aux).getCelular().trim().length() == 14) {
                     c.setNome(cli.get(aux).getNome());
                     c.setCpf(cli.get(aux).getCpf());
-                    c.setTelefone(cli.get(aux).getTelefone());
+                    c.setCelular(cli.get(aux).getCelular());
 
-                    dtm.addRow(c.addTable());
+                    dtm.addRow(c.addTableSMS());
                 }
 
             }

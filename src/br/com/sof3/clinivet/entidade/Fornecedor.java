@@ -10,6 +10,8 @@ public class Fornecedor {
     private String bairro;
     private Cidade cidade;
     private Estado estado;
+    private boolean inativo;
+    
     public Fornecedor() {
         
     }
@@ -18,7 +20,7 @@ public class Fornecedor {
         this.id = id;
     }
     public void cadastrar(int id, String nome, String cnpj, String telefone,
-                        String email, String endereco, String bairro, Cidade cidade){
+                        String email, String endereco, String bairro, Cidade cidade, boolean inativo){
         setId(id);
         setNome(nome);
         setCnpj(cnpj);
@@ -27,6 +29,7 @@ public class Fornecedor {
         setEndereco(endereco);
         setBairro(bairro);
         setCidade(cidade);
+        setInativo(inativo);
       
     }
     public String exibir(){
@@ -67,6 +70,14 @@ public class Fornecedor {
         return nome;
     }
 
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+    
     public void setNome(String nome) {
         this.nome = nome;
     }

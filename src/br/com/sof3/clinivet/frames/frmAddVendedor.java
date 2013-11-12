@@ -250,7 +250,7 @@ public class frmAddVendedor extends javax.swing.JFrame {
                          
                          try{
                  
-                             vendedor.cadastrar(dao.getIdVendedor(LoginAntigo),txtNome.getText(), txtLogin.getText(), txtSenha.getText());
+                             vendedor.cadastrar(dao.getIdVendedor(LoginAntigo),txtNome.getText(), txtLogin.getText(), txtSenha.getText(),false);
                  
                              dao.atualizaVendedor(vendedor);
 

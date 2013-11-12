@@ -149,6 +149,11 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,8 +240,8 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                     a.setNome(listan.get(aux).getNome());
                     a.setRaca(listan.get(aux).getRaca());
                     a.setTipoAnimal(listan.get(aux).getTipoAnimal());
-
-                    dtm.addRow(a.addTableConsulta());
+                    if(!listan.get(aux).isInativo())
+                        dtm.addRow(a.addTableConsulta());
                 }
 
             }
@@ -332,6 +337,41 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        List<Animal> ani = new LinkedList<>();
+        AnimalDAO adao = new AnimalDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaAnimal.getModel();
+        try{
+            if(tblBuscaAnimal.getSelectedRow()>=0 && tblBuscaAnimal.getSelectedRow()<tblBuscaAnimal.getRowCount()){
+            try{
+               ani = adao.getAnimalbyIDcod(Integer.parseInt(String.valueOf(dtm.getValueAt(tblBuscaAnimal.getSelectedRow(), 0))));
+               adao.inativarAnimais(ani.get(0).getId());
+               ani = adao.getAllAnimais();
+               limparTabela();
+               atualizarTabela(ani);
+      
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro no btnEditar");
+            }
+        }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+        }catch(Exception ex){
+            
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    public void atualizarTabela(List<Animal> animais){
+        DefaultTableModel dtm = (DefaultTableModel)tblBuscaAnimal.getModel();
+        for(int aux=0;aux<animais.size();aux++){
+                    if(!animais.get(aux).isInativo())
+                        dtm.addRow(animais.get(aux).addTableConsulta());
+                }
+    }
+    public void limparTabela(){
+        DefaultTableModel dtm =  (DefaultTableModel) tblBuscaAnimal.getModel();
+        int cont = dtm.getRowCount();
+            for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
+               dtm.removeRow(aux);
+            }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;

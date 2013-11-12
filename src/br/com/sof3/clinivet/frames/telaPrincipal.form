@@ -13,7 +13,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuCadastrarCliente">
               <Properties>
                 <Property name="mnemonic" type="int" value="117"/>
-                <Property name="text" type="java.lang.String" value="Usuario"/>
+                <Property name="text" type="java.lang.String" value="Vendedor"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuCadastrarClienteActionPerformed"/>
@@ -389,7 +389,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="185" max="32767" attributes="0"/>
+                  <EmptySpace pref="189" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

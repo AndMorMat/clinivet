@@ -374,7 +374,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -437,6 +437,7 @@ public class frmAddCliente extends javax.swing.JDialog {
                         cliente.setEndereco(txtEndereco.getText().toUpperCase());
                         cliente.setSms_inicio_consulta(sms_inicio_consulta.isSelected());
                         cliente.setSms_fim_consulta(sms_termino_consulta.isSelected());
+                        cliente.setInativo(false);
                         try{
                             cdao.adicionaCliente(cliente);
                         }catch(Exception ex){
@@ -479,7 +480,8 @@ public class frmAddCliente extends javax.swing.JDialog {
                                 txtBairro.getText().toUpperCase(),
                                 ci,
                                 sms_inicio_consulta.isSelected(),
-                                sms_termino_consulta.isSelected());
+                                sms_termino_consulta.isSelected(),
+                                false);
                         JOptionPane.showMessageDialog(null, "cliente cadastrado:\n\n"+cli.exibir());
                         cliDAO.atualizarCliente(cli);
                         setVisible(false);

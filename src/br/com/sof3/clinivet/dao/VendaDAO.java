@@ -5,9 +5,13 @@ import br.com.sof3.clinivet.entidade.VendaProduto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class VendaDAO extends GenericoDAO {
     
@@ -60,7 +64,19 @@ public class VendaDAO extends GenericoDAO {
         executeCommand(query, vp.getId(), vp.getVenda().getId(), vp.getProduto().getId(), vp.getQtd(), vp.getDesconto());
         return vp.getId();
     }
-    
+    public ArrayList  getIdVendaByIdCliente(int id_cliente){
+        ArrayList <Venda> toReturn = new ArrayList<>();
+        try {
+            ResultSet rs = executeQuery("select * from vendas where id_cliente = ?", id_cliente);
+            while (rs.next()){
+                toReturn.add(populateVenda(rs));
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar id_venda na classe VendaDAO: "+ex);
+        }
+        return toReturn;
+    }
     public List<Venda> getVendaByVendedor(int id_vendedor) throws SQLException {
         List<Venda> toReturn = new LinkedList<Venda>();
        

@@ -263,14 +263,14 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
 
         jMenuCadastrarCliente.setMnemonic('u');
-        jMenuCadastrarCliente.setText("Usuario");
+        jMenuCadastrarCliente.setText("Vendedor");
         jMenuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCadastrarClienteActionPerformed(evt);
