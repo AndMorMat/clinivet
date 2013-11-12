@@ -270,11 +270,12 @@ public class frmExibirCliente extends javax.swing.JFrame {
                animal.setRaca(ani.get(aux).getRaca());
                animal.setNome(ani.get(aux).getNome());//NomeAnimal não está exibindo correto
                animal.setSexo(ani.get(aux).getSexo());
-
-               dtm.addRow(animal.addTable());
-               cont++;
+               if(!ani.get(aux).isInativo()){
+                    dtm.addRow(animal.addTable());
+                    cont++;
+               }
             }
-            txtTotal.setText(String.valueOf(ani.size()));
+            txtTotal.setText(String.valueOf(cont));
             
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "Erro no try da classe frmExibirCliente Cadastrando animais");

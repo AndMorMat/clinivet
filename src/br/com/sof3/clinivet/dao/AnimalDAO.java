@@ -39,17 +39,24 @@ public class AnimalDAO extends GenericoDAO {
     public int adicionaAnimal(Animal an) throws SQLException {
         try{
             an.setId(getNextId("animais"));
-            String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, ID_RACA, ANO_NASCIMENTO, SEXO, ID_DONO) VALUES (?,?,?,?,?,?,?)";
-            executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.getDono().getId());
+            String query = "INSERT INTO animais (ID, NOME, TIPO_ANIMAL, ID_RACA, ANO_NASCIMENTO, SEXO, ID_DONO, INATIVO) VALUES (?,?,?,?,?,?,?,?)";
+            executeCommand(query, an.getId(), an.getNome(), an.getTipoAnimal(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.getDono().getId(),an.isInativo());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar animal no metodo adicionaAnimal na classe AnimalDAO"+ex);
         }
         return an.getId();
     }
-
+    public void inativarAnimais(int idAnimal) throws SQLException{
+        try{
+            executeCommand("update animais set inativo=? where id=?", true,idAnimal);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao inativar animal na classe animalDAO: "+ex);
+        }
+    }
+    /*
     public void removeAnimal(int idAnimal) throws SQLException {
         executeCommand("DELETE FROM animais WHERE ID = ?", idAnimal);
-    }
+    }*/
 
     public void atualizarAnimal(Animal an) throws SQLException {
         try{
@@ -129,6 +136,7 @@ public class AnimalDAO extends GenericoDAO {
         toReturn.setDataNasc(rs.getString("ANO_NASCIMENTO"));
         toReturn.setSexo(rs.getString("SEXO"));
         toReturn.setDono(clienteDAO.getCliente(rs.getInt("ID_DONO")));
+        toReturn.setInativo(rs.getBoolean("a.INATIVO"));
      
         return toReturn;
     }

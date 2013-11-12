@@ -10,6 +10,7 @@ public class Animal {
     private String data_nasc;
     private String sexo;
     private Cliente dono;
+    private boolean inativo;
     
     public Animal() {
         
@@ -44,7 +45,7 @@ public class Animal {
     }
     
     public Animal(Integer id, String nome, String tipoAnimal, Raca raca,
-            String data_nasc, String sexo, Cliente dono) {
+            String data_nasc, String sexo, Cliente dono, boolean inativo) {
         
         this.id = id;
         this.nome = nome;
@@ -53,12 +54,29 @@ public class Animal {
         this.data_nasc =  data_nasc;
         this.sexo = sexo;
         this.dono = dono;
+        this.inativo = inativo;
     }
 
     public Integer getId() {
         return id;
     }
 
+    public String getData_nasc() {
+        return data_nasc;
+    }
+
+    public void setData_nasc(String data_nasc) {
+        this.data_nasc = data_nasc;
+    }
+
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+    
     public void setId(Integer id) {
         this.id = id;
     }

@@ -249,7 +249,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblDono))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblNome)
                     .add(txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -323,7 +323,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
                     animal.setDataNasc((txtNasc.getText()));
                     animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
                     animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
-
+                    animal.setInativo(false);
                     dao.adicionaAnimal(animal);
                 
             } catch (Exception e) {
@@ -344,7 +344,8 @@ public class frmAddAnimal extends javax.swing.JDialog {
                                         racaDAO.getRaca(comboRaca.getSelectedItem().toString()),
                                         txtNasc.getText(),
                                         checkMacho.isSelected() ? "Macho" : "Fêmea",
-                                        clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+                                        clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0),
+                                        false);
                     ani.exibir();
                     aniDAO.atualizarAnimal(ani);
                 }catch(Exception ex){

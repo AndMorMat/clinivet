@@ -359,14 +359,9 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                             dtm.addRow(c.addTable());
                     } 
                 }
-                
-                
-
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmPesquisaCliente no botao buscar ");
             }
-        
-           
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 
     private void tblBuscaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaCliMouseClicked
@@ -383,7 +378,13 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
+<<<<<<< HEAD
+            frmExibirCliente frmExibir = new frmExibirCliente();
+            frmExibir.CadastrarDados(cli);
+            
+=======
            frmAddCliente frmAddCli = new frmAddCliente("editar",cli); 
+>>>>>>> fc9502a65fca91d8f2146c2a3fd0f3e5fae971fa
            
            
            

@@ -224,7 +224,8 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                                txtEmail.getText(),
                                txtEndereco.getText(),
                                txtBairro.getText(),
-                               ((Cidade) cbxCidade.getSelectedItem()));
+                               ((Cidade) cbxCidade.getSelectedItem()),
+                               false);
                 
                 fdao.adicionaFornecedor(forn);
                 
@@ -255,7 +256,8 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                                    txtEmail.getText(),
                                    txtEndereco.getText(),
                                    txtBairro.getText(),
-                                   ((Cidade) cbxCidade.getSelectedItem()));
+                                   ((Cidade) cbxCidade.getSelectedItem()),
+                                    false);
                     
                     fdao.atualizaFornecedor(forn);
                     
