@@ -431,7 +431,11 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
-            frmObservacoesExclusao frmObExclusao = new frmObservacoesExclusao();
+           
+           int result = JOptionPane.showConfirmDialog(this, "Todos os animais desse cliente também serão apagados.\nVocê tem certeza?","Excluir Cliente",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+           if (result==0){
+                frmObservacoesExclusao frmObExclusao = new frmObservacoesExclusao();
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Selecione um registro!");
         }
