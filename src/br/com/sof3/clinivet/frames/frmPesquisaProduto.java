@@ -18,6 +18,7 @@ import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
 import java.text.DecimalFormat;//Formatar numero decimal duas casas   
+import javax.swing.SwingConstants;
 /**
  *
  * @author xps-l502x
@@ -31,7 +32,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     
     public frmPesquisaProduto(String param) {
         initComponents();
-        setVisible(true);
+        
         setLocationRelativeTo(null);
         rbtNome.setSelected(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -39,7 +40,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         if(param.equals("pesquisar")){
             btnEditar.setVisible(false);
             btnExcluir.setVisible(false);
+            lblAviso.setVisible(false);
+            
         }
+        alinharTextBotao();
+        setVisible(true);
     }
 
     /**
@@ -72,6 +77,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         lblBuscaProdutos = new javax.swing.JLabel();
+        lblAviso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,7 +200,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscaPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(214, 255, 213));
@@ -243,6 +249,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/editarproduto.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +257,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/excluir-produto.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,13 +296,12 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditar)
-                        .addComponent(btnExcluir)))
+                        .addComponent(btnExcluir))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -308,6 +315,8 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         lblBuscaProdutos.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         lblBuscaProdutos.setText("Buscar Produtos");
 
+        lblAviso.setText("Pesquise um produto para editar ou excluir");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -315,18 +324,22 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(lblBuscaProdutos)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblAviso)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblBuscaProdutos)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscaProdutos)
+                    .addComponent(lblAviso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -551,6 +564,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
        ProdutoDAO produtoDAO = new ProdutoDAO();
         if(tblBuscaPro.getSelectedRow() >= 0 && tblBuscaPro.getSelectedRow() < tblBuscaPro.getRowCount()){
+            int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Excluir produto",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (result==2) return;
+            
             List<Produto> prod = new LinkedList<>();
             DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
             try{
@@ -571,7 +587,13 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                cbxTipoProduto.addItem(ep.getNome());
             }
     }
-
+    public void alinharTextBotao(){
+        
+        btnEditar.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnEditar.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnExcluir.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnExcluir.setHorizontalTextPosition(SwingConstants.CENTER);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
@@ -585,6 +607,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAviso;
     private javax.swing.JLabel lblBuscaProdutos;
     private javax.swing.JLabel lblQuant;
     private javax.swing.JLabel lblTotal;
