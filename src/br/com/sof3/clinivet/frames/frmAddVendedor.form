@@ -36,7 +36,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="be" green="ef" red="d5" type="rgb"/>
+          <Color blue="d5" green="ff" red="d6" type="rgb"/>
         </Property>
       </Properties>
 
@@ -56,7 +56,7 @@
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -85,7 +85,12 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a9" green="f0" red="d4" type="rgb"/>
+              <Color blue="c6" green="ef" red="c3" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
             </Property>
           </Properties>
 
@@ -183,6 +188,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu" size="36" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="9" green="82" red="2" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Vendedor"/>
           </Properties>
