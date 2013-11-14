@@ -24,9 +24,10 @@ public class ClienteDAO extends GenericoDAO {
         return cliente.getId();
     }
 
-    public void inativarCliente(int idCliente){
+    public void inativarCliente(int idCliente,String observacoes){
         try {
-            executeCommand("update clientes set inativo = ? where id = ?", true,idCliente);
+            executeCommand("update clientes set inativo = ?, observacoes =?  where id = ?", true,observacoes,idCliente);
+            executeCommand("update animais set inativo = ? where id_dono = ?",true,idCliente);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao definir cliente como inativo na classe ClienteDAO: "+ex);
         }
