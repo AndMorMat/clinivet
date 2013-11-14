@@ -181,4 +181,17 @@ public class ProdutoDAO extends GenericoDAO{
             JOptionPane.showMessageDialog(null, "Erro ao definir produto como inativo na classe ProdutoDAO: "+ex);
         }
     }
+     public boolean verificaCodigoRepedido(String cod){
+         boolean value=false;
+         try{
+             ResultSet rs = executeQuery("select * from produtos where codigo = ?", cod);
+             while(rs.next()){
+                 value=true;
+             }
+         }catch(Exception ex){
+             
+         }
+         
+     return value;
+     }
 }
