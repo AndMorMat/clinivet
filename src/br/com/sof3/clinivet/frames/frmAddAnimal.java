@@ -43,7 +43,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
         addEnumTipo();
         loadInitialData();
         carregaRacas();
-        
+        ocultarNotificacoes();
         
         //setDefaultCloseOperation(WIDTH);
         if(parametro.equals("editar")){
@@ -86,10 +86,12 @@ public class frmAddAnimal extends javax.swing.JDialog {
         checkFemea = new javax.swing.JRadioButton();
         lblTipoAnimal = new javax.swing.JLabel();
         lblRaca = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblValidacoesDono = new javax.swing.JLabel();
+        lblValidacoesNome = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblValidacoesAnoNasc = new javax.swing.JLabel();
+        auxNotificacao = new javax.swing.JLabel();
+        auxNotificacao2 = new javax.swing.JLabel();
         tituloAnimais = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -186,21 +188,29 @@ public class frmAddAnimal extends javax.swing.JDialog {
 
         lblRaca.setText("Raça:");
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Selecione um dono!");
+        lblValidacoesDono.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacoesDono.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacoesDono.setText("Selecione um dono!");
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setText("Nome não pode ser vazio!");
+        lblValidacoesNome.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacoesNome.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacoesNome.setText("Nome não pode ser vazio!");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(195, 239, 198));
         jLabel3.setText("jLabel1");
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel4.setText("Ano Nascimento");
+        lblValidacoesAnoNasc.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacoesAnoNasc.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacoesAnoNasc.setText("Ano Nascimento inválido ou vazio!");
+
+        auxNotificacao.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        auxNotificacao.setForeground(new java.awt.Color(195, 239, 198));
+        auxNotificacao.setText("aux");
+
+        auxNotificacao2.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        auxNotificacao2.setForeground(new java.awt.Color(195, 239, 198));
+        auxNotificacao2.setText("aux");
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -209,38 +219,42 @@ public class frmAddAnimal extends javax.swing.JDialog {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(lblDono)
+                    .add(lblNome)
+                    .add(lblTipoAnimal)
+                    .add(lblIdade))
+                .add(18, 18, 18)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(lblNome)
-                            .add(lblTipoAnimal)
-                            .add(lblIdade))
-                        .add(18, 18, 18)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel4)
-                                .add(188, 188, 188)
-                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(txtNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(comboTipoAnimal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblRaca)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(comboRaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 181, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 425, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2)
-                            .add(jLabel3)))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(lblDono)
-                        .add(18, 18, 18)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jLabel3)
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel1)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(btnFiltrarPor))
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 437, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                        .add(txtNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(comboTipoAnimal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(lblValidacoesAnoNasc))
+                                .add(17, 17, 17)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(lblRaca)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(comboRaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 181, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(auxNotificacao2)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(lblValidacoesDono)
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(btnFiltrarPor)
+                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 437, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(69, Short.MAX_VALUE))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(lblValidacoesNome)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(auxNotificacao)
+                        .add(90, 90, 90))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -248,13 +262,15 @@ public class frmAddAnimal extends javax.swing.JDialog {
                 .add(21, 21, 21)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(btnFiltrarPor)
-                    .add(jLabel1))
+                    .add(lblValidacoesDono))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 119, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel2))
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(lblValidacoesNome)
+                            .add(auxNotificacao)))
                     .add(lblDono))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -268,18 +284,18 @@ public class frmAddAnimal extends javax.swing.JDialog {
                     .add(comboTipoAnimal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblRaca)
                     .add(comboRaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(11, 11, 11)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(11, 11, 11)
-                        .add(jLabel4)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(lblValidacoesAnoNasc)
+                            .add(auxNotificacao2))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(lblIdade)
-                            .add(txtNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(94, 94, 94))
+                            .add(txtNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(101, 101, 101))
         );
 
         tituloAnimais.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
@@ -304,7 +320,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(25, 25, 25)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
@@ -317,19 +333,21 @@ public class frmAddAnimal extends javax.swing.JDialog {
                         .add(0, 0, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .add(25, 25, 25))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .add(tituloAnimais)
-                .add(18, 18, 18)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 353, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnCancelar)
-                    .add(btnOK)))
+                .addContainerGap(31, Short.MAX_VALUE)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(tituloAnimais)
+                        .add(18, 18, 18)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 353, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnOK))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnCancelar))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -427,18 +445,40 @@ public class frmAddAnimal extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         int anoAtual = cal.get(Calendar.YEAR);
         int erros=0;
+        if(!(tblClientes.getSelectedRow()>=0 && tblClientes.getSelectedRow()<tblClientes.getRowCount())){
+            lblValidacoesDono.setVisible(true);
+            erros++;
+        }else{
+            lblValidacoesDono.setVisible(false);
+        }
+        
         if(txtNome.getText().trim().length()==0){
-            JOptionPane.showMessageDialog(null, "Informe um nome!");
-            return false;
+            lblValidacoesNome.setVisible(true);
+            erros++;
+        }else{
+            lblValidacoesNome.setVisible(false);
         }
+        
         if(txtNasc.getText().trim().length()==0){
-            JOptionPane.showMessageDialog(null, "Campo ano nascimento não pode ser vazio!");
-            return false;
+            lblValidacoesAnoNasc.setText("Ano nascimento não pode ser vazio!");
+            lblValidacoesAnoNasc.setVisible(true);
+            erros++;
+        }else{
+            lblValidacoesAnoNasc.setVisible(false);
+            if(Integer.parseInt(txtNasc.getText()) < (anoAtual-200) || Integer.parseInt(txtNasc.getText())>anoAtual){
+                lblValidacoesAnoNasc.setText("Informe um ano valido!");
+                lblValidacoesAnoNasc.setVisible(true);
+                erros++;
+            }else{
+                lblValidacoesAnoNasc.setVisible(false);
+                
+            }
         }
-        if(Integer.parseInt(txtNasc.getText()) < (anoAtual-200) || Integer.parseInt(txtNasc.getText())>anoAtual){
-            JOptionPane.showMessageDialog(null, "Informe um ano valido!");
+        
+        
+        
+        if(erros>0)
             return false;
-        }
         return true;
     }
     private void comboTipoAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoAnimalActionPerformed
@@ -448,8 +488,14 @@ public class frmAddAnimal extends javax.swing.JDialog {
     private void btnFiltrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarPorActionPerformed
         frmFiltrarPor frFiltrarPor = new frmFiltrarPor("cliente");
     }//GEN-LAST:event_btnFiltrarPorActionPerformed
-
+    private void ocultarNotificacoes(){
+        lblValidacoesNome.setVisible(false);
+        lblValidacoesDono.setVisible(false);
+        lblValidacoesAnoNasc.setVisible(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel auxNotificacao;
+    private javax.swing.JLabel auxNotificacao2;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFiltrarPor;
     private javax.swing.JButton btnOK;
@@ -458,10 +504,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
     private javax.swing.ButtonGroup checkSexo;
     private javax.swing.JComboBox comboRaca;
     private javax.swing.JComboBox comboTipoAnimal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -471,6 +514,9 @@ public class frmAddAnimal extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblRaca;
     private javax.swing.JLabel lblTipoAnimal;
+    private javax.swing.JLabel lblValidacoesAnoNasc;
+    private javax.swing.JLabel lblValidacoesDono;
+    private javax.swing.JLabel lblValidacoesNome;
     public static javax.swing.JTable tblClientes;
     private javax.swing.JLabel tituloAnimais;
     private javax.swing.JFormattedTextField txtNasc;
