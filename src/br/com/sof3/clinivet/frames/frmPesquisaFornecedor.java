@@ -56,7 +56,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblNomeVendedor.setText("Buscar Clientes:");
+        lblNomeVendedor.setText("Buscar fornecedor");
 
         buttonGroup1.add(rbtNome);
         rbtNome.setText("Nome");
