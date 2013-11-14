@@ -9,7 +9,7 @@ public class Fornecedor {
     private String endereco;
     private String bairro;
     private Cidade cidade;
-    private Estado estado;
+    
     private boolean inativo;
     
     public Fornecedor() {
@@ -52,7 +52,7 @@ public class Fornecedor {
         this.endereco = endereco;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.estado = estado;
+        
     }
     public String[] addTable(){
         String [] dados={nome,cnpj,telefone,email};
@@ -130,11 +130,5 @@ public class Fornecedor {
         this.cidade = cidade;
     }
 
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+    
 }
