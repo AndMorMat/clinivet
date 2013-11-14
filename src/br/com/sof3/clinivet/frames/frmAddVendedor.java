@@ -66,9 +66,10 @@ public class frmAddVendedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(213, 239, 190));
+        jPanel2.setBackground(new java.awt.Color(214, 255, 213));
 
-        jPanel1.setBackground(new java.awt.Color(212, 240, 169));
+        jPanel1.setBackground(new java.awt.Color(195, 239, 198));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblLogin.setText("Login:");
 
@@ -125,6 +126,7 @@ public class frmAddVendedor extends javax.swing.JFrame {
         );
 
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(2, 130, 9));
         lblTitulo.setText("Cadastrar Vendedor");
 
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/icone-novo-usuario.png"))); // NOI18N
@@ -157,7 +159,7 @@ public class frmAddVendedor extends javax.swing.JFrame {
                         .addContainerGap()
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(43, 43, 43)
+                        .addContainerGap()
                         .add(lblTitulo)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

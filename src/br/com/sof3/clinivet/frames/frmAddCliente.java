@@ -36,7 +36,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         
         
         initComponents();
-        
+        ocultarNotificacoes();
         txtNome.requestFocus();
         carregaEstados();
         carregaCidades();
@@ -92,6 +92,22 @@ public class frmAddCliente extends javax.swing.JDialog {
         txtDataNasc = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
         txtCelular = new javax.swing.JFormattedTextField();
+        lblValidacaoNome = new javax.swing.JLabel();
+        lblValidacaoNascimento = new javax.swing.JLabel();
+        lblValidacaoEmail = new javax.swing.JLabel();
+        lblValidacaoSobrenome = new javax.swing.JLabel();
+        lblValidacaoCpf = new javax.swing.JLabel();
+        lblValidacaoEndereco = new javax.swing.JLabel();
+        lblValidacaoBairro = new javax.swing.JLabel();
+        lblAuxNovificacao = new javax.swing.JLabel();
+        lblAuxNovificacao1 = new javax.swing.JLabel();
+        lblAuxNovificacao2 = new javax.swing.JLabel();
+        lblAuxNovificacao3 = new javax.swing.JLabel();
+        lblAuxNovificacao4 = new javax.swing.JLabel();
+        lblAuxNovificacao5 = new javax.swing.JLabel();
+        lblAuxNovificacao6 = new javax.swing.JLabel();
+        lblAuxNovificacao7 = new javax.swing.JLabel();
+        lblAuxNovificacao8 = new javax.swing.JLabel();
         tituloCadastroCliente = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnOK = new javax.swing.JButton();
@@ -104,17 +120,17 @@ public class frmAddCliente extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(214, 255, 213));
 
         jPanel1.setBackground(new java.awt.Color(195, 239, 198));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados pessoais"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setForeground(new java.awt.Color(80, 80, 80));
 
         lblRua.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        lblRua.setText("Endereço:");
+        lblRua.setText("Endereço:*");
 
         lblCidade.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblCidade.setText("Cidade:");
 
         lblBairro.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        lblBairro.setText("Bairro:");
+        lblBairro.setText("Bairro:*");
 
         comboCidades.setToolTipText("");
         comboCidades.addActionListener(new java.awt.event.ActionListener() {
@@ -141,13 +157,13 @@ public class frmAddCliente extends javax.swing.JDialog {
         });
 
         lblNome.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        lblNome.setText("Nome:");
+        lblNome.setText("Nome:*");
 
         lblSobrenome.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        lblSobrenome.setText("Sobrenome:");
+        lblSobrenome.setText("Sobrenome:*");
 
         lblCPF.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        lblCPF.setText("CPF:");
+        lblCPF.setText("CPF:*");
 
         lblTelefone.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lblTelefone.setText("Telefone:");
@@ -196,7 +212,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         );
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel1.setText("Data Nasc.");
+        jLabel1.setText("Data Nasc.:*");
 
         try {
             txtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -226,112 +242,237 @@ public class frmAddCliente extends javax.swing.JDialog {
             }
         });
 
+        lblValidacaoNome.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoNome.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoNome.setText("Nome não pode ser vazio");
+
+        lblValidacaoNascimento.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoNascimento.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoNascimento.setText("Data de Nascimento não pode ser vazio");
+
+        lblValidacaoEmail.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoEmail.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoEmail.setText("Email Inválido");
+
+        lblValidacaoSobrenome.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoSobrenome.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoSobrenome.setText("Sobrenome não pode ser vazio");
+
+        lblValidacaoCpf.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoCpf.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoCpf.setText("CPF está vazio ou inválido");
+
+        lblValidacaoEndereco.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoEndereco.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoEndereco.setText("Endereço não pode ser vazio");
+
+        lblValidacaoBairro.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblValidacaoBairro.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacaoBairro.setText("Bairro não pode ser vazio");
+
+        lblAuxNovificacao.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao.setText("aux");
+
+        lblAuxNovificacao1.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao1.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao1.setText("aux");
+
+        lblAuxNovificacao2.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao2.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao2.setText("aux");
+
+        lblAuxNovificacao3.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao3.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao3.setText("aux");
+
+        lblAuxNovificacao4.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao4.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao4.setText("aux");
+
+        lblAuxNovificacao5.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao5.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao5.setText("aux");
+
+        lblAuxNovificacao6.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao6.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao6.setText("aux");
+
+        lblAuxNovificacao7.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao7.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao7.setText("aux");
+
+        lblAuxNovificacao8.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblAuxNovificacao8.setForeground(new java.awt.Color(195, 239, 198));
+        lblAuxNovificacao8.setText("aux");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(22, 22, 22)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createSequentialGroup()
+                        .add(22, 22, 22)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblTelefone)
-                            .add(lblEmail)
-                            .add(lblEstado))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblEmail)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblEstado))
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(24, 24, 24)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 206, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                        .add(jPanel1Layout.createSequentialGroup()
+                                            .add(lblValidacaoEmail)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(lblAuxNovificacao6))
+                                        .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(lblAuxNovificacao4))
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jPanel1Layout.createSequentialGroup()
-                                        .add(11, 11, 11)
-                                        .add(comboEstados, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(9, 9, 9)
-                                        .add(lblCidade)
-                                        .add(2, 2, 2)
-                                        .add(comboCidades, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                                        .add(22, 22, 22)
+                                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(lblCelular)
+                                            .add(lblRua)))
                                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 206, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(155, 155, 155)))
-                                .add(lblBairro)
-                                .add(5, 5, 5)
-                                .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(lblAuxNovificacao5))))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(23, 23, 23)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel1Layout.createSequentialGroup()
+                                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(0, 0, Short.MAX_VALUE))
+                                    .add(jPanel1Layout.createSequentialGroup()
+                                        .add(comboEstados, 0, 139, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(lblCidade)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(comboCidades, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(9, 9, 9)
+                                        .add(lblBairro)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(jPanel1Layout.createSequentialGroup()
+                                                .add(lblValidacaoBairro)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .add(lblAuxNovificacao8))
+                                            .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(7, 7, 7)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel1)
+                            .add(lblNome))
+                        .add(18, 18, 18)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(txtNome)
+                                    .add(txtDataNasc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblSobrenome)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCPF)))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(23, 23, 23)
-                                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(lblRua)
-                                            .add(lblCelular)))
+                                        .add(lblValidacaoNome)
+                                        .add(64, 64, 64)
+                                        .add(lblAuxNovificacao))
                                     .add(jPanel1Layout.createSequentialGroup()
-                                        .add(11, 11, 11)
-                                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .add(0, 0, Short.MAX_VALUE))))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel1)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblNome))
-                        .add(1, 1, 1)
+                                        .add(lblValidacaoNascimento)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(lblAuxNovificacao1)))
+                                .add(0, 0, Short.MAX_VALUE)))
+                        .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(txtNome)
-                            .add(txtDataNasc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(lblSobrenome)
-                            .add(lblCPF))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(lblValidacaoSobrenome)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(lblAuxNovificacao3))
                             .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(txtSobrenome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(txtCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 259, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(lblValidacaoEndereco)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(lblAuxNovificacao7))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(lblValidacaoCpf)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(lblAuxNovificacao2)))))
                 .add(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(15, 15, 15)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblValidacaoNome)
+                    .add(lblValidacaoSobrenome)
+                    .add(lblAuxNovificacao)
+                    .add(lblAuxNovificacao3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblSobrenome)
                     .add(lblNome)
                     .add(txtSobrenome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblValidacaoNascimento)
+                    .add(lblValidacaoCpf)
+                    .add(lblAuxNovificacao1)
+                    .add(lblAuxNovificacao2))
+                .add(2, 2, 2)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(txtDataNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblCPF))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblAuxNovificacao4)
+                    .add(lblAuxNovificacao5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblTelefone)
+                    .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblCelular)
+                    .add(txtCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCPF)
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                .add(jLabel1)
-                                .add(txtDataNasc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(18, 18, 18)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lblTelefone)
-                            .add(txtTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblCelular)
-                            .add(txtCelular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(18, 18, 18)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(lblRua))
-                            .add(lblEmail))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(comboCidades, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblCidade)
-                            .add(comboEstados, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblEstado)))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(lblBairro)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(lblValidacaoEmail)
+                        .add(lblAuxNovificacao6))
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(lblValidacaoEndereco)
+                        .add(lblAuxNovificacao7)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(lblRua)
+                        .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblEmail))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblValidacaoBairro)
+                    .add(lblAuxNovificacao8))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblBairro)
+                    .add(comboCidades, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblCidade)
+                    .add(comboEstados, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblEstado))
+                .add(18, 18, 18)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(26, 26, 26))
         );
 
         tituloCadastroCliente.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -358,7 +499,7 @@ public class frmAddCliente extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(btnOK, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -367,14 +508,14 @@ public class frmAddCliente extends javax.swing.JDialog {
                     .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(tituloCadastroCliente)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -401,12 +542,10 @@ public class frmAddCliente extends javax.swing.JDialog {
         
         ClienteDAO cdao = new ClienteDAO();//Consultar banco de clientes
         int duplicidadeCPF = 0;//Validador de cpf duplicado
-        
-        if(txtNome.getText().trim().equals("") || txtSobrenome.getText().trim().equals("") ||
-                txtCPF.getText().trim().equals("") || txtEndereco.getText().trim().equals("") ||
-                txtBairro.getText().trim().equals("") || txtCPF.getText().substring(0).equals("   .   .   -  ")){//substring verifica cPf nulo
-                JOptionPane.showMessageDialog(null, "Campos Obrigatórios: Nome, Sobrenome, CPF, Endereço, Bairro");
-        }else{      
+        if(!verificaCampos()){
+            JOptionPane.showMessageDialog(null, "Corrija todos os erros antes de continuar!");
+            return;
+        }      
         try {                     
                 if(param.equals("cadastrar")){
                      if(cdao.getCPFDuplicado(txtCPF.getText().toString())){//Consultando no banco o CPf
@@ -492,10 +631,79 @@ public class frmAddCliente extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(frmAddCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao conectar com banco de dados cliente da frmAddCliente");
-        }}
+        }
         
     }//GEN-LAST:event_btnOKActionPerformed
-
+    private void ocultarNotificacoes(){
+        lblValidacaoNome.setVisible(false);
+        lblValidacaoSobrenome.setVisible(false);
+        lblValidacaoNascimento.setVisible(false);
+        lblValidacaoCpf.setVisible(false);
+        lblValidacaoEmail.setVisible(false);
+        lblValidacaoEndereco.setVisible(false);
+        lblValidacaoBairro.setVisible(false);
+    }
+    private boolean verificaCampos(){
+        int erros=0;
+        if(txtNome.getText().isEmpty()){
+            lblValidacaoNome.setVisible(true);
+            erros++;
+        }else{
+            lblValidacaoNome.setVisible(false);
+            
+        }
+        
+        if(txtSobrenome.getText().isEmpty()){
+            erros++;
+            lblValidacaoSobrenome.setVisible(true);
+        }else{
+            lblValidacaoSobrenome.setVisible(false);
+        }
+//        if(txtDataNasc.getText().trim().equals("")){
+//            erros++;
+//            lblValidacaoNascimento.setVisible(true);
+//        }else{
+//            lblValidacaoNascimento.setVisible(false);
+//        }
+        if(txtCPF.getText().trim().equals("")){
+            erros++;
+            lblValidacaoCpf.setVisible(true);
+        }else{
+            lblValidacaoCpf.setVisible(false);
+        }
+        
+        if(txtEndereco.getText().trim().equals("")){
+            erros++;
+            lblValidacaoEndereco.setVisible(true);
+        }else{
+            lblValidacaoEndereco.setVisible(false);
+        }
+            
+                
+        if(txtBairro.getText().trim().equals("")){
+            erros++;
+            lblValidacaoBairro.setVisible(true);
+        }else{
+            lblValidacaoBairro.setVisible(false);
+        }
+        
+        if(txtDataNasc.getText().trim().length()!=10){
+            erros++;
+            lblValidacaoNascimento.setVisible(true);
+        }else{
+            lblValidacaoNascimento.setVisible(false);
+        }
+            
+        if(txtCPF.getText().substring(0).equals("   .   .   -  ")){
+            erros++;
+            lblValidacaoCpf.setVisible(true);
+        }else{
+            lblValidacaoCpf.setVisible(false);
+        }
+        if(erros>0)
+            return false;
+        return true;
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -527,10 +735,18 @@ public class frmAddCliente extends javax.swing.JDialog {
                                                                   txtEmail.getText().length()));
                                                           if ((usuario.length() >=1) && (!usuario.contains("@")) && (dominio.contains(".")) && (!dominio.contains("@"))
                                                                   && (dominio.indexOf(".") >= 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) { 
-                                                                  
-                                                          } else { txtEmail.setText("E-MAIL INVÁLIDO");
+                                                                  lblValidacaoEmail.setVisible(false);
+                                                          } else { 
+                                                              txtEmail.setText("E-MAIL INVÁLIDO");
                                                           } 
-        }else { txtEmail.setText("E-MAIL INVÁLIDO");  }
+           lblValidacaoEmail.setVisible(false);
+        }else{
+            
+            lblValidacaoEmail.setVisible(true);
+        }
+        if(txtEmail.getText().isEmpty()){
+           lblValidacaoEmail.setVisible(false); 
+        }
     }//GEN-LAST:event_txtEmailFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -542,6 +758,15 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblAuxNovificacao;
+    private javax.swing.JLabel lblAuxNovificacao1;
+    private javax.swing.JLabel lblAuxNovificacao2;
+    private javax.swing.JLabel lblAuxNovificacao3;
+    private javax.swing.JLabel lblAuxNovificacao4;
+    private javax.swing.JLabel lblAuxNovificacao5;
+    private javax.swing.JLabel lblAuxNovificacao6;
+    private javax.swing.JLabel lblAuxNovificacao7;
+    private javax.swing.JLabel lblAuxNovificacao8;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCelular;
@@ -552,6 +777,13 @@ public class frmAddCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblSobrenome;
     private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblValidacaoBairro;
+    private javax.swing.JLabel lblValidacaoCpf;
+    private javax.swing.JLabel lblValidacaoEmail;
+    private javax.swing.JLabel lblValidacaoEndereco;
+    private javax.swing.JLabel lblValidacaoNascimento;
+    private javax.swing.JLabel lblValidacaoNome;
+    private javax.swing.JLabel lblValidacaoSobrenome;
     private javax.swing.JCheckBox sms_inicio_consulta;
     private javax.swing.JCheckBox sms_termino_consulta;
     private javax.swing.JLabel tituloCadastroCliente;
@@ -605,8 +837,6 @@ public class frmAddCliente extends javax.swing.JDialog {
         }
         
     }
-
-   
     private void carregaEstados() {
 
         // carrega combo de estados
@@ -623,22 +853,6 @@ public class frmAddCliente extends javax.swing.JDialog {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de estados");
         }
-        /*
-        try {
-            
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            Vector<Cidade> cidades = new Vector<Cidade>(cidadeDAO.getAllCidades());
-            String[] nomes = new String[cidades.size()];
-            for(int aux=0; aux<cidades.size();aux++){
-                nomes[aux] = cidades.get(aux).getNome();
-            }
-            
-            DefaultComboBoxModel comboCidade = new DefaultComboBoxModel(nomes);
-            comboCidades.setModel(comboCidade);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar a lista de cidades");
-        }
+       
     }
-*/}
 }
