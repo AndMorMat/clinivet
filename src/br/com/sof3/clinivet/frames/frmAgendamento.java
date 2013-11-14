@@ -542,6 +542,7 @@ public class frmAgendamento extends javax.swing.JFrame {
             agendas = agendaDAO.buscarAgendamentosDia(dataFormatada);
             limparTabela();
             atualizarTabela(agendas);
+            lblCodigoServico.setText("Codigo: " + agendaDAO.getCodigo());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Erro ao fazer agendamento no botão agendar na classe frmAgendamento: "+ ex);
         }

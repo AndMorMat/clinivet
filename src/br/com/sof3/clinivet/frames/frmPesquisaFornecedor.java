@@ -76,6 +76,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setToolTipText("Buscar um fornecedor");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -114,6 +115,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblFornecedor);
 
         btnUltimosCad.setText("Ultimos Cadastros");
+        btnUltimosCad.setToolTipText("Exibir ultimos cadastros");
         btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUltimosCadActionPerformed(evt);
@@ -121,6 +123,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.setToolTipText("Editar fornecedor selecionado");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -128,6 +131,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setToolTipText("Excluir fornecedor selecionado");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);

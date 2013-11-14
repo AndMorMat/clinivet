@@ -300,6 +300,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNome">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCnpj">
               <Properties>
@@ -516,6 +519,7 @@
               <Image iconType="3" name="/br/com/sof3/clinivet/frames/Imagens/adicionar_fornecedor_botao.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="OK"/>
+            <Property name="toolTipText" type="java.lang.String" value="Adicionar um novo fornecedor"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
@@ -524,6 +528,7 @@
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cancelar cadastramento"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>

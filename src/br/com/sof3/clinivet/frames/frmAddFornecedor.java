@@ -131,6 +131,8 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
+        txtNome.setToolTipText("");
+
         lblCnpj.setText("CNPJ:");
 
         try {
@@ -347,6 +349,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/adicionar_fornecedor_botao.png"))); // NOI18N
         btnCadastrar.setText("OK");
+        btnCadastrar.setToolTipText("Adicionar um novo fornecedor");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -354,6 +357,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancelar");
+        jButton2.setToolTipText("Cancelar cadastramento");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

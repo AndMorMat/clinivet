@@ -41,6 +41,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblTotalDeAgend = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +88,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         tbl_horarios.getColumnModel().getColumn(1).setPreferredWidth(800);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setToolTipText("Filtrar agendamentos pela data");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -97,6 +99,9 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
         jLabel1.setText("Consultar Agendamentos");
 
         lblTotalDeAgend.setText("Total de agendamentos: ");
+
+        jButton1.setText("Avisar término");
+        jButton1.setToolTipText("Enviar sms ao cliente, notificando término da consulta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +114,9 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
                     .addComponent(jLabel1)
                     .addComponent(lblTotalDeAgend))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -122,7 +129,9 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -188,6 +197,7 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private com.toedter.calendar.JDateChooser data;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotalDeAgend;
