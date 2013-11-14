@@ -29,7 +29,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
     public frmPesquisaAnimal(String parametro) {
         initComponents();
         alinharTextBotao();
-        setVisible(true);
+        
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
@@ -40,6 +40,7 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             btnEditar.setVisible(false);
             btnExcluir.setVisible(false);
         }
+        setVisible(true);
     }
 
     /**
@@ -104,7 +105,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
         tblBuscaAnimal.getColumnModel().getColumn(0).setPreferredWidth(2);
         tblBuscaAnimal.getColumnModel().getColumn(1).setPreferredWidth(200);
 
-        btnUltimosCad.setBackground(new java.awt.Color(168, 252, 173));
         btnUltimosCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"))); // NOI18N
         btnUltimosCad.setText("Ultimos Cadastros");
         btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(168, 252, 173));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/editar_animal.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +121,6 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(168, 252, 173));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/excluir_animal.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {

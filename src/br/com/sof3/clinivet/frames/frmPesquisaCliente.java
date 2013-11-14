@@ -78,7 +78,6 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(214, 255, 213));
 
-        btnUltimosCad.setBackground(new java.awt.Color(168, 252, 173));
         btnUltimosCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"))); // NOI18N
         btnUltimosCad.setText("Ultimos Cadastros");
         btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +86,6 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(168, 252, 173));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/editar_usuario.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +94,6 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(168, 252, 173));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/excluir_usuario.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {

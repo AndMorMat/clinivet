@@ -20,13 +20,13 @@ public class VendedorDAO extends GenericoDAO {
    public boolean isValidLoginSenha(String login, String senha) throws SQLException {
       
         boolean toReturn = false;
-        String sql = "SELECT * FROM vendedores WHERE login = \"" + login + "\" AND senha = \""+ senha +"\";";
+        String sql = "SELECT * FROM vendedores WHERE login = ? AND senha = md5(?)";
         
         
         //JOptionPane.showMessageDialog(null, sql);
         
         
-        ResultSet rs = executeQuery(sql);
+        ResultSet rs = executeQuery(sql,login,senha);
         
         
         if (rs.next()) {
@@ -41,7 +41,7 @@ public class VendedorDAO extends GenericoDAO {
         try{
             vendedor.setId(getNextId("vendedores"));
             
-            String query = "INSERT INTO vendedores (ID, NOME, LOGIN, SENHA,INATIVO) values (?,?,?,?,?)";
+            String query = "INSERT INTO vendedores (ID, NOME, LOGIN, SENHA,INATIVO) values (?,?,?,md5(?),?)";
 
             executeCommand(query, vendedor.getId(), vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(),vendedor.isInativo());
 
