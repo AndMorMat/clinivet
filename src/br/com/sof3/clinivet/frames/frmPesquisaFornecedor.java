@@ -42,6 +42,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         lblNomeVendedor = new javax.swing.JLabel();
         rbtNome = new javax.swing.JRadioButton();
         rbtCpf = new javax.swing.JRadioButton();
@@ -57,6 +58,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
 
         lblNomeVendedor.setText("Buscar Clientes:");
 
+        buttonGroup1.add(rbtNome);
         rbtNome.setText("Nome");
         rbtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +66,8 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(rbtCpf);
+        rbtCpf.setSelected(true);
         rbtCpf.setText("CNPJ");
         rbtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -319,13 +323,13 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
             fornecedor = fdao.getAllFornecedores();
 
             for(int aux=0 ;aux<fornecedor.size();aux++){
-                if(aux<6){
+                
                     forn.setNome(fornecedor.get(aux).getNome());
                     forn.setCnpj(fornecedor.get(aux).getCnpj());
                     forn.setTelefone(fornecedor.get(aux).getTelefone());
                     if(!fornecedor.get(aux).isInativo())
                         dtm.addRow(forn.addTable());
-                }
+                
 
             }
 
@@ -389,6 +393,7 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnUltimosCad;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeVendedor;
     private javax.swing.JRadioButton rbtCpf;

@@ -289,7 +289,8 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Informe somente números");
                         }
                 }else if(rbtNome.isSelected()){//Procura por Nome
-                    listan = anidao.getAnimalByName(txtBuscaAnimais.getText());
+                    
+                         listan = anidao.getAnimalByName(txtBuscaAnimais.getText());
                     
                 }else{
                     listan = anidao.getAnimalbyTipoAni(txtBuscaAnimais.getText());
@@ -300,9 +301,10 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
                     a.setNome(listan.get(aux).getNome());
                     a.setRaca(listan.get(aux).getRaca());
                     a.setTipoAnimal(listan.get(aux).getTipoAnimal());
-
-                    dtm.addRow(a.addTableConsulta());
-                    cont++;
+                    if(!listan.get(aux).isInativo()){
+                        dtm.addRow(a.addTableConsulta());
+                        cont++;
+                    }
                 }
 
                 if(cont==0)//para exibir caso procura não exiba nada

@@ -314,9 +314,10 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                         c.setNome(cli.get(aux).getNome());
                         c.setCpf(cli.get(aux).getCpf());
                         c.setTelefone(cli.get(aux).getTelefone());
-
-                        dtm.addRow(c.addTable());
-                        cont++;
+                        if(!cli.get(aux).isInativo()){
+                            dtm.addRow(c.addTable());
+                            cont++;
+                        }
                     }
                     if(cont==0)//para exibir caso procura não exiba nada
                          JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
@@ -409,7 +410,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Erro no btnEditar");
                 }
-            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente para editar");
+            }else JOptionPane.showMessageDialog(null, "Selecione um registro!");
         }else if(param.equals("agendar")){
             List<Cliente> cli = new LinkedList<>();
             //ClienteDAO cdao = new ClienteDAO();
@@ -423,27 +424,19 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Erro no btnEditar");
                 }
-            }else JOptionPane.showMessageDialog(null, "Selecione um Cliente");
+            }else JOptionPane.showMessageDialog(null, "Selecione um registro!");
             
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
-            List<Cliente> cli = new LinkedList<>();
-            DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
-            try{
-                 cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
-                 cdao.inativarCliente(cli.get(0).getId());
-                 cli = cdao.getAllClientes();
-                 limparTabela();
-                 atualizarTabela(cli);
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"Erro ao excluir cliente na classe frmPesquisaCliente"+ ex);
-            }
+            frmObservacoesExclusao frmObExclusao = new frmObservacoesExclusao();
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione um registro");
+            JOptionPane.showMessageDialog(null, "Selecione um registro!");
         }
+        
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
     public void atualizarTabela(List<Cliente> clientes){
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
@@ -480,7 +473,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeVendedor;
     private javax.swing.JRadioButton rbtCpf;
     private javax.swing.JRadioButton rbtNome;
-    private javax.swing.JTable tblBuscaCli;
+    public static javax.swing.JTable tblBuscaCli;
     private javax.swing.JTextField txtBuscaCliente;
     // End of variables declaration//GEN-END:variables
 }

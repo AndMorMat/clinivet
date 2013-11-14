@@ -193,7 +193,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<fornecedor.size();aux++)
-                            dtm.addRow(fornecedor.get(aux).addTable());
+                            if(!fornecedor.get(aux).isInativo())
+                                dtm.addRow(fornecedor.get(aux).addTable());
                     }
                 }else if(rbtCnpj.isSelected()){
 
@@ -204,7 +205,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<fornecedor.size();aux++)
-                            dtm.addRow(fornecedor.get(aux).addTable());
+                            if(!fornecedor.get(aux).isInativo())
+                                dtm.addRow(fornecedor.get(aux).addTable());
                     }
                 }else if(rbtTelefone.isSelected()){
                     fornecedor = fdao.FiltrarFornecedorTelefone(txtParametro.getText());
@@ -214,7 +216,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<fornecedor.size();aux++)
-                            dtm.addRow(fornecedor.get(aux).addTable());
+                            if(!fornecedor.get(aux).isInativo())
+                                dtm.addRow(fornecedor.get(aux).addTable());
                     }
                 }else{
                     fornecedor = fdao.FiltrarFornecedorNome("");//mandar Parametro em branco ele filtra todos
@@ -224,7 +227,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<fornecedor.size();aux++)
-                            dtm.addRow(fornecedor.get(aux).addTable());
+                            if(!fornecedor.get(aux).isInativo())
+                                dtm.addRow(fornecedor.get(aux).addTable());
                     }
 
                 }
@@ -253,7 +257,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<cliente.size();aux++)
-                            dtm.addRow(cliente.get(aux).addTable());
+                            if(!cliente.get(aux).isInativo())
+                                dtm.addRow(cliente.get(aux).addTable());
                     }
                 }else if(rbtCnpj.isSelected()){
 
@@ -264,7 +269,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<cliente.size();aux++)
-                            dtm.addRow(cliente.get(aux).addTable());
+                            if(!cliente.get(aux).isInativo())
+                                dtm.addRow(cliente.get(aux).addTable());
                     }
                 }else if(rbtTelefone.isSelected()){
                     cliente = clienteDAO.getClientesByTelefone(txtParametro.getText());
@@ -274,7 +280,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<cliente.size();aux++)
-                            dtm.addRow(cliente.get(aux).addTable());
+                            if(!cliente.get(aux).isInativo())
+                                dtm.addRow(cliente.get(aux).addTable());
                     }
                 }else{
                     cliente = clienteDAO.getClientesByName("");//mandar parametro em branco ele busca todos
@@ -286,7 +293,8 @@ public class frmFiltrarPor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
                     }else{
                         for(int aux=0;aux<cliente.size();aux++)
-                            dtm.addRow(cliente.get(aux).addTable());
+                            if(!cliente.get(aux).isInativo())
+                                dtm.addRow(cliente.get(aux).addTable());
                     }
                 }
                 

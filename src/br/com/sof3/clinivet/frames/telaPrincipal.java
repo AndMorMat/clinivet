@@ -16,6 +16,7 @@ import br.com.sof3.clinivet.entidade.Produto;
 import br.com.sof3.clinivet.entidade.Vendedor;
 import com.twilio.sdk.TwilioRestException;
 import java.awt.Frame;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -145,6 +146,11 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         jLabel1.setForeground(new java.awt.Color(254, 73, 34));
         jLabel1.setText("Sair");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/icone-usuario.png"))); // NOI18N
         jLabel2.setToolTipText("");
@@ -263,8 +269,11 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(20, 20, 20));
+        jMenuBar1.setForeground(new java.awt.Color(1, 1, 1));
 
         jMenuCadastrarUsuario.setMnemonic('c');
         jMenuCadastrarUsuario.setText("Cadastrar");
@@ -687,6 +696,20 @@ public class telaPrincipal extends javax.swing.JDialog {
         frmPesquisaParaEnviarSMS pesquisaEnvioSMS = new frmPesquisaParaEnviarSMS();
         pesquisaEnvioSMS.setVisible(true);
     }//GEN-LAST:event_menuEnviarSMSActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        try {
+            setVisible(false);
+            frmLogin frmLogin = new frmLogin(new javax.swing.JFrame(), true);
+            frmLogin.setVisible(true);
+            if(vdao.isValidLoginSenha(frmLogin.usuarioLogado(), frmLogin.senhaUsuario())){
+                lblUsuarioLogado.setText("Usuario: "+frmLogin.usuarioLogado());
+                setVisible(true);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao reabrir tela de login: "+ex);
+        }
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
