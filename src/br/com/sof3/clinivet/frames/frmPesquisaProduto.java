@@ -403,7 +403,6 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 
                 for(int aux =0;aux<pro.size();aux++){
                     if(!pro.get(aux).isInativo()){
-                        JOptionPane.showMessageDialog(null, "Passou: "+aux);
                         p.setCodigo(pro.get(aux).getCodigo());
                         p.setNome(pro.get(aux).getNome());
                         p.setTipoProduto(pro.get(aux).getTipoProduto());

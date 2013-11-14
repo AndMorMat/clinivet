@@ -45,9 +45,9 @@ public class frmAgendamento extends javax.swing.JFrame {
         desabilitarCamposAnimal();
         desabilitarCamposCliente();
         desabilitarCamposServico();
-        setVisible(true);
         setDefaultCloseOperation(WIDTH);
         setLocationRelativeTo(null);
+        setVisible(true);
         
     }
 

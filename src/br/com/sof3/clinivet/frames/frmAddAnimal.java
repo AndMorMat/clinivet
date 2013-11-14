@@ -58,9 +58,10 @@ public class frmAddAnimal extends javax.swing.JDialog {
         }
          
         setLocationRelativeTo(null);
-        setVisible(true);
+        
         txtNome.requestFocus();
         tblClientes.setRowSelectionInterval(0, 0);
+        setVisible(true);
         
         
     }

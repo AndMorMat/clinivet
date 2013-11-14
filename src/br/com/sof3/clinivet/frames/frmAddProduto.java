@@ -33,7 +33,7 @@ public class frmAddProduto extends javax.swing.JFrame {
         produtoAntigo = prod;
         initComponents();
         ocultarNotificacoes();
-        setVisible(true);
+        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
         loadInitialTableData();
@@ -49,7 +49,7 @@ public class frmAddProduto extends javax.swing.JFrame {
             lblCadastrarProd.setText("Editar produto");
         }
         
-        
+        setVisible(true);
         
     }
     

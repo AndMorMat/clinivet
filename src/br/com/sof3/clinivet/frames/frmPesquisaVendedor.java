@@ -38,7 +38,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
         initComponents();
         alinharTextBotao();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setVisible(true);
+        
         setLocationRelativeTo(null);
         rbtNome.setSelected(true);
         if(parametro.equals("editar")){//configurações carregadas caso o parametro for editar
@@ -49,6 +49,7 @@ public class frmPesquisaVendedor extends javax.swing.JFrame {
             btnExcluir.setVisible(false);
             lblBuscarVendedor.setText("Buscar Vendedor");
         }
+        setVisible(true);
     }
 
     /**
