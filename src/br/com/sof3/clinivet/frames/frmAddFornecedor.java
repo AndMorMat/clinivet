@@ -13,10 +13,13 @@ import br.com.sof3.clinivet.entidade.Fornecedor;
 import br.com.sof3.clinivet.entidade.Produto;
 import static br.com.sof3.clinivet.frames.frmAddProduto.tblFornecedores;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -388,8 +391,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(lblCadastrarFornecedor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(lblCadastrarFornecedor)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,6 +466,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                try{ 
                     Fornecedor forn = new Fornecedor();
                     FornecedorDAO fdao = new FornecedorDAO();
+                    CidadeDAO citydao = new CidadeDAO();
                     JOptionPane.showMessageDialog(null, txtCnpj.getText());
                     forn.cadastrar(fdao.getIdFornecedor(fornecedorAntigo.getCnpj()),
                                    txtNome.getText(),
@@ -472,7 +475,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                                    txtEmail.getText(),
                                    txtEndereco.getText(),
                                    txtBairro.getText(),
-                                   ((Cidade) comboCidades.getSelectedItem()),
+                                   citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())),
                                     false);
                     
                     fdao.atualizaFornecedor(forn);
@@ -566,12 +569,19 @@ public class frmAddFornecedor extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private void carregaCampos(Fornecedor fornecedor){
+        EstadoDAO estadoDAO = new EstadoDAO();
         txtNome.setText(fornecedor.getNome());
         txtCnpj.setText(fornecedor.getCnpj());
         txtTelefone.setText(fornecedor.getTelefone());
         txtEmail.setText(fornecedor.getEmail());
         txtBairro.setText(fornecedor.getBairro());
         txtEndereco.setText(fornecedor.getEndereco());
+        try {
+            comboEstados.setSelectedItem(estadoDAO.getEstado(fornecedor.getCidade().getEstado().getId()).getNome());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar cbxEstados: "+ex);
+        }
+        comboCidades.setSelectedItem(fornecedor.getCidade().getNome());
     }
     private boolean validaCampos(){
         int erros=0;

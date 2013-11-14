@@ -359,7 +359,8 @@ public class frmPesquisaFornecedor extends javax.swing.JFrame {
         Fornecedor fornecedor = new Fornecedor();
         List<Fornecedor> fornecedores = new LinkedList<>();
         if(tblFornecedor.getSelectedRow()>=0 && tblFornecedor.getSelectedRow()<tblFornecedor.getRowCount()){
-            
+            int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Excluir fornecedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (result==2) return;
             DefaultTableModel dtm = (DefaultTableModel)tblFornecedor.getModel();
             try{
                  fornecedor = fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedor.getSelectedRow(), 1)));

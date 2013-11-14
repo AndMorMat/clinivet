@@ -39,10 +39,14 @@ public class frmAddProduto extends javax.swing.JFrame {
         loadInitialTableData();
         
         if(parametro.equals("cadastrar")){
-            btnCadastrar.setText("Cadastrar");
+            lblCadastrarProd.setText("Cadastrar produto");
+            setTitle("Cadastrar produto");
         }else if(parametro.equals("editar")){
             carregaCampos(prod);
-            btnCadastrar.setText("Editar");
+            btnCadastrarFornecedor.setVisible(false);
+            btnFiltrar.setVisible(false);
+            setTitle("Editar produto");
+            lblCadastrarProd.setText("Editar produto");
         }
         
         
@@ -55,7 +59,7 @@ public class frmAddProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblCadastrarProd = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblValidacaoCodigo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,7 +84,7 @@ public class frmAddProduto extends javax.swing.JFrame {
         lblValidade = new javax.swing.JLabel();
         txtValidade = new javax.swing.JFormattedTextField();
         lblValidacaoValidade = new javax.swing.JLabel();
-        ChkIndeterminado = new javax.swing.JCheckBox();
+        chkIndeterminado = new javax.swing.JCheckBox();
         cbxTipoProduto = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         auxnotificacao1 = new javax.swing.JLabel();
@@ -99,8 +103,8 @@ public class frmAddProduto extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(214, 255, 213));
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
-        jLabel1.setText("Cadastrar Produto");
+        lblCadastrarProd.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lblCadastrarProd.setText("Cadastrar Produto");
 
         jPanel2.setBackground(new java.awt.Color(195, 239, 198));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -219,10 +223,10 @@ public class frmAddProduto extends javax.swing.JFrame {
         lblValidacaoValidade.setForeground(new java.awt.Color(255, 0, 0));
         lblValidacaoValidade.setText("Validade inválida ou vazia!");
 
-        ChkIndeterminado.setText("Indeterminado");
-        ChkIndeterminado.addMouseListener(new java.awt.event.MouseAdapter() {
+        chkIndeterminado.setText("Indeterminado");
+        chkIndeterminado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ChkIndeterminadoMouseClicked(evt);
+                chkIndeterminadoMouseClicked(evt);
             }
         });
 
@@ -330,7 +334,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(txtValidade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ChkIndeterminado))
+                                        .addComponent(chkIndeterminado))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(lblValidacaoValidade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -397,7 +401,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValidade)
                             .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ChkIndeterminado))
+                            .addComponent(chkIndeterminado))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblValidacaoTipo)
@@ -409,7 +413,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setText("OK");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -417,6 +421,11 @@ public class frmAddProduto extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -425,11 +434,13 @@ public class frmAddProduto extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblCadastrarProd)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)))
                 .addGap(21, 21, 21))
@@ -438,7 +449,7 @@ public class frmAddProduto extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblCadastrarProd)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -492,7 +503,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                                            Double.parseDouble(txtPrecoCusto.getText()),
                                            Double.parseDouble(txtMargemLucro.getText()),
                                            prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
-                                           ChkIndeterminado.isSelected()?"Indeterminado":txtValidade.getText(),
+                                           chkIndeterminado.isSelected()?"Indeterminado":txtValidade.getText(),
                                            fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
                                            Integer.parseInt(txtEstoque.getText()),String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
                          Fornecedor forn = new Fornecedor();
@@ -541,7 +552,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                                   Double.parseDouble(txtPrecoCusto.getText()),
                                   Double.parseDouble(txtMargemLucro.getText()),
                                   prod.calcularPrecoVenda(Double.parseDouble(txtPrecoCusto.getText()), Double.parseDouble(txtMargemLucro.getText())),
-                                  ChkIndeterminado.isSelected()?"Indeterminado":txtValidade.getText(),
+                                  chkIndeterminado.isSelected()?"Indeterminado":txtValidade.getText(),
                                   fdao.getFornecedorByCnpj(String.valueOf(dtm.getValueAt(tblFornecedores.getSelectedRow(), 1))),
                                   Integer.parseInt(txtEstoque.getText()),
                                   String.valueOf(cbxTipoProduto.getSelectedItem()));//pegando o cnpj da tabela e mandando pra função getFornecedorByCnpj que retornara o Fornecedor
@@ -565,13 +576,17 @@ public class frmAddProduto extends javax.swing.JFrame {
          frmFiltrarPor filtrarFornecedor = new frmFiltrarPor("fornecedor");
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
-    private void ChkIndeterminadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChkIndeterminadoMouseClicked
-        if (ChkIndeterminado.isSelected()) {
+    private void chkIndeterminadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chkIndeterminadoMouseClicked
+        if (chkIndeterminado.isSelected()) {
             txtValidade.setEnabled(false);
         } else {
             txtValidade.setEnabled(true);
         }
-    }//GEN-LAST:event_ChkIndeterminadoMouseClicked
+    }//GEN-LAST:event_chkIndeterminadoMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     public void ocultarNotificacoes(){
         lblValidacaoCodigo.setVisible(false);
@@ -641,7 +656,7 @@ public class frmAddProduto extends javax.swing.JFrame {
         }else{
             lblValidacaoCodigo.setVisible(false);
             
-            if(proDAO.verificaCodigoRepedido(txtCodigo.getText())){
+            if(proDAO.verificaCodigoRepedido(txtCodigo.getText()) && !param.equals("editar")){
                 lblValidacaoCodigo.setText("Codigo já cadastrado");
                 lblValidacaoCodigo.setVisible(true);
                 erros++;
@@ -685,7 +700,7 @@ public class frmAddProduto extends javax.swing.JFrame {
         }else{
             lblValidacaoTipo.setVisible(false);
         }
-        if(txtValidade.getText().trim().length()!=10 && ChkIndeterminado.isSelected()==false){
+        if(txtValidade.getText().trim().length()!=10 && chkIndeterminado.isSelected()==false){
             erros++;
             lblValidacaoValidade.setVisible(true);
         }else{
@@ -716,7 +731,6 @@ public class frmAddProduto extends javax.swing.JFrame {
         return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox ChkIndeterminado;
     private javax.swing.JLabel auxnotificacao1;
     private javax.swing.JLabel auxnotificacao2;
     private javax.swing.JLabel auxnotificacao3;
@@ -729,13 +743,14 @@ public class frmAddProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JComboBox cbxTipoProduto;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JCheckBox chkIndeterminado;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCadastrarProd;
     private javax.swing.JLabel lblEstoque;
     private javax.swing.JLabel lblMargemLucro;
     private javax.swing.JLabel lblNome;
@@ -765,7 +780,12 @@ public class frmAddProduto extends javax.swing.JFrame {
         txtPrecoCusto.setText(String.valueOf(pro.getPrecoCusto()));
         txtMargemLucro.setText(String.valueOf(pro.getMargemLucro()));
         txtEstoque.setText(String.valueOf(pro.getEstoque()));
-        txtValidade.setText(pro.getValidade());
+        if(pro.getValidade().equals("Indeterminado")){
+            chkIndeterminado.setSelected(true);
+            txtValidade.setEnabled(false);
+        }else{
+            txtValidade.setText(pro.getValidade());
+        }
         cbxTipoProduto.setSelectedItem(pro.getTipoProduto());
         limparTabela();
         try{
