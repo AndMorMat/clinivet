@@ -269,7 +269,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(20, 20, 20));
@@ -329,7 +329,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         Cliente.setText("Editar/Excluir");
 
         editarUsuario.setMnemonic('u');
-        editarUsuario.setText("Usuário");
+        editarUsuario.setText("Vendedor");
         editarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarUsuarioActionPerformed(evt);

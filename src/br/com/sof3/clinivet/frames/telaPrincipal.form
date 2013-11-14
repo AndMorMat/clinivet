@@ -74,7 +74,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="editarUsuario">
               <Properties>
                 <Property name="mnemonic" type="int" value="117"/>
-                <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+                <Property name="text" type="java.lang.String" value="Vendedor"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarUsuarioActionPerformed"/>
@@ -397,7 +397,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="197" max="32767" attributes="0"/>
+                  <EmptySpace pref="201" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
