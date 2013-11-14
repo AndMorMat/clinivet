@@ -607,7 +607,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuConsultasItemStateChanged
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        frmPesquisaProduto pesquisaProduto = new frmPesquisaProduto();
+        frmPesquisaProduto pesquisaProduto = new frmPesquisaProduto("pesquisar");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void editarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioActionPerformed
@@ -641,7 +641,7 @@ public class telaPrincipal extends javax.swing.JDialog {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         Produto pro = new Produto();
-        frmPesquisaProduto frmPesquisaProduto = new frmPesquisaProduto();
+        frmPesquisaProduto frmPesquisaProduto = new frmPesquisaProduto("editar");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void JMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem7ActionPerformed

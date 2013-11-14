@@ -60,8 +60,8 @@ public class AnimalDAO extends GenericoDAO {
 
     public void atualizarAnimal(Animal an) throws SQLException {
         try{
-            String query = "UPDATE animais SET ID_DONO = ?,NOME=?,TIPO_ANIMAL=?,ID_RACA=?,ANO_NASCIMENTO=?, SEXO=?,INATIVO=? WHERE ID = ?";
-            executeCommand(query, an.getDono().getId(), an.getNome(), an.getTipoAnimal().toString(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(), an.isInativo(),an.getId());
+            String query = "UPDATE animais SET ID_DONO = ?,NOME=?,TIPO_ANIMAL=?,ID_RACA=?,ANO_NASCIMENTO=?, SEXO=? WHERE ID = ?";
+            executeCommand(query, an.getDono().getId(), an.getNome(), an.getTipoAnimal().toString(), an.getRaca().getId(), an.getDataNasc(), an.getSexo(),an.getId());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao atualizar animal na classe AnimalDAO: "+ex);
         }
