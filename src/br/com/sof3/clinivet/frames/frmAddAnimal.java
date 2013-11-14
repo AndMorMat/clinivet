@@ -445,6 +445,7 @@ public class frmAddAnimal extends javax.swing.JDialog {
                                         checkMacho.isSelected() ? "Macho" : "Fêmea",
                                         clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0),
                                         false);
+                    JOptionPane.showMessageDialog(null, "Erro");
                     ani.exibir();
                     aniDAO.atualizarAnimal(ani);
                 }catch(Exception ex){
