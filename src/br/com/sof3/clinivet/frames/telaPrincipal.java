@@ -57,15 +57,11 @@ public class telaPrincipal extends javax.swing.JDialog {
                 initComponents();
                 alinharTextBotao(); 
                 setLocationRelativeTo(null);
-                setVisible(true);
+                
                 setTitle("CliniVet");
                 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());//pegando o nome do usuario que esta logado no sistema
-                //                Cliente.setEnabled(false);//editar
-//                jMenu3.setEnabled(false);//relatorios
-//                jMenuCadastrarUsuario.setEnabled(false);//usuarios
-//                jMenuConsultas.setEnabled(false);
-//                lblUsuarioLogado.setText("Usuario não logado");
+                setVisible(true);
             }
             /*if(!dialogLogin.usuarioLogado().equals("admin")){//somente o administrador poderá cadastrar um novo vendedor
                 jMenuCadastrarCliente.setEnabled(false);
@@ -88,7 +84,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblUsuarioLogado = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblSair = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAddCliente = new javax.swing.JButton();
         btnAgendamentos = new javax.swing.JButton();
@@ -111,8 +107,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         Vendas = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuConsultas = new javax.swing.JMenu();
         jMenuItemVendedores = new javax.swing.JMenuItem();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -144,11 +139,11 @@ public class telaPrincipal extends javax.swing.JDialog {
 
         lblUsuarioLogado.setText("Usuario:");
 
-        jLabel1.setForeground(new java.awt.Color(254, 73, 34));
-        jLabel1.setText("Sair");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblSair.setForeground(new java.awt.Color(254, 73, 34));
+        lblSair.setText("Sair");
+        lblSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                lblSairMouseClicked(evt);
             }
         });
 
@@ -165,7 +160,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuarioLogado)
-                    .addComponent(jLabel1))
+                    .addComponent(lblSair))
                 .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,7 +170,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                 .addComponent(lblUsuarioLogado))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblSair, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
@@ -269,7 +264,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(20, 20, 20));
@@ -390,17 +385,13 @@ public class telaPrincipal extends javax.swing.JDialog {
         Vendas.setText("Vendas");
         jMenu3.add(Vendas);
 
-        jMenu1.setText("Produtos");
-
-        jMenuItem10.setText("Todos");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem9.setText("Produtos");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                jMenuItem9ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem10);
-
-        jMenu3.add(jMenu1);
+        jMenu3.add(jMenuItem9);
 
         jMenuBar1.add(jMenu3);
 
@@ -661,11 +652,6 @@ public class telaPrincipal extends javax.swing.JDialog {
         relClientes.visualizar();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        relatorioProduto relProdutos = new relatorioProduto();
-        relProdutos.visualizar();
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
-
     private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
         Cliente cli = new Cliente();
         frmAddCliente frmAddCli = new frmAddCliente("cadastrar",cli);
@@ -697,19 +683,24 @@ public class telaPrincipal extends javax.swing.JDialog {
         pesquisaEnvioSMS.setVisible(true);
     }//GEN-LAST:event_menuEnviarSMSActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        try {
+    private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
+        /*try {
             setVisible(false);
-            frmLogin frmLogin = new frmLogin(new javax.swing.JFrame(), true);
-            frmLogin.setVisible(true);
-            if(vdao.isValidLoginSenha(frmLogin.usuarioLogado(), frmLogin.senhaUsuario())){
-                lblUsuarioLogado.setText("Usuario: "+frmLogin.usuarioLogado());
-                setVisible(true);
+//            frmLogin frmLogin = new frmLogin(new javax.swing.JFrame(), true);
+            dialogLogin.setVisible(true);
+            if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
+                lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());
+                this.setVisible(true);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao reabrir tela de login: "+ex);
-        }
-    }//GEN-LAST:event_jLabel1MouseClicked
+        }*/
+    }//GEN-LAST:event_lblSairMouseClicked
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        relatorioProduto relProdutos = new relatorioProduto();
+        relProdutos.visualizar();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -754,10 +745,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JButton btnAgendamentos;
     private javax.swing.JButton btnVendas;
     private javax.swing.JMenuItem editarUsuario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAnimais;
@@ -770,7 +759,6 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuEfetuarVenda;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -778,12 +766,14 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemVendedores;
     private javax.swing.JMenu jMenuVendas;
     private javax.swing.JMenuItem jMenuVendasEfetuadas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblSair;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
     private javax.swing.JMenuItem menuEnviarSMS;

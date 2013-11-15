@@ -144,6 +144,7 @@ public class frmLogin extends javax.swing.JDialog {
                 return;
             }
             
+            
             setVisible(false);
             //new frmPrincipal().setVisible(true);
         } catch (SQLException ex) {

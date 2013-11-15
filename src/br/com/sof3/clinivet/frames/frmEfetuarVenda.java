@@ -77,6 +77,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         vendedorLogado = vendedor;
         lblVendedor.setText("Vendedor: " + vendedorLogado);//pegando o nome do usuario que esta logado no sistema
         lblCliente.setText("Cliente: Venda sem cliente cadastrado");
+        setLocationRelativeTo(null);
     }
 
     /**
