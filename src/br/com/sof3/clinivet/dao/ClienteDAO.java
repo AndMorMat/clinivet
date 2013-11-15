@@ -191,7 +191,7 @@ public class ClienteDAO extends GenericoDAO {
     }
     
     public boolean getAnimalExistente(int dono, String nomeAnimal) throws SQLException{
-        ResultSet rs = executeQuery("SELECT * FROM animais WHERE id_dono =  ? and nome = ?", dono, nomeAnimal);//Pesquisando CNPJ do fornecedor a ser cadastrado
+        ResultSet rs = executeQuery("SELECT * FROM animais WHERE id_dono =  ? and nome = ? and inativo = 0", dono, nomeAnimal);//Pesquisando CNPJ do fornecedor a ser cadastrado
         boolean found = false;  
         
         while (rs.next()) {   
