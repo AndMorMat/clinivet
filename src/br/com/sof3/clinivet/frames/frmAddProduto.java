@@ -514,7 +514,7 @@ public class frmAddProduto extends javax.swing.JFrame {
                 }else{
                        int  duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "Codigo já cadastrado, deseja alterar Código desse cadastro?","Código já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                         
-                        if(duplicidadeCodigo ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
+                        if(duplicidadeCodigo ==1)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
                             setVisible(false);
                 }
                         
@@ -540,7 +540,7 @@ public class frmAddProduto extends javax.swing.JFrame {
             try{
                 
                 if(produtoDAO.getIdBCod(txtCodigo.getText().toString())>0 &&  !produtoAntigo.getCodigo().toString().equals(txtCodigo.getText().toString())){//Consultando no banco o CPf e verifica se foi alterado antes de iniciar a edição
-                        int duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "CPF que foi alterado já está cadastrado, deseja alterar CPF desse cadastro?","CPF já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        int duplicidadeCodigo = JOptionPane.showConfirmDialog (null, "Código que foi alterado já está cadastrado, deseja alterar Código desse cadastro?","Código já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                         
                         if(duplicidadeCodigo ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
                             setVisible(false);

@@ -468,8 +468,28 @@ public class frmAddAnimal extends javax.swing.JDialog {
                                         checkMacho.isSelected() ? "Macho" : "Fêmea",
                                         clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0),
                                         false);
-                    aniDAO.atualizarAnimal(ani);
-                    setVisible(false);
+                    if(tblClientes.getSelectedRow()>=0 && tblClientes.getSelectedRow()<tblClientes.getRowCount()){
+                        ani.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+                   
+                         if(!clienteDAO.getAnimalExistente(ani.getDono().getId(),ani.getNome().toUpperCase()) && !ani.isInativo()){
+                             int valida;
+                            valida = JOptionPane.showConfirmDialog(null, "Confirmar cadastro do animal para Cliente  "+ani.getDono().getNome()+"?");
+                            if(valida == 0){
+                                aniDAO.atualizarAnimal(ani);
+                                setVisible(false);
+                            }else if(valida== 1){
+
+                            }else{
+                                setVisible(false);
+                            }
+                         }else{
+                             int ivalida = JOptionPane.showConfirmDialog(null, "Já possui um animal com o mesmo nome cadastrado para o cliente "+ani.getDono().getNome()+"\nDeseja alterar nome do animal?");
+                             if(ivalida==3)
+                                 setVisible(false);
+                         } 
+                    
+                   
+                    }
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null,"Erro ao atualizar animal na classe frmAddAnimal: " +ex);
                 }
