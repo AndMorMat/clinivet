@@ -61,6 +61,11 @@ public class frmObservacoesExclusao extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jScrollPane2.setViewportView(txtAreaObservacao);
 
@@ -133,6 +138,10 @@ public class frmObservacoesExclusao extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
     public void atualizarTabela(List<Cliente> clientes){
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
         for(int aux=0;aux<clientes.size();aux++){

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="107"/>
+	<parameter name="data_inicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_final" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     *,
+     vendas.`data_venda` AS vendas_data_venda,
+     vendas.`id` AS vendas_id,
+     vendas.`desconto` AS vendas_desconto,
+     produtos.`nome` AS produtos_nome,
+     vendas_produtos.`qtd` AS vendas_produtos_qtd,
+     vendedores.`nome` AS vendedores_nome
+FROM
+     `vendas` vendas INNER JOIN `vendas_produtos` vendas_produtos ON vendas.`id` = vendas_produtos.`id_venda`
+     INNER JOIN `produtos` produtos ON vendas_produtos.`id_produto` = produtos.`id`
+     INNER JOIN `vendedores` vendedores ON vendas.`id_vendedor` = vendedores.`id` where data_venda >= $P{data_inicial} && data_venda <= $P{data_final};]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="data_venda" class="java.sql.Date"/>
+	<field name="total_venda" class="java.lang.Double"/>
+	<field name="forma_pagamento" class="java.lang.String"/>
+	<field name="id_vendedor" class="java.lang.Integer"/>
+	<field name="id_cliente" class="java.lang.Integer"/>
+	<field name="desconto" class="java.lang.Double"/>
+	<field name="id_venda" class="java.lang.Integer"/>
+	<field name="id_produto" class="java.lang.Integer"/>
+	<field name="qtd" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="preco_custo" class="java.lang.Double"/>
+	<field name="margem_lucro" class="java.lang.Double"/>
+	<field name="preco_venda" class="java.lang.Double"/>
+	<field name="validade" class="java.lang.String"/>
+	<field name="id_fornecedor" class="java.lang.Integer"/>
+	<field name="qtdEstoque" class="java.lang.Integer"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="inativo" class="java.lang.Boolean"/>
+	<field name="login" class="java.lang.String"/>
+	<field name="senha" class="java.lang.String"/>
+	<field name="vendas_data_venda" class="java.sql.Date"/>
+	<field name="vendas_id" class="java.lang.Integer"/>
+	<field name="vendas_desconto" class="java.lang.Double"/>
+	<field name="produtos_nome" class="java.lang.String"/>
+	<field name="vendas_produtos_qtd" class="java.lang.Integer"/>
+	<field name="vendedores_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="261" height="49"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[Vendas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="39" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total da venda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="39" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_venda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vendedores_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="81" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{total_venda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="239" y="0" width="19" height="20"/>
+				<textElement/>
+				<text><![CDATA[R$:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="0" width="31" height="20"/>
+				<textElement/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

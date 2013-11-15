@@ -140,6 +140,7 @@
                   <Image iconType="3" name="/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ultimos Cadastros"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buscar ultimos 100 registros"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimosCadActionPerformed"/>

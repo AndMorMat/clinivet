@@ -80,6 +80,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
 
         btnUltimosCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"))); // NOI18N
         btnUltimosCad.setText("Ultimos Cadastros");
+        btnUltimosCad.setToolTipText("Buscar ultimos 100 registros");
         btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUltimosCadActionPerformed(evt);
