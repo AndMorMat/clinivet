@@ -312,14 +312,14 @@ public class frmPesquisaAnimal extends javax.swing.JFrame {
             
             
             for(int aux=0 ;aux<listan.size();aux++){
-                if(aux<6){                  
+                        
                     a.setId(listan.get(aux).getId());
                     a.setNome(listan.get(aux).getNome());
                     a.setRaca(listan.get(aux).getRaca());
                     a.setTipoAnimal(listan.get(aux).getTipoAnimal());
                     if(!listan.get(aux).isInativo())
                         dtm.addRow(a.addTableConsulta());
-                }
+               
 
             }
             lblResultados.setText(tblBuscaAnimal.getRowCount()+" resultado(s)");

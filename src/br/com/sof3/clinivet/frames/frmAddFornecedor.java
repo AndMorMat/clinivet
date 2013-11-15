@@ -435,12 +435,12 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                 CidadeDAO citydao = new CidadeDAO();
                 try{
                 forn.cadastrar(0,
-                               txtNome.getText(),
+                               txtNome.getText().toUpperCase(),
                                txtCnpj.getText(),
                                txtTelefone.getText(),
-                               txtEmail.getText(),
-                               txtEndereco.getText(),
-                               txtBairro.getText(),
+                               txtEmail.getText().toUpperCase(),
+                               txtEndereco.getText().toUpperCase(),
+                               txtBairro.getText().toUpperCase(),
                                citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())),
                                false);
                 }catch(Exception ex){
@@ -473,12 +473,12 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                     CidadeDAO citydao = new CidadeDAO();
                     JOptionPane.showMessageDialog(null, txtCnpj.getText());
                     forn.cadastrar(fdao.getIdFornecedor(fornecedorAntigo.getCnpj()),
-                                   txtNome.getText(),
+                                   txtNome.getText().toUpperCase(),
                                    txtCnpj.getText(),
                                    txtTelefone.getText(),
-                                   txtEmail.getText(),
-                                   txtEndereco.getText(),
-                                   txtBairro.getText(),
+                                   txtEmail.getText().toUpperCase(),
+                                   txtEndereco.getText().toUpperCase(),
+                                   txtBairro.getText().toUpperCase(),
                                    citydao.getCidadeByName(String.valueOf(comboCidades.getSelectedItem())),
                                     false);
                     

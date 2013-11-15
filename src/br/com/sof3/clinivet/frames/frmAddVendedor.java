@@ -226,11 +226,12 @@ public class frmAddVendedor extends javax.swing.JFrame {
                          try {
                 
                         dao.adicionaVendedor(vendedor);
-                
+                        setVisible(false);
                          } catch (SQLException ex) {
                             ex.printStackTrace();
                 
                             JOptionPane.showMessageDialog(this, "Erro ao adicionar o vendedor "+ex,"Erro",JOptionPane.ERROR_MESSAGE);
+                            setVisible(false);
                          }
                     }
                         
@@ -255,7 +256,7 @@ public class frmAddVendedor extends javax.swing.JFrame {
                              vendedor.cadastrar(dao.getIdVendedor(LoginAntigo),txtNome.getText(), txtLogin.getText(), txtSenha.getText(),false);
                  
                              dao.atualizaVendedor(vendedor);
-
+                             setVisible(false);
                          }catch(Exception ex){
                               JOptionPane.showMessageDialog(null, "Erro ao atualizar vendedor na classe frmAddVendedor");
                         }

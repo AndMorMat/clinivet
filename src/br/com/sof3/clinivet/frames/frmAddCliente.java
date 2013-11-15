@@ -516,7 +516,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .add(25, 25, 25)
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 22, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(25, 25, 25)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -566,7 +566,6 @@ public class frmAddCliente extends javax.swing.JDialog {
                         CidadeDAO citydao = new CidadeDAO();
                         cliente.setNome(txtNome.getText().toUpperCase());
                         cliente.setSobrenome(txtSobrenome.getText().toUpperCase());
-                        JOptionPane.showMessageDialog(null, txtDataNasc.getText());
                         cliente.setDataNasc(txtDataNasc.getText());
                         cliente.setCpf(txtCPF.getText().toUpperCase());
                         cliente.setTelefone(txtTelefone.getText());
