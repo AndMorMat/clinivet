@@ -359,7 +359,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                         }
                      }
                     for(int aux =0;aux<cli.size();aux++){
-                        c.setNome(cli.get(aux).getNome());
+                        c.setNome(cli.get(aux).getNome().toUpperCase());
                         c.setCpf(cli.get(aux).getCpf());
                         c.setTelefone(cli.get(aux).getTelefone());
                         if(!cli.get(aux).isInativo()){
@@ -402,7 +402,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                 
                 for(int aux=0 ;aux<cli.size();aux++){
                     
-                        c.setNome(cli.get(aux).getNome());
+                        c.setNome(cli.get(aux).getNome().toUpperCase());
                         c.setCpf(cli.get(aux).getCpf());
                         c.setTelefone(cli.get(aux).getTelefone());
                         if(!cli.get(aux).isInativo()){//so será exibido cliente se ele estiver ativo

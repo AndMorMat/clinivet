@@ -164,6 +164,11 @@ public class frmAddAnimal extends javax.swing.JDialog {
         checkSexo.add(checkMacho);
         checkMacho.setSelected(true);
         checkMacho.setText("Macho");
+        checkMacho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkMachoActionPerformed(evt);
+            }
+        });
 
         checkSexo.add(checkFemea);
         checkFemea.setText("Fêmea");
@@ -321,8 +326,6 @@ public class frmAddAnimal extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/andrematos/Imagens/Icones/animais_top.png")); // NOI18N
-
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -416,15 +419,34 @@ public class frmAddAnimal extends javax.swing.JDialog {
                     ClienteDAO clienteDAO = new ClienteDAO();
                     Raca raca = new Raca();
                     raca = racaDAO.getRaca(comboRaca.getSelectedItem().toString());
-                    animal.setNome(txtNome.getText());
-                    animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString());
+                    animal.setNome(txtNome.getText().toUpperCase());
+                    animal.setTipoAnimal(comboTipoAnimal.getSelectedItem().toString().toUpperCase());
                     animal.setRaca(raca);
                     
                     animal.setDataNasc((txtNasc.getText()));
                     animal.setSexo(checkMacho.isSelected() ? "Macho" : "Fêmea");
-                    animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
-                    animal.setInativo(false);
-                    dao.adicionaAnimal(animal);
+                    if(tblClientes.getSelectedRow()>=0 && tblClientes.getSelectedRow()<tblClientes.getRowCount()){
+                        animal.setDono(clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0));
+                   
+                         if(!clienteDAO.getAnimalExistente(animal.getDono().getId(),animal.getNome().toUpperCase())){
+                             int valida;
+                            valida = JOptionPane.showConfirmDialog(null, "Confirmar cadastro do animal para Cliente  "+animal.getDono().getNome()+"?");
+                            if(valida == 0){
+                                dao.adicionaAnimal(animal);
+                                setVisible(false);
+                            }else if(valida== 1){
+
+                            }else{
+                                setVisible(false);
+                            }
+                         }else{
+                             JOptionPane.showMessageDialog(null, "Animal com o mesmo nome já possui cadastro para o cliente  selecionado");
+                         } 
+                           
+                           
+                    }else{
+                         JOptionPane.showMessageDialog(null,"Filtre e selecione um dono para o Animal");
+                     }
                 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -447,12 +469,13 @@ public class frmAddAnimal extends javax.swing.JDialog {
                                         clienteDAO.getClientesByCPF(dtm.getValueAt(tblClientes.getSelectedRow(), 1).toString()).get(0),
                                         false);
                     aniDAO.atualizarAnimal(ani);
+                    setVisible(false);
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null,"Erro ao atualizar animal na classe frmAddAnimal: " +ex);
                 }
                 
         }
-        setVisible(false);
+        
     }//GEN-LAST:event_btnOKActionPerformed
     private boolean validaCampos(){
         Calendar cal = Calendar.getInstance();
@@ -501,6 +524,10 @@ public class frmAddAnimal extends javax.swing.JDialog {
     private void btnFiltrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarPorActionPerformed
         frmFiltrarPor frFiltrarPor = new frmFiltrarPor("cliente");
     }//GEN-LAST:event_btnFiltrarPorActionPerformed
+
+    private void checkMachoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkMachoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkMachoActionPerformed
     private void ocultarNotificacoes(){
         lblValidacoesNome.setVisible(false);
         lblValidacoesDono.setVisible(false);

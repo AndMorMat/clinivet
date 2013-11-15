@@ -190,5 +190,16 @@ public class ClienteDAO extends GenericoDAO {
         return found;
     }
     
+    public boolean getAnimalExistente(int dono, String nomeAnimal) throws SQLException{
+        ResultSet rs = executeQuery("SELECT * FROM animais WHERE id_dono =  ? and nome = ?", dono, nomeAnimal);//Pesquisando CNPJ do fornecedor a ser cadastrado
+        boolean found = false;  
+        
+        while (rs.next()) {   
+             found = true;  //Caso seja encontrado um cadastro retorna verdadeiro
+        }
+        
+        return found;
+    }
+    
 }
 
