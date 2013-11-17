@@ -461,11 +461,11 @@ public class frmAddFornecedor extends javax.swing.JFrame {
                     limparTabela();
                     DefaultTableModel dtm = (DefaultTableModel)frmAddProduto.tblFornecedores.getModel();
                     dtm.addRow(forn.addTable());
-                    frmAddProduto.tblFornecedores.setSelectionMode(1);
+//                    frmAddProduto.tblFornecedores.setSelectionMode(1);
                     frmAddProduto.tblFornecedores.setRowSelectionInterval(0, 0);
                     param = "";
                 }
-                
+                setVisible(false);
             }catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar Fornecedor :: na classe frmAddFornecedor no botao Cadastrar");
             }
@@ -660,7 +660,7 @@ public class frmAddFornecedor extends javax.swing.JFrame {
             DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(nomes);
             comboCidades.setModel(comboEstado);
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidades no comboCidades na classe frmAddCliente");
+//            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidades no comboCidades na classe frmAddCliente");
         }
         
     }

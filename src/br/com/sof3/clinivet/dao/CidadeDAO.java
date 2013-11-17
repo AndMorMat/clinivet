@@ -14,13 +14,14 @@ public class CidadeDAO extends GenericoDAO {
     public List<Cidade> getAllCidadesById_Estado(int id) throws SQLException{
         List<Cidade> toReturn = new LinkedList<>();
         ResultSet rs = executeQuery("select * from cidades where id_estado = ?", id);
+        
         try{
-            
             while(rs.next()){
                 toReturn.add(populateCidadeInfo(rs));
             }
+            rs.close();
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Erro no getAllCidadesById_esdados na classe cidadeDAO: "+ex);
+            //JOptionPane.showMessageDialog(null, "Erro no getAllCidadesById_esdados na classe cidadeDAO: "+ex);
         }
         
         return toReturn;

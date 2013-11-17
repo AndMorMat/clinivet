@@ -59,7 +59,7 @@ public class Produto {
                 "\nPreco Venda: "+precoVenda+
                 "\nEstoque: "+estoque+
                 "\nValidade: "+validade+
-                "\nFornecedor: "+fornecedor;       
+                "\nFornecedor: "+fornecedor.getNome();       
     }
     
     public Produto(int id, String nome, double precoCusto, double margemLucro,

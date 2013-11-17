@@ -17,6 +17,8 @@ import br.com.sof3.clinivet.entidade.Vendedor;
 import com.twilio.sdk.TwilioRestException;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,7 +54,7 @@ public class telaPrincipal extends javax.swing.JDialog {
         
         
         try{//caso o usuario só feche a tela login sem validar os dados os menus são definidos como setEnabled(false);
-            if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
+            if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado().toUpperCase(), dialogLogin.senhaUsuario().toUpperCase())){
                 
                 initComponents();
                 alinharTextBotao(); 
@@ -122,16 +124,19 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenuAnimais = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuAgenda = new javax.swing.JMenu();
         submenuAgendar = new javax.swing.JMenuItem();
         submenuConsultarAgenda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        menuEnviarSMS = new javax.swing.JMenuItem();
         jMenuVendas = new javax.swing.JMenu();
         jMenuEfetuarVenda = new javax.swing.JMenuItem();
         jMenuVendasEfetuadas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
 
         setTitle("Clinivet");
         setResizable(false);
@@ -305,7 +310,7 @@ public class telaPrincipal extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -521,6 +526,14 @@ public class telaPrincipal extends javax.swing.JDialog {
         });
         jMenuConsultas.add(jMenuItem2);
 
+        jMenuItem12.setText("Fornecedor");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenuConsultas.add(jMenuItem12);
+
         jMenuBar1.add(jMenuConsultas);
 
         menuAgenda.setMnemonic('a');
@@ -553,14 +566,6 @@ public class telaPrincipal extends javax.swing.JDialog {
             }
         });
         menuAgenda.add(jMenuItem1);
-
-        menuEnviarSMS.setText("Enviar SMS");
-        menuEnviarSMS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEnviarSMSActionPerformed(evt);
-            }
-        });
-        menuAgenda.add(menuEnviarSMS);
 
         jMenuBar1.add(menuAgenda);
 
@@ -599,6 +604,26 @@ public class telaPrincipal extends javax.swing.JDialog {
         jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("SMS");
+
+        jMenuItem13.setText("Enviar");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem13);
+
+        jMenuItem14.setText("Enviados");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem14);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -655,7 +680,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
-        frmPesquisaCliente pesquisaCliente = new frmPesquisaCliente("consultar");
+        Vendedor vend = new Vendedor();
+        frmPesquisaCliente pesquisaCliente = new frmPesquisaCliente("consultar",vend);
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedoresActionPerformed
@@ -696,8 +722,8 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuEfetuarVendaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
-        frmPesquisaCliente frmEdCliente = new frmPesquisaCliente("editar");
+        Vendedor vend = new Vendedor();
+        frmPesquisaCliente frmEdCliente = new frmPesquisaCliente("editar",vend);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -719,11 +745,19 @@ public class telaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void JMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem7ActionPerformed
-        frmPesquisaFornecedor frmPesquisaFornecedor = new frmPesquisaFornecedor();
+        frmPesquisaFornecedor frmPesquisaFornecedor = new frmPesquisaFornecedor("editar");
     }//GEN-LAST:event_JMenuItem7ActionPerformed
 
     private void submenuConsultarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenuConsultarAgendaActionPerformed
-        frmConsultarAgendamento frmConsultar = new frmConsultarAgendamento();
+        List<Vendedor> vendedor = new LinkedList<>();
+        VendedorDAO vendDAO = new VendedorDAO();
+        try {
+            vendedor = vendDAO.getVendedorByLogin(dialogLogin.usuarioLogado());
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pegar usuario logado no menu sms na classe principal: "+ex);
+        }
+        frmConsultarAgendamento frmConsultar = new frmConsultarAgendamento(vendedor.get(0));
     }//GEN-LAST:event_submenuConsultarAgendaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -761,23 +795,20 @@ public class telaPrincipal extends javax.swing.JDialog {
         reporEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void menuEnviarSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEnviarSMSActionPerformed
-        frmPesquisaParaEnviarSMS pesquisaEnvioSMS = new frmPesquisaParaEnviarSMS();
-        pesquisaEnvioSMS.setVisible(true);
-    }//GEN-LAST:event_menuEnviarSMSActionPerformed
-
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
-        /*try {
+        try {
             setVisible(false);
-//            frmLogin frmLogin = new frmLogin(new javax.swing.JFrame(), true);
-            dialogLogin.setVisible(true);
-            if(vdao.isValidLoginSenha(dialogLogin.usuarioLogado(), dialogLogin.senhaUsuario())){
-                lblUsuarioLogado.setText("Usuario: "+dialogLogin.usuarioLogado());
+            
+           frmLogin frmLogin = new frmLogin(new javax.swing.JFrame(), true);
+            
+            frmLogin.setVisible(true);
+            if(vdao.isValidLoginSenha(frmLogin.usuarioLogado().toUpperCase(), frmLogin.senhaUsuario().toUpperCase())){
+                lblUsuarioLogado.setText("Usuario: "+frmLogin.usuarioLogado());
                 this.setVisible(true);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao reabrir tela de login: "+ex);
-        }*/
+        }
     }//GEN-LAST:event_lblSairMouseClicked
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -793,6 +824,28 @@ public class telaPrincipal extends javax.swing.JDialog {
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         frmPeriodo selecionarPeriodo = new frmPeriodo("vendasPeriodo");
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        frmPesquisaFornecedor pesquisaFornecedor = new frmPesquisaFornecedor("pesquisar");
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        List<Vendedor> vendedor = new LinkedList<>();
+        VendedorDAO vendDAO = new VendedorDAO();
+        try {
+            vendedor = vendDAO.getVendedorByLogin(dialogLogin.usuarioLogado());
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pegar usuario logado no menu sms na classe principal: "+ex);
+        }
+        frmPesquisaParaEnviarSMS pesquisaEnvioSMS = new frmPesquisaParaEnviarSMS(vendedor.get(0));
+        
+        pesquisaEnvioSMS.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        frmPesquisarSms pesquisarSms = new frmPesquisarSms();
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -848,6 +901,7 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuAnimais;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCadFornecedor;
@@ -860,6 +914,9 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -877,7 +934,6 @@ public class telaPrincipal extends javax.swing.JDialog {
     private javax.swing.JLabel lblSair;
     private javax.swing.JLabel lblUsuarioLogado;
     private javax.swing.JMenu menuAgenda;
-    private javax.swing.JMenuItem menuEnviarSMS;
     private javax.swing.JMenuItem submenuAgendar;
     private javax.swing.JMenuItem submenuConsultarAgenda;
     // End of variables declaration//GEN-END:variables

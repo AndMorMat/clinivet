@@ -1,16 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.sof3.clinivet.frames;
 
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author andrematos
- */
+
 public class frmPeriodo extends javax.swing.JFrame {
 
     String param;
@@ -154,15 +148,14 @@ public class frmPeriodo extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
             String dataIni = sdf.format(dataInicial.getDate());
             String dataFim = sdf.format(dataFinal.getDate());
-
             relatorioAgendamentos relAgendamentos = new relatorioAgendamentos();
             relAgendamentos.visualizar(dataIni,dataFim);
             setVisible(false);
         }else if(param.equals("vendasPeriodo")){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");  
-            String dataIni = sdf.format(dataInicial.getDate()) + " 00:00";
-            String dataFim = sdf.format(dataFinal.getDate()) + " 00:00";
-            JOptionPane.showMessageDialog(null, "Inicio: "+dataIni+"\nFim: "+dataFim);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+            String dataIni = sdf.format(dataInicial.getDate());
+            String dataFim = sdf.format(dataFinal.getDate());
+            JOptionPane.showMessageDialog(null, "Data inicial: "+dataIni+"\nData Fim: "+dataFim);
             
             relatorioVendaPeriodo relVendaPer = new relatorioVendaPeriodo();
             relVendaPer.visualizar(dataIni,dataFim);

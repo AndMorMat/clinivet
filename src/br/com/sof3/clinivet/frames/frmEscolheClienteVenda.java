@@ -7,8 +7,16 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.AnimalDAO;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
+import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import java.awt.Frame;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -140,19 +148,29 @@ public class frmEscolheClienteVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComCadActionPerformed
-        frmPesquisaClienteVenda pesquisaCliente = new frmPesquisaClienteVenda("consultar", vendedorLogado);
+        //frmPesquisaClienteVenda pesquisaCliente = new frmPesquisaClienteVenda("consultar", vendedorLogado);
+        VendedorDAO vdao = new VendedorDAO();
+        List<Vendedor> vend = new LinkedList<>();
+        try {
+            vend = vdao.getVendedorByLogin(vendedorLogado);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao buscar vendedor pelo login na classe frmEscolheClienteVenda: "+ ex);
+        }
+        frmPesquisaCliente pesquisa = new frmPesquisaCliente("venda", vend.get(0));
         setVisible(false);
-        pesquisaCliente.setVisible(true);
+        //pesquisaCliente.setVisible(true);
     }//GEN-LAST:event_btnComCadActionPerformed
 
     private void btnSemCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSemCadActionPerformed
         frmEfetuarVenda efetuarVenda = new frmEfetuarVenda(new Frame(), true, dao, vendedorLogado);
         efetuarVenda.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_btnSemCadActionPerformed
 
     private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
         Cliente cli = new Cliente();
         frmAddCliente frmAddCli = new frmAddCliente("cadastrar",cli);
+        setVisible(false);
     }//GEN-LAST:event_btnAddClienteActionPerformed
     public void alinharTextBotao(){
         btnAddCliente.setVerticalTextPosition(SwingConstants.BOTTOM);

@@ -240,10 +240,13 @@ public class frmAddVendedor extends javax.swing.JFrame {
                     
                     if (validalogin.getLoginDuplicado(txtLogin.getText()) && !LoginAntigo.toString().equals(txtLogin.getText())) {
                         validaLogin = JOptionPane.showConfirmDialog (null, "Login já Cadastrado, deseja alterar Login desse cadastro?","login já em uso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-                        
                         if(validaLogin ==2)//Caso o usuario não deseje altera o cpf, apenas cancelar a inserção
-                            setVisible(false);
+                            return;
                     } else{//Login não duplicado
+                        if (!txtSenha.getText().equals(txtRepitaSenha.getText())) {
+                             JOptionPane.showMessageDialog(this, "Senhas não correspondem","Erro",JOptionPane.ERROR_MESSAGE);
+                             return;
+                         }
                         
                         int result = JOptionPane.showConfirmDialog(this, "Você tem certeza?","Editar esse vendedor",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
                          if (result==2) return;

@@ -75,7 +75,7 @@ public class ProdutoDAO extends GenericoDAO{
         List<Produto> toReturn = new LinkedList<Produto>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE nome like \""+nome+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = 0 and nome like \""+nome+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
@@ -89,7 +89,7 @@ public class ProdutoDAO extends GenericoDAO{
         List<Produto> toReturn = new LinkedList<Produto>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo like \""+codigo+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = 0 and codigo like \""+codigo+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
@@ -102,7 +102,7 @@ public class ProdutoDAO extends GenericoDAO{
         List<Produto> toReturn = new LinkedList<Produto>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE tipo like \""+tipo+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = 0 and tipo like \""+tipo+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
@@ -115,7 +115,7 @@ public class ProdutoDAO extends GenericoDAO{
         List<Produto> toReturn = new LinkedList<Produto>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE qtdestoque <=\""+quant+"\";");
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = 0 and qtdestoque <=\""+quant+"\";");
         
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
@@ -125,7 +125,7 @@ public class ProdutoDAO extends GenericoDAO{
     }
     
       public Produto getProduto(int idProduto) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE ID = ?", idProduto);
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = ? and ID = ?",false, idProduto);
         Produto produto = new Produto();
         while (rs.next()) {
             produto = populateProduto(rs);
@@ -144,7 +144,7 @@ public class ProdutoDAO extends GenericoDAO{
         toReturn.setMargemLucro(rs.getDouble("MARGEM_LUCRO"));
         toReturn.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
         toReturn.setValidade(rs.getString("VALIDADE"));
-        toReturn.setFornecedor(fornecedorDAO.getFornecedor(rs.getInt("ID_FORNECEDOR")));
+        toReturn.setFornecedor(fornecedorDAO.getTodosFornecedorAteInativos(rs.getInt("ID_FORNECEDOR")));
         toReturn.setEstoque(rs.getInt("QTDESTOQUE"));
         toReturn.setCodigo(rs.getString("CODIGO"));
         toReturn.setTipoProduto(rs.getString("TIPO"));
@@ -155,7 +155,7 @@ public class ProdutoDAO extends GenericoDAO{
     
     public Produto getDetalhes(String Cod) throws SQLException {
         
-        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE codigo =  ?", Cod);
+        ResultSet rs = executeQuery("SELECT * FROM produtos WHERE inativo = 0 and codigo =  ?", Cod);
         
         Produto produto = new Produto();
         while (rs.next()) {
@@ -167,7 +167,7 @@ public class ProdutoDAO extends GenericoDAO{
     
     public List<Produto> getTodosProdutos() throws SQLException {
         List<Produto> toReturn = new LinkedList<Produto>();
-        ResultSet rs = executeQuery("SELECT * FROM produtos");
+        ResultSet rs = executeQuery("SELECT * FROM produtos where inativo = 0");
         while (rs.next()) {
             toReturn.add(populateProduto(rs));
         }

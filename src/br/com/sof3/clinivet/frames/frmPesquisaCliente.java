@@ -5,9 +5,13 @@
 package br.com.sof3.clinivet.frames;
     
 import br.com.sof3.clinivet.dao.ClienteDAO;
+import br.com.sof3.clinivet.dao.VendaDAO;
+import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Agenda;
 import br.com.sof3.clinivet.entidade.Animal;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.Vendedor;
+import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -25,7 +29,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     
     ClienteDAO cdao = new ClienteDAO();
     String param;
-    public frmPesquisaCliente(String parametro) {
+    Vendedor vendedor;
+    public frmPesquisaCliente(String parametro, Vendedor vend) {
         param = parametro;
         initComponents();
         setLocationRelativeTo(null);
@@ -42,7 +47,12 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         }else if(parametro.equals("agendar")){
             btnEditar.setText("OK");
             btnExcluir.setVisible(false);
+        }else if(parametro.equals("venda")){
+            vendedor = vend;
+            btnEditar.setText("OK");
+            btnExcluir.setVisible(false);
         }
+    
         setVisible(true);
     }
 
@@ -71,12 +81,14 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         txtBuscaCliente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         lblNomeVendedor = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(195, 239, 198));
 
         jPanel3.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnUltimosCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"))); // NOI18N
         btnUltimosCad.setText("Ultimos Cadastros");
@@ -258,6 +270,8 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
         lblNomeVendedor.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         lblNomeVendedor.setText("Buscar Clientes");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/pesquisa_top.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -265,16 +279,25 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomeVendedor))
-                .addGap(5, 5, 5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblNomeVendedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNomeVendedor)
-                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNomeVendedor)
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -458,7 +481,9 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
             if(tblBuscaCli.getSelectedRow()>=0 && tblBuscaCli.getSelectedRow()<tblBuscaCli.getRowCount()){
                 try{
                     cli = cdao.getClientesByCPF(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
+                    setVisible(false);
                     frmAddCliente frmEditarCliente = new frmAddCliente("editar",cli.get(0));
+                    
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Erro no btnEditar");
                 }
@@ -477,7 +502,21 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Erro no btnEditar");
                 }
             }else JOptionPane.showMessageDialog(null, "Selecione um registro!");
-            
+        }else if(param.equals("venda")){
+            String NumCpf;
+            VendaDAO dao = new VendaDAO();
+            Cliente cli = new Cliente();
+            setVisible(false);
+            NumCpf = String.valueOf(tblBuscaCli.getValueAt(tblBuscaCli.getSelectedRow(),1));
+           
+            try {
+                cli = cdao.getDetalhes(NumCpf);
+                //java.awt.Frame parent, boolean modal, VendaDAO dao, String vendedor, Cliente cliente
+                frmEfetuarVenda efetuarVenda = new frmEfetuarVenda(new Frame(), true, dao, vendedor.getNome(), cli);
+                efetuarVenda.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -523,6 +562,7 @@ public class frmPesquisaCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnUltimosCad;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

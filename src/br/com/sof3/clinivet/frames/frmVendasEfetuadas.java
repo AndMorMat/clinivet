@@ -50,33 +50,34 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
     private void initComponents() {
 
         groupBuscarVendas = new javax.swing.ButtonGroup();
-        lblBuscarVendas = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        lblTotalBusca = new javax.swing.JLabel();
+        lblTotalVendido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableVendas = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
         txtBusca = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         radioVendedor = new javax.swing.JRadioButton();
         radioVendasDoDia = new javax.swing.JRadioButton();
         radioTodasVendas = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableVendas = new javax.swing.JTable();
-        btnBuscar = new javax.swing.JButton();
-        lblTotalVendido = new javax.swing.JLabel();
-        lblTotalBusca = new javax.swing.JLabel();
-        data = new com.toedter.calendar.JDateChooser();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        data = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        lblBuscarVendas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblBuscarVendas.setText("Buscar Vendas:");
+        jPanel1.setBackground(new java.awt.Color(195, 239, 198));
 
-        groupBuscarVendas.add(radioVendedor);
-        radioVendedor.setText("Vendedor");
+        jPanel2.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        groupBuscarVendas.add(radioVendasDoDia);
-        radioVendasDoDia.setText("Vendas do Dia");
+        lblTotalBusca.setText("Total da Busca: 0 Resultado(s)");
 
-        groupBuscarVendas.add(radioTodasVendas);
-        radioTodasVendas.setSelected(true);
-        radioTodasVendas.setText("Todas Vendas");
+        lblTotalVendido.setText("Total Vendido: R$ 0,00");
 
         tableVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,14 +103,15 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableVendas);
-        if (tableVendas.getColumnModel().getColumnCount() > 0) {
-            tableVendas.getColumnModel().getColumn(0).setResizable(false);
-            tableVendas.getColumnModel().getColumn(1).setResizable(false);
-            tableVendas.getColumnModel().getColumn(2).setResizable(false);
-            tableVendas.getColumnModel().getColumn(3).setResizable(false);
-            tableVendas.getColumnModel().getColumn(4).setResizable(false);
-            tableVendas.getColumnModel().getColumn(5).setResizable(false);
-        }
+        tableVendas.getColumnModel().getColumn(0).setResizable(false);
+        tableVendas.getColumnModel().getColumn(1).setResizable(false);
+        tableVendas.getColumnModel().getColumn(2).setResizable(false);
+        tableVendas.getColumnModel().getColumn(3).setResizable(false);
+        tableVendas.getColumnModel().getColumn(4).setResizable(false);
+        tableVendas.getColumnModel().getColumn(5).setResizable(false);
+
+        jPanel3.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,17 +120,59 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             }
         });
 
-        lblTotalVendido.setText("Total Vendido: R$ 0,00");
+        groupBuscarVendas.add(radioVendedor);
+        radioVendedor.setText("Vendedor");
 
-        lblTotalBusca.setText("Total da Busca: 0 Resultado(s)");
+        groupBuscarVendas.add(radioVendasDoDia);
+        radioVendasDoDia.setText("Vendas do dia");
+
+        groupBuscarVendas.add(radioTodasVendas);
+        radioTodasVendas.setSelected(true);
+        radioTodasVendas.setText("Todas as vendas");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(radioVendedor)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(radioVendasDoDia))
+                    .add(txtBusca))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 136, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(radioTodasVendas))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(9, 9, 9)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(radioVendedor)
+                    .add(radioVendasDoDia)
+                    .add(radioTodasVendas))
+                .add(18, 18, 18)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("Buscar por data:");
 
         data.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 dataPropertyChange(evt);
             }
         });
-
-        jLabel1.setText("Data:");
 
         jButton1.setText("Buscar por Data");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -137,74 +181,104 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
             }
         });
 
+        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 215, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(jButton1))
+                    .add(jLabel1))
+                .add(0, 0, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jButton1)
+                    .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(lblTotalBusca)
+                                .add(441, 441, 441)
+                                .add(lblTotalVendido))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 796, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblTotalVendido)
+                    .add(lblTotalBusca))
+                .addContainerGap())
+        );
+
+        lblBuscarVendas.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lblBuscarVendas.setText("Buscar vendas");
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblBuscarVendas)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(6, 6, 6)
+                .add(lblBuscarVendas)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(36, 36, 36)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(radioVendedor)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(radioVendasDoDia)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(radioTodasVendas))
-                            .add(layout.createSequentialGroup()
-                                .add(11, 11, 11)
-                                .add(lblBuscarVendas)))
-                        .add(0, 495, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(4, 4, 4)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(lblTotalBusca)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(lblTotalVendido)
-                                .add(150, 150, 150))
-                            .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(layout.createSequentialGroup()
-                                        .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(377, 377, 377)
-                                        .add(jButton1))
-                                    .add(layout.createSequentialGroup()
-                                        .add(jLabel1)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 796, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(0, 39, Short.MAX_VALUE))))))
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(21, 21, 21)
-                .add(lblBuscarVendas)
-                .add(24, 24, 24)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(radioVendedor)
-                            .add(radioVendasDoDia)
-                            .add(radioTodasVendas)
-                            .add(jLabel1))
-                        .add(13, 13, 13)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(txtBusca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(btnBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jButton1))
-                        .add(18, 18, 18)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lblTotalVendido)
-                            .add(lblTotalBusca)))
-                    .add(data, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,9 +356,18 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
     }//GEN-LAST:event_dataPropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            
+            if(data.getDate()==null){
+                JOptionPane.showMessageDialog(null, "A data não pode ser vazia!");
+                return;
+            }
+        
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+            
             String dataFormatada = sdf.format(data.getDate());
-
+            
+            
+                
             DefaultTableModel dtm = (DefaultTableModel)tableVendas.getModel();
             int cont = 0, quantResul = 0;
             double totalVendido = 0;
@@ -353,10 +436,14 @@ public class frmVendasEfetuadas extends javax.swing.JFrame {
     }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private com.toedter.calendar.JDateChooser data;
+    private static com.toedter.calendar.JDateChooser data;
     private javax.swing.ButtonGroup groupBuscarVendas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscarVendas;
     private javax.swing.JLabel lblTotalBusca;

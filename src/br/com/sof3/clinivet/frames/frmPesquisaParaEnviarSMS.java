@@ -9,6 +9,7 @@ package br.com.sof3.clinivet.frames;
 import br.com.sof3.clinivet.dao.ClienteDAO;
 import br.com.sof3.clinivet.dao.VendaDAO;
 import br.com.sof3.clinivet.entidade.Cliente;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import java.awt.Frame;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,13 +27,15 @@ import javax.swing.table.DefaultTableModel;
 public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
     private final VendaDAO dao = new VendaDAO();
     ClienteDAO cdao = new ClienteDAO();
-    /**
-     * Creates new form frmPesquisaParaEnviarSMS
-     */
-    public frmPesquisaParaEnviarSMS() {
+    Vendedor vend = new Vendedor();
+    
+    public frmPesquisaParaEnviarSMS(Vendedor vendedor) {
         initComponents();
+        alinharTextBotao();
         setDefaultCloseOperation(WIDTH);
-        setLocationRelativeTo(null);;
+        setLocationRelativeTo(null);
+        vend = vendedor;
+        setVisible(true);
     }
 
     /**
@@ -44,51 +48,31 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        lblNomeVendedor = new javax.swing.JLabel();
-        rbtNome = new javax.swing.JRadioButton();
-        rbtCpf = new javax.swing.JRadioButton();
-        txtBuscaCliente = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        btnUltimosCad = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblNomeVendedor = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaCli = new javax.swing.JTable();
+        btnUltimosCad = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtBuscaCliente = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        rbtNome = new javax.swing.JRadioButton();
+        rbtCpf = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblNomeVendedor.setText("Obs: Aqui será listado apenas os clientes que desejam receber SMS");
+        jPanel3.setBackground(new java.awt.Color(195, 239, 198));
 
-        buttonGroup1.add(rbtNome);
-        rbtNome.setSelected(true);
-        rbtNome.setText("Nome");
-        rbtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtNomeActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        jLabel1.setText("Escolher cliente");
 
-        buttonGroup1.add(rbtCpf);
-        rbtCpf.setText("CPF");
-        rbtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtCpfActionPerformed(evt);
-            }
-        });
+        lblNomeVendedor.setText("Obs: será listado apenas os clientes que desejam receber SMS");
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnUltimosCad.setText("Ultimos Cadastros");
-        btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUltimosCadActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setText("Enviar SMS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,9 +80,6 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Escolha o cliente para enviar SMS");
 
         tblBuscaCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,58 +105,137 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblBuscaCli);
-        if (tblBuscaCli.getColumnModel().getColumnCount() > 0) {
-            tblBuscaCli.getColumnModel().getColumn(1).setResizable(false);
-            tblBuscaCli.getColumnModel().getColumn(2).setResizable(false);
-        }
+        tblBuscaCli.getColumnModel().getColumn(1).setResizable(false);
+        tblBuscaCli.getColumnModel().getColumn(2).setResizable(false);
+
+        btnUltimosCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/ultimos_cadastros.png"))); // NOI18N
+        btnUltimosCad.setText("Ultimos Cadastros");
+        btnUltimosCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimosCadActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbtNome);
+        rbtNome.setSelected(true);
+        rbtNome.setText("Nome");
+        rbtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtNomeActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbtCpf);
+        rbtCpf.setText("CPF");
+        rbtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtCpfActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(rbtNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtCpf)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtNome)
+                    .addComponent(rbtCpf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUltimosCad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNomeVendedor)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(0, 0, 0)
+                .addComponent(lblNomeVendedor)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rbtNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtCpf))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNomeVendedor)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUltimosCad, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeVendedor)
-                    .addComponent(btnUltimosCad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtNome)
-                    .addComponent(rbtCpf))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(33, 33, 33))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -289,16 +349,18 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
             }
 
             cli = cdao.getClientesByID();
-
+            int x=0;
             for(int aux=0 ;aux<cli.size();aux++){
                 if(aux<6 && cli.get(aux).isSms_fim_consulta() == true && cli.get(aux).getCelular().trim().length() == 14) {
                     c.setNome(cli.get(aux).getNome());
                     c.setCpf(cli.get(aux).getCpf());
                     c.setCelular(cli.get(aux).getCelular());
-
                     dtm.addRow(c.addTableSMS());
+                    x++;
                 }
-
+            }
+            if(x==0){
+                JOptionPane.showMessageDialog(null, "Nenhum cliente deseja receber mensagem");
             }
 
         } catch (SQLException ex) {
@@ -307,6 +369,10 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnUltimosCadActionPerformed
 
+    public void alinharTextBotao(){
+        btnUltimosCad.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnUltimosCad.setHorizontalTextPosition(SwingConstants.CENTER);
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             DefaultTableModel dtm = (DefaultTableModel)tblBuscaCli.getModel();
@@ -323,7 +389,7 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
             idCliente = cdao.getIdByCpf(String.valueOf(dtm.getValueAt(tblBuscaCli.getSelectedRow(), 1)));
             cliente = cdao.getCliente(idCliente);
             
-            frmEnviaSMS enviaSMS = new frmEnviaSMS(cliente);
+            frmEnviaSMS enviaSMS = new frmEnviaSMS(cliente,vend);
             enviaSMS.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(frmReporEstoque.class.getName()).log(Level.SEVERE, null, ex);
@@ -337,6 +403,9 @@ public class frmPesquisaParaEnviarSMS extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeVendedor;
     private javax.swing.JRadioButton rbtCpf;

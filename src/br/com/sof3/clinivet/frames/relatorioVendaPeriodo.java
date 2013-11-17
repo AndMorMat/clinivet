@@ -21,9 +21,10 @@ public class relatorioVendaPeriodo extends GenericoDAO{
             
             String arqRelatorio = "src/relatorios/relatorioVendaPeriodo.jasper";
             HashMap<String, Object> param = new HashMap<>();
-            
-            param.put("data_inicio", data_inicio);
-            param.put("data_fim", data_termino);
+           //JOptionPane.showMessageDialog(null, data_inicio+" "+data_termino);
+            //$P{data_inicial} and data_venda<=$P{data_final};
+            param.put("data_inicial", data_inicio);
+            param.put("data_final", data_termino);
             
             JasperPrint jp = JasperFillManager.fillReport(arqRelatorio,param, getConnection());
             JasperViewer.viewReport(jp, false);

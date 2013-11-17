@@ -5,12 +5,15 @@
 package br.com.sof3.clinivet.frames;
 
 import br.com.sof3.clinivet.dao.AgendaDAO;
+import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Agenda;
+import br.com.sof3.clinivet.entidade.Vendedor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,16 +21,16 @@ import javax.swing.table.DefaultTableModel;
  * @author andrematos
  */
 public class frmConsultarAgendamento extends javax.swing.JFrame {
-
-    /**
-     * Creates new form frmConsultarAgendamento
-     */
-    public frmConsultarAgendamento() {
+    
+    Vendedor vend = new Vendedor();
+    public frmConsultarAgendamento(Vendedor vendedor) {
         initComponents();
-        setVisible(true);
+        alinharTextBotao();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WIDTH);
-        lblTotalDeAgend.setText("Total de agendamentos: 0");
+        lblTotalAgendamentos.setText("0 restultado(s)");
+        vend = vendedor;
+        setVisible(true);
     }
 
     
@@ -35,172 +38,241 @@ public class frmConsultarAgendamento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        data = new com.toedter.calendar.JDateChooser();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_horarios = new javax.swing.JTable();
+        tblAgendamentos = new javax.swing.JTable();
+        lblTotalAgendamentos = new javax.swing.JLabel();
+        btnAvisarTermino = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        data = new com.toedter.calendar.JDateChooser();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        lblTotalDeAgend = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tbl_horarios.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBackground(new java.awt.Color(195, 239, 198));
+
+        jPanel2.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tblAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"08:00", null},
-                {"08:30", null},
-                {"09:00", null},
-                {"09:30", null},
-                {"10:00", null},
-                {"10:30", null},
-                {"11:00", null},
-                {"11:30", null},
-                {"12:00", null},
-                {"12:30", null},
-                {"13:00", null},
-                {"13:30", null},
-                {"14:00", null},
-                {"14:30", null},
-                {"15:00", null},
-                {"15:30", null},
-                {"16:00", null},
-                {"16:30", null},
-                {"17:00", null},
-                {"17:30", null},
-                {"18:00", null}
+
             },
             new String [] {
-                "Horário", "Dia"
+                "Codigo", "Serviço", "Inicio", "Término", "Observações", "Cliente", "Animal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tbl_horarios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tbl_horarios.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tbl_horarios);
-        tbl_horarios.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tbl_horarios.getColumnModel().getColumn(1).setPreferredWidth(800);
+        tblAgendamentos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblAgendamentos);
+
+        lblTotalAgendamentos.setText("0 resultado(s)");
+
+        btnAvisarTermino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/icone-sms.png"))); // NOI18N
+        btnAvisarTermino.setText("Informar término");
+        btnAvisarTermino.setToolTipText("Enviar sms avisando término da consulta");
+        btnAvisarTermino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvisarTerminoActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(214, 255, 213));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel2.setText("Dia");
 
         btnBuscar.setText("Buscar");
-        btnBuscar.setToolTipText("Filtrar agendamentos pela data");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnBuscar))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTotalAgendamentos))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAvisarTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 411, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAvisarTermino))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTotalAgendamentos)
+                .addContainerGap())
+        );
+
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Consultar Agendamentos");
 
-        lblTotalDeAgend.setText("Total de agendamentos: ");
-
-        jButton1.setText("Avisar término");
-        jButton1.setToolTipText("Enviar sms ao cliente, notificando término da consulta");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel1)
-                    .addComponent(lblTotalDeAgend))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar)
-                        .addComponent(jButton1)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblTotalDeAgend)
-                .addGap(25, 25, 25))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        AgendaDAO agendaDAO = new AgendaDAO();
-        List<Agenda> agenda = new LinkedList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
-        String dataFormatada="";
-        
-        try {
-            limparTabela();
-            if(data.getDate()!= null){
-                
-                dataFormatada = sdf.format(data.getDate());
-      
-                agenda = agendaDAO.buscarAgendamentosDia(dataFormatada);
-                
-                if(agenda.size() > 0){
-                    int cont=-1;
-                    DefaultTableModel dtm = (DefaultTableModel)tbl_horarios.getModel();
-                    for(int aux = 0; aux < agenda.size(); aux++){
-                        for(int aux1 = 0; aux1 < tbl_horarios.getRowCount(); aux1++){
-                            
-                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_inicio())){
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                                cont=1;//significa o horario inicial da consulta
-                            }
-                            if(cont==1){//se o cont for igual a 1 significa que a consulta iniciou e ainda não terminou então pode ser setado o addTable na tabela
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                            }
-                            if(dtm.getValueAt(aux1, 0).equals(agenda.get(aux).getHora_termino())){
-                                dtm.setValueAt(agenda.get(aux).addTable(), aux1, 1);
-                                cont=0;//significa o horario final da consulta
-                            }
-                               
-                        }
-                   }
-//                    
-                    
+    public void atualizarTabela(List<Agenda> agendas){
+        DefaultTableModel dtm = (DefaultTableModel)tblAgendamentos.getModel();
+        for(int aux=0;aux<agendas.size();aux++){
+                    dtm.addRow(agendas.get(aux).addTableCancelamento());
                 }
-                
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        limparTabela();
+        if(data.getDate()!= null){
+            AgendaDAO agendaDAO = new AgendaDAO();
+            List <Agenda> agendas = new LinkedList<>();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dataFormatada="";
+            dataFormatada = sdf.format(data.getDate());
+
+            try {
+                agendas = agendaDAO.buscarAgendamentosDia(dataFormatada);
+                atualizarTabela(agendas);
+                lblTotalAgendamentos.setText(tblAgendamentos.getRowCount()+" resultado(s)");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao buscar agendamentos pelo dia na classe frmCancelarAgendamentos: "+ ex);
             }
-            lblTotalDeAgend.setText("Total de agendamentos: "+agenda.size());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao carregar agendamentos na tabela" +ex);
+        }else{
+            JOptionPane.showMessageDialog(null, "Escolha uma data");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAvisarTerminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvisarTerminoActionPerformed
+        AgendaDAO agendaDAO = new AgendaDAO();
+        Agenda agenda = new Agenda();
+        List<Vendedor> vendedor = new LinkedList<>();
+        VendedorDAO vendDAO = new VendedorDAO();
+        DefaultTableModel dtm = (DefaultTableModel)tblAgendamentos.getModel();
+        try{
+            if(tblAgendamentos.getSelectedRow()>=0 && tblAgendamentos.getSelectedRow()<tblAgendamentos.getRowCount()){
+                agenda = agendaDAO.getAgendamentoByCodigo(Integer.parseInt(String.valueOf(dtm.getValueAt(tblAgendamentos.getSelectedRow(), 0))));
+                if(agenda.isSms_fim_consulta() == true && agenda.getCliente().getCelular().trim().length() == 14){
+                    frmEnviaSMS enviarSms = new frmEnviaSMS(agenda.getCliente(),vend);
+                }else{
+                    JOptionPane.showMessageDialog(null, "O cliente desse agendamento não possue celular ou não deseja receber sms!");
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um agendamento para avisar o termino");
+            }
+        }catch(Exception ex){
+            
+        }
+    }//GEN-LAST:event_btnAvisarTerminoActionPerformed
     public void limparTabela(){
-        DefaultTableModel dtm =  (DefaultTableModel) tbl_horarios.getModel();
+        DefaultTableModel dtm =  (DefaultTableModel) tblAgendamentos.getModel();
         int cont = dtm.getRowCount();
             for(int aux=cont-1 ;   aux>=0;  aux--){//removendo valores da tabela
                 dtm.setValueAt("", aux, 1);
             }
     }
-    
+    public void alinharTextBotao(){
+        
+        btnAvisarTermino.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btnAvisarTermino.setHorizontalTextPosition(SwingConstants.CENTER);
+        
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvisarTermino;
     private javax.swing.JButton btnBuscar;
     private com.toedter.calendar.JDateChooser data;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblTotalDeAgend;
-    private static javax.swing.JTable tbl_horarios;
+    private javax.swing.JLabel lblTotalAgendamentos;
+    private javax.swing.JTable tblAgendamentos;
     // End of variables declaration//GEN-END:variables
 }

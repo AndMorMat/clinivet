@@ -56,7 +56,7 @@ public class FornecedorDAO extends GenericoDAO{
     }
     
     public List<Fornecedor> getAllFornecedores() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores");
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores where inativo = 0");
         List<Fornecedor> toReturn = new LinkedList<Fornecedor>();
         
         while (rs.next()) {
@@ -70,7 +70,7 @@ public class FornecedorDAO extends GenericoDAO{
     public Fornecedor getFornecedorByCnpj(String cnpj) throws SQLException{
         Fornecedor toReturn = new Fornecedor();
         
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj = ?",cnpj);//testando funcao
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE inativo = 0 and cnpj = ?",cnpj);//testando funcao
         try{
             while(rs.next()) {
                 toReturn = populateFornecedorInfo(rs);
@@ -86,7 +86,7 @@ public class FornecedorDAO extends GenericoDAO{
     public ArrayList <Fornecedor> FiltrarFornecedorTelefone(String telefone) throws SQLException{
         ArrayList<Fornecedor> toReturn = new ArrayList<>();
         
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE telefone like \""+telefone+"%\";");//testando funcao
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE inativo = 0 and telefone like \""+telefone+"%\";");//testando funcao
         try{
             while (rs.next()) {
                 toReturn.add(populateFornecedorInfo(rs));
@@ -101,7 +101,7 @@ public class FornecedorDAO extends GenericoDAO{
     public ArrayList <Fornecedor> FiltrarFornecedorNome(String nome) throws SQLException{
         ArrayList<Fornecedor> toReturn = new ArrayList<>();
         
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE nome like \""+nome+"%\";");//testando funcao
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE inativo = 0 and nome like \""+nome+"%\";");//testando funcao
         try{
             while (rs.next()) {
                 toReturn.add(populateFornecedorInfo(rs));
@@ -116,7 +116,7 @@ public class FornecedorDAO extends GenericoDAO{
     public ArrayList <Fornecedor> FiltrarFornecedorCnpj(String cnpj) throws SQLException{
         ArrayList<Fornecedor> toReturn = new ArrayList<>();
      
-        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE cnpj like \""+cnpj+"%\";");//testando funcao
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE inativo = 0 and cnpj like \""+cnpj+"%\";");//testando funcao
         try{
             while(rs.next()) {
                 toReturn.add(populateFornecedorInfo(rs));
@@ -128,9 +128,17 @@ public class FornecedorDAO extends GenericoDAO{
         }
         return toReturn;
     }
-    
-    public Fornecedor getFornecedor(int idFornecedor) throws SQLException {
+    public Fornecedor getTodosFornecedorAteInativos(int idFornecedor) throws SQLException {
         ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE ID = ?", idFornecedor);
+        Fornecedor fornecedor = null;
+        if (rs.next()) {
+            fornecedor = populateFornecedorInfo(rs);
+        }
+        rs.close();
+        return fornecedor;
+    }
+    public Fornecedor getFornecedor(int idFornecedor) throws SQLException {
+        ResultSet rs = executeQuery("SELECT * FROM fornecedores WHERE inativo = 0 and ID = ?", idFornecedor);
         Fornecedor fornecedor = null;
         if (rs.next()) {
             fornecedor = populateFornecedorInfo(rs);

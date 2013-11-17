@@ -516,7 +516,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .add(25, 25, 25)
                 .add(tituloCadastroCliente)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(25, 25, 25)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -621,7 +621,6 @@ public class frmAddCliente extends javax.swing.JDialog {
                                 sms_inicio_consulta.isSelected(),
                                 sms_termino_consulta.isSelected(),
                                 false);
-                        JOptionPane.showMessageDialog(null, "cliente cadastrado:\n\n"+cli.exibir());
                         cliDAO.atualizarCliente(cli);
                         setVisible(false);
                 }}
@@ -834,7 +833,7 @@ public class frmAddCliente extends javax.swing.JDialog {
             DefaultComboBoxModel comboEstado = new DefaultComboBoxModel(nomes);
             comboCidades.setModel(comboEstado);
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Erro ao adicionar cidades no comboCidades na classe frmAddCliente");
+            //JOptionPane.showMessageDialog(null, "Erro ao adicionar cidades no comboCidades na classe frmAddCliente");
         }
         
     }

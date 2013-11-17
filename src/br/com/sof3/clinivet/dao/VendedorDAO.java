@@ -20,11 +20,8 @@ public class VendedorDAO extends GenericoDAO {
    public boolean isValidLoginSenha(String login, String senha) throws SQLException {
       
         boolean toReturn = false;
-        String sql = "SELECT * FROM vendedores WHERE login = ? AND senha = md5(?)";
-        
-        
-        //JOptionPane.showMessageDialog(null, sql);
-        
+        String sql = "SELECT * FROM vendedores WHERE inativo = 0 and login = ? AND senha = md5(?)";
+
         
         ResultSet rs = executeQuery(sql,login,senha);
         
@@ -71,7 +68,7 @@ public class VendedorDAO extends GenericoDAO {
     public int getIdVendedor(String login) throws SQLException{
         Vendedor vendedor = new Vendedor();        
         try{
-            ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login = ?", login);
+            ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE inativo = 0 and login = ?", login);
 //            JOptionPane.showMessageDialog(null, login);
             
 
@@ -86,7 +83,7 @@ public class VendedorDAO extends GenericoDAO {
     }
     public void atualizaVendedor(Vendedor vendedor) throws SQLException {
         try{
-            String query = "UPDATE vendedores SET nome = ?, login = ?, senha = ?, inativo=? WHERE id = ?";
+            String query = "UPDATE vendedores SET nome = ?, login = ?, senha = md5(?), inativo=? WHERE id = ?";
 
             executeCommand(query, vendedor.getNome(), vendedor.getLogin(), vendedor.getSenha(), vendedor.isInativo(),vendedor.getId());
         }catch(Exception ex){
@@ -95,7 +92,7 @@ public class VendedorDAO extends GenericoDAO {
     }
 
     public Vendedor getVendedor(int idVendedor) throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE id = ?", idVendedor);
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE inativo = 0 and id = ?", idVendedor);
         Vendedor vendedor = null;
         while(rs.next()) {
             vendedor = populateVendedorInfo(rs);
@@ -105,7 +102,7 @@ public class VendedorDAO extends GenericoDAO {
     }
 
     public List<Vendedor> getAllVendedores() throws SQLException {
-        ResultSet rs = executeQuery("SELECT * FROM vendedores");
+        ResultSet rs = executeQuery("SELECT * FROM vendedores where inativo = 0");
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));
@@ -126,7 +123,7 @@ public class VendedorDAO extends GenericoDAO {
     public List<Vendedor> getVendedorByName(String nome) throws SQLException {
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         
-        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE nome like \""+nome+"%\";");
+        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE inativo = 0 and nome like \""+nome+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));
@@ -139,7 +136,7 @@ public class VendedorDAO extends GenericoDAO {
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         
 
-        ResultSet rs = executeQuery("SELECT * FROM vendedores ORDER BY id DESC;");
+        ResultSet rs = executeQuery("SELECT * FROM vendedores where inativo = 0 ORDER BY id DESC;");
         
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));
@@ -154,7 +151,7 @@ public class VendedorDAO extends GenericoDAO {
         List<Vendedor> toReturn = new LinkedList<Vendedor>();
         
         
-        ResultSet rs = executeQuery("SELECT * FROM vendedores WHERE login like \""+login+"%\";");
+        ResultSet rs = executeQuery("SELECT id,nome,login,senha,inativo FROM vendedores WHERE inativo = 0 and login like \""+login+"%\";");
         
         while (rs.next()) {
             toReturn.add(populateVendedorInfo(rs));

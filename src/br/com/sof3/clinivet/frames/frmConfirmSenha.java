@@ -4,7 +4,11 @@
  */
 package br.com.sof3.clinivet.frames;
 
+import br.com.sof3.clinivet.dao.VendedorDAO;
 import br.com.sof3.clinivet.entidade.Vendedor;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -125,12 +129,17 @@ public class frmConfirmSenha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-         
-        if (txtSenha.getText().equals(vendedor.getSenha())) {
-             frmAddVendedor frmEditarVendedor = new frmAddVendedor("editar", vendedor);
-             setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Impossivel Editar, Senhas não correspondem!!");
+         VendedorDAO vendDAO = new VendedorDAO();
+        try {
+            if (vendDAO.isValidLoginSenha(vendedor.getLogin(), txtSenha.getText())) {
+                vendedor.setSenha(txtSenha.getText());
+                frmAddVendedor frmEditarVendedor = new frmAddVendedor("editar", vendedor);
+                 setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Impossivel Editar, Senhas não correspondem!!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao comparar login e senha do vendedor na classe frmConfirmSenha: "+ex);
         }
     }//GEN-LAST:event_btnOkActionPerformed
 

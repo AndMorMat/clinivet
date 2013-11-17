@@ -78,6 +78,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         lblBuscaProdutos = new javax.swing.JLabel();
         lblAviso = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,11 +125,11 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         tblBuscaPro.getColumnModel().getColumn(3).setResizable(false);
         tblBuscaPro.getColumnModel().getColumn(4).setResizable(false);
 
-        lblTotal.setText("Total da Busca: 0 Resultado(s)");
+        lblTotal.setText("0 Resultado(s)");
 
-        lblValor.setText("Valor total: R$ 0,00");
+        lblValor.setText("Valor total (nessa busca): R$ 0,00");
 
-        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
+        lblQuant.setText("Quant Total Estoque(nessa busca): 0 Iten(s)");
 
         jPanel4.setBackground(new java.awt.Color(214, 255, 213));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -273,24 +274,30 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 43, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addComponent(lblTotal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblValor)
-                                .addGap(83, 83, 83)
-                                .addComponent(lblQuant)))
-                        .addContainerGap())))
+                                .addGap(162, 162, 162)
+                                .addComponent(lblValor)))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 4, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblQuant)
+                                .addGap(20, 20, 20))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +324,8 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
         lblAviso.setText("Pesquise um produto para editar ou excluir");
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/pesquisa_prod_top.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -324,22 +333,29 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(lblBuscaProdutos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAviso)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBuscaProdutos)
-                    .addComponent(lblAviso))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblBuscaProdutos)
+                            .addComponent(lblAviso))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -373,9 +389,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
         
         if(txtBuscaPro.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Digite para pesquisar");
-               lblQuant.setText("Quant Total Estoque: 0 Iten(s)");//Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
-               lblValor.setText("Valor total: R$ 0,00");            //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
-               lblTotal.setText("Total da Busca: 0 Resultado(s)");  //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
+               lblQuant.setText("Quant Total Estoque (nessa busca): 0 Iten(s)");//Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
+               lblValor.setText("Valor total(nessa busca): R$ 0,00");            //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
+               lblTotal.setText("0 Resultado(s)");  //Usado para "Zerar" Caso já tenha reazlizado uma busca anteriorfa
           
         }else{//Caso não esteja campo vazio
             int cont=0, quantEst=0, quantResul=0;//Variaveis de contagem  para resgistros encontrados, estoque, resultados de busca
@@ -407,9 +423,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                         
                         cont++;//para acrescentar e não exibir nenhum resitro, já ira exibir somente numeros
                         JOptionPane.showMessageDialog(null, "Informe somente números");
-                        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
-                        lblValor.setText("Valor total: R$ 0,00");
-                        lblTotal.setText("Total da Busca: 0 Resultado(s)");
+                        lblQuant.setText("Quant Total Estoque (nessa busca): 0 Iten(s)");
+                        lblValor.setText("Valor total (nessa busca): R$ 0,00");
+                        lblTotal.setText("0 Resultado(s)");
                     }
                 }
                 
@@ -432,9 +448,9 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 }
                 
                 
-                lblQuant.setText("Quant Total Estoque: "+quantEst+" Iten(s)");
-                lblValor.setText("Valor total: R$ "+String.format("%.2f",preco));
-                lblTotal.setText("Total da Busca: "+quantResul+" Resultado(s)");
+                lblQuant.setText("Quant Total Estoque (nessa busca): "+quantEst+" Iten(s)");
+                lblValor.setText("Valor total (nessa busca): R$ "+String.format("%.2f",preco));
+                lblTotal.setText(quantResul+" resultado(s)");
                 
                 
                 
@@ -518,14 +534,14 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                     }
                     
                     if(pro.size()==0){
-                        lblQuant.setText("Quant Total Estoque: 0 Iten(s)");
-                        lblValor.setText("Valor total: R$ 0,00");
-                        lblTotal.setText("Total da Busca: 0 Resultado(s)");
+                        lblQuant.setText("Quant Total Estoque (nessa busca): 0 Iten(s)");
+                        lblValor.setText("Valor total (nessa busca): R$ 0,00");
+                        lblTotal.setText("0 resultado(s)");
                     }
                     
-                     lblQuant.setText("Quant Total Estoque: "+quantEst+" Iten(s)");
-                     lblValor.setText("Valor total: R$ "+String.format("%.2f",preco));
-                     lblTotal.setText("Total da Busca: "+quantResul+" Resultado(s)");
+                     lblQuant.setText("Quant Total Estoque (nessa busca): "+quantEst+" Iten(s)");
+                     lblValor.setText("Valor total (nessa busca): R$ "+String.format("%.2f",preco));
+                     lblTotal.setText(quantResul+" resultado(s)");
                 
                     if(cont==0)//para exibir caso procura não exiba nada
                         JOptionPane.showMessageDialog(null, "Nenhum Registro encontrado");
@@ -552,6 +568,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
                 prod = produtoDAO.getDetalhes(String.valueOf(dtm.getValueAt(tblBuscaPro.getSelectedRow(), 0)));
                 
                 frmAddProduto frmAddProduto = new frmAddProduto("editar",prod);
+                
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"Erro no botao editar na classe frmPesquisaProduto: "+ ex);
             }
@@ -602,6 +619,7 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cbxTipoProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -621,16 +639,28 @@ public class frmPesquisaProduto extends javax.swing.JFrame {
 
      public void atualizarTabela(List<Produto> produtos){
         DefaultTableModel dtm = (DefaultTableModel)tblBuscaPro.getModel();
+        double preco=0;
+        int quantResul=0,quantEst=0;
         for(int aux=0;aux<produtos.size();aux++){
             if(!produtos.get(aux).isInativo())
-                  dtm.addRow(produtos.get(aux).addTableBusca());
+                 dtm.addRow(produtos.get(aux).addTableConsulta());
+                 quantResul++;
+                 quantEst+=produtos.get(aux).getEstoque();
+                 preco+=produtos.get(aux).getPrecoVenda()*produtos.get(aux).getEstoque();
         }
+        lblQuant.setText("Quant Total Estoque (nessa busca): "+quantEst+" Iten(s)");
+        lblValor.setText("Valor total (nessa busca): R$ "+String.format("%.2f",preco));
+        lblTotal.setText(quantResul+" resultado(s)");
+        
     }
     public void limparTabela(){
         DefaultTableModel dtm =  (DefaultTableModel) tblBuscaPro.getModel();
+        
         int cont = dtm.getRowCount();
             for(int aux=cont-1 ;   aux>=0 ;  aux--){//removendo valores da tabela
-               dtm.removeRow(aux);
+               
+                dtm.removeRow(aux);
+                
             }
     }
 }

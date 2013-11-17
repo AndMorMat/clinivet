@@ -91,18 +91,13 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
         groupFormaPagamento = new javax.swing.ButtonGroup();
         groupPesquisaProduto = new javax.swing.ButtonGroup();
-        lblDataVenda = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         txtDataVenda = new javax.swing.JTextField();
-        lblTotal = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
-        btnRemoverProdutoLista = new javax.swing.JButton();
-        btnConcluirVenda = new javax.swing.JButton();
-        btnCancelarVenda = new javax.swing.JButton();
+        lblDataVenda = new javax.swing.JLabel();
         lblVendedor = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableCarrinho = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableProdutos = new javax.swing.JTable();
@@ -116,13 +111,32 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         btnAdicionarNoCarrinho = new javax.swing.JToggleButton();
         lblQuantidade = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        lblResultadosBusca = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableCarrinho = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        lblResultadosCarrinho = new javax.swing.JLabel();
+        btnConcluirVenda = new javax.swing.JButton();
+        btnRemoverProdutoLista = new javax.swing.JButton();
+        btnCancelarVenda = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
         lblDesconto = new javax.swing.JLabel();
-        txtDesconto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
+        txtDesconto = new javax.swing.JTextField();
         txtTotalaPagar = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
-        lblDataVenda.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        lblDataVenda.setText("Data da Venda:");
+        jPanel6.setBackground(new java.awt.Color(195, 239, 198));
+
+        jPanel5.setBackground(new java.awt.Color(195, 239, 198));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel1.setBackground(new java.awt.Color(196, 252, 203));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtDataVenda.setEditable(false);
         txtDataVenda.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
@@ -132,37 +146,8 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             }
         });
 
-        lblTotal.setFont(new java.awt.Font("Lucida Grande", 1, 17)); // NOI18N
-        lblTotal.setText("Total:");
-
-        txtTotal.setEditable(false);
-        txtTotal.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        txtTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalActionPerformed(evt);
-            }
-        });
-
-        btnRemoverProdutoLista.setText("Remover Produto do Carrinho");
-        btnRemoverProdutoLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverProdutoListaActionPerformed(evt);
-            }
-        });
-
-        btnConcluirVenda.setText("Concluir Venda");
-        btnConcluirVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConcluirVendaActionPerformed(evt);
-            }
-        });
-
-        btnCancelarVenda.setText("Cancelar");
-        btnCancelarVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarVendaActionPerformed(evt);
-            }
-        });
+        lblDataVenda.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        lblDataVenda.setText("Data da Venda:");
 
         lblVendedor.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         lblVendedor.setText("Vendedor:");
@@ -170,37 +155,37 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         lblCliente.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         lblCliente.setText("Cliente:");
 
-        tableCarrinho.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblCliente)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(lblDataVenda)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblVendedor))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(lblVendedor)
+                .add(18, 18, 18)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(lblCliente)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
-            },
-            new String [] {
-                "Produto", "Quantidade", "Preço R$"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tableCarrinho);
-        tableCarrinho.getColumnModel().getColumn(1).setResizable(false);
-        tableCarrinho.getColumnModel().getColumn(2).setResizable(false);
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jLabel1.setText("Carrinho de Compra");
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pesquisar Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(196, 252, 203));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,6 +230,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             }
         });
 
+        jPanel4.setBackground(new java.awt.Color(196, 252, 203));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por tipo"));
 
         cbxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Todos" }));
@@ -266,19 +252,19 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
-                .add(cbxTipoProduto, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .add(cbxTipoProduto, 0, 156, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnBuscar1)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
-                .add(cbxTipoProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(btnBuscar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnBuscar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .add(cbxTipoProduto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         txtBuscar.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
@@ -300,6 +286,10 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
         txtQuantidade.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
 
+        jLabel3.setText("Buscar Produto");
+
+        lblResultadosBusca.setText("0 resultado(s)");
+
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -307,32 +297,39 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(jPanel3Layout.createSequentialGroup()
-                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jPanel3Layout.createSequentialGroup()
-                                    .add(radioCodigoProduto)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(radioNomeProduto))
-                                .add(jPanel3Layout.createSequentialGroup()
-                                    .add(txtBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(btnProcurar)))
-                            .add(18, 18, 18)
-                            .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 660, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jScrollPane2)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jPanel3Layout.createSequentialGroup()
+                                        .add(radioCodigoProduto)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(radioNomeProduto))
+                                    .add(jPanel3Layout.createSequentialGroup()
+                                        .add(txtBuscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(42, 42, 42)
+                                        .add(btnProcurar)))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jLabel3))
+                        .add(0, 0, Short.MAX_VALUE))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(lblQuantidade)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txtQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(btnAdicionarNoCarrinho)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .add(btnAdicionarNoCarrinho)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(lblResultadosBusca)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(5, 5, 5)
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -345,16 +342,119 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                     .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(13, 13, 13)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnAdicionarNoCarrinho, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(txtQuantidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblQuantidade))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .add(lblQuantidade)
+                    .add(lblResultadosBusca))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(196, 252, 203));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tableCarrinho.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Produto", "Quantidade", "Preço R$"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableCarrinho.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tableCarrinho);
+        tableCarrinho.getColumnModel().getColumn(1).setResizable(false);
+        tableCarrinho.getColumnModel().getColumn(2).setResizable(false);
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        jLabel1.setText("Carrinho de Compra");
+
+        lblResultadosCarrinho.setText("0 registro(s)");
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 943, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .add(jLabel1)
+                                .add(819, 819, 819))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .add(lblResultadosCarrinho)
+                                .add(44, 44, 44))))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(lblResultadosCarrinho)
+                .addContainerGap())
+        );
+
+        btnConcluirVenda.setText("Concluir Venda");
+        btnConcluirVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluirVendaActionPerformed(evt);
+            }
+        });
+
+        btnRemoverProdutoLista.setText("Remover Produto do Carrinho");
+        btnRemoverProdutoLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProdutoListaActionPerformed(evt);
+            }
+        });
+
+        btnCancelarVenda.setText("Cancelar");
+        btnCancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarVendaActionPerformed(evt);
+            }
+        });
+
+        lblTotal.setFont(new java.awt.Font("Lucida Grande", 1, 17)); // NOI18N
+        lblTotal.setText("Total:");
 
         lblDesconto.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lblDesconto.setText("Desconto:");
+
+        jLabel2.setText("Total à pagar:");
+
+        txtTotal.setEditable(false);
+        txtTotal.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
 
         txtDesconto.setEditable(false);
         txtDesconto.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
@@ -364,91 +464,126 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
                 txtDescontoMouseClicked(evt);
             }
         });
-
-        jLabel2.setText("Total à pagar:");
+        txtDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescontoActionPerformed(evt);
+            }
+        });
 
         txtTotalaPagar.setEditable(false);
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel4.setText("Efetuar venda");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sof3/clinivet/frames/Imagens/carrinho.png"))); // NOI18N
+
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(12, 12, 12)
+                                .add(jLabel4))
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(84, 84, 84)
+                                .add(jLabel5)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(btnConcluirVenda)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblTotal)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblDesconto))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(txtDesconto, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .add(txtTotalaPagar)
+                                    .add(txtTotal))
+                                .add(8, 8, 8))
+                            .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 974, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jLabel4)
+                        .add(12, 12, 12)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, 0)
+                        .add(jLabel5)))
+                .add(0, 0, 0)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnConcluirVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblTotal))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblDesconto))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtTotalaPagar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel2))))
+                .addContainerGap())
+        );
+
+        org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(39, 39, 39)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(btnConcluirVenda)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(219, 219, 219)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(lblTotal)
-                            .add(lblDesconto)
-                            .add(jLabel2))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 37, Short.MAX_VALUE)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(txtTotal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .add(txtDesconto)
-                            .add(txtTotalaPagar))
-                        .addContainerGap(49, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(lblCliente)
-                                    .add(layout.createSequentialGroup()
-                                        .add(lblDataVenda)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(lblVendedor)
-                                    .add(jLabel1))
-                                .add(26, 26, 26)
-                                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 977, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(33, 33, 33)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(layout.createSequentialGroup()
-                        .add(lblVendedor)
-                        .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lblDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtDataVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(lblCliente)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel1))
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(lblTotal)
-                            .add(txtTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(txtDesconto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblDesconto))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(txtTotalaPagar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2)))
-                    .add(layout.createSequentialGroup()
-                        .add(21, 21, 21)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                .add(btnCancelarVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(btnRemoverProdutoLista, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(btnConcluirVenda, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+            .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -465,6 +600,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         if (opt == 0) { 
             try { 
                 venda.setDataVenda(new java.sql.Date(new java.util.Date().getTime()));
+                
                 venda.setTotalVenda(Float.parseFloat(txtTotalaPagar.getText()));
                 venda.setVendedor(vdao.getVendedor(vdao.getIdVendedor(vendedorLogado)));     
                 venda.setFormaPagamento("À vista");
@@ -513,6 +649,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             atualizaItens();
             txtDesconto.setText("0.00");
             txtTotalaPagar.setText("0.00");
+            lblResultadosCarrinho.setText(tableCarrinho.getRowCount()+ " resultado(s)");
         }
     }//GEN-LAST:event_btnRemoverProdutoListaActionPerformed
 
@@ -601,6 +738,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro no try da classe frmAddProdutoParaVenda no botao buscar");
             }
+            lblResultadosBusca.setText(tableProdutos.getRowCount()+ " resultado(s)");
         }
     }//GEN-LAST:event_btnProcurarActionPerformed
 
@@ -624,6 +762,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 //        }
         if(txtQuantidade.getText().isEmpty()) {
              JOptionPane.showMessageDialog(null, "Campo quantidade não pode ficar em branco.", "Erro",JOptionPane.ERROR_MESSAGE);
+             return;
         }
         
         qnt = Integer.parseInt(txtQuantidade.getText());
@@ -672,12 +811,11 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
             idProduto = item.getProduto().getId();
             estoqueProduto = item.getProduto().getEstoque();
             
-            for(int aux = 0 ; aux < vendaProduto.size(); aux++){
-                JOptionPane.showMessageDialog(null, vendaProduto.get(aux).getProduto()+" "+vendaProduto.get(aux).getQtd());
-            }
+            
          } catch (SQLException ex) {
             Logger.getLogger(frmEfetuarVenda.class.getName()).log(Level.SEVERE, null, ex);
          }
+            lblResultadosCarrinho.setText(tableCarrinho.getRowCount()+ " resultado(s)");
     }//GEN-LAST:event_btnAdicionarNoCarrinhoActionPerformed
 
     private void txtDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataVendaActionPerformed
@@ -708,21 +846,24 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void txtDescontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescontoMouseClicked
-        String desconto = JOptionPane.showInputDialog("Desconto");
+        String desconto = "";
+        desconto = JOptionPane.showInputDialog("Desconto");
         if(desconto.isEmpty()){
             txtDesconto.setText("0.00");
         }else{
             if(Double.parseDouble(txtTotal.getText())>0)
                 txtDesconto.setText(desconto);
         }
-        
-        
         if(!descontoValue()){
             txtDesconto.setBackground(Color.red);
         }else
             txtDesconto.setBackground(Color.white);
        
     }//GEN-LAST:event_txtDescontoMouseClicked
+
+    private void txtDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescontoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAdicionarNoCarrinho;
@@ -736,14 +877,23 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
     private javax.swing.ButtonGroup groupPesquisaProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblDataVenda;
     private javax.swing.JLabel lblDesconto;
     private javax.swing.JLabel lblQuantidade;
+    private javax.swing.JLabel lblResultadosBusca;
+    private javax.swing.JLabel lblResultadosCarrinho;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblVendedor;
     private javax.swing.JRadioButton radioCodigoProduto;
@@ -770,7 +920,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
         
             value += (sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto()) * sellItem.getQtd();
             sellItem.setTotal(sellItem.getProduto().getPrecoVenda() - sellItem.getDesconto() * sellItem.getQtd());
-        }   
+        }
        txtTotal.setText(String.valueOf(value));
        txtTotalaPagar.setText(String.valueOf(Double.parseDouble(txtTotal.getText())- Double.parseDouble(txtDesconto.getText())));
     }
@@ -800,6 +950,7 @@ public class frmEfetuarVenda extends javax.swing.JDialog {
 
                 dtm.addRow(p.addTableBusca());
             }
+            lblResultadosBusca.setText(tableProdutos.getRowCount()+ " resultado(s)");
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error");
         }

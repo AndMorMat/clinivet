@@ -138,7 +138,7 @@ public class frmLogin extends javax.swing.JDialog {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
         try {
-            boolean valid = dao.isValidLoginSenha(txtLogin.getText(), txtSenha.getText());
+            boolean valid = dao.isValidLoginSenha(txtLogin.getText().toUpperCase(), txtSenha.getText().toUpperCase());
             if (!valid) {
                 JOptionPane.showMessageDialog(this,"Login/Senha inválido!","Login/Senha inválido!",JOptionPane.ERROR_MESSAGE);
                 return;
